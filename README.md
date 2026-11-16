@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.svg" alt="SpacEgg logo" width="520">
+  <img src="assets/social-preview.png" alt="SpacEgg" width="720">
 </p>
 
 <p align="center">
@@ -78,7 +78,8 @@ Depodaki `spacegg-v71.html` dosyasını bir tarayıcıda açmak yeterlidir. Kuru
 | Dosya | İçerik |
 |---|---|
 | `spacegg-v71.html` | Simülasyon (tek dosya) |
-| `logo.svg` | Logo |
+| `logo.svg`, `assets/` | Logo, sosyal önizleme görseli |
+| `docs/GITHUB-ABOUT.md` | GitHub açıklama ve etiket metinleri |
 | `SPACEGG.md` | Ayrıntılı proje hafızası ve sürüm geçmişi |
 | `SpacEgg-proje-ozeti.md` | Eksiksiz proje özeti |
 | `SpacEgg-proje-talimatlari.md` | Proje çalışma talimatları |
@@ -157,7 +158,8 @@ Open `spacegg-v71.html` from this repository in a browser. No installation, buil
 | File | Content |
 |---|---|
 | `spacegg-v71.html` | The simulation (single file) |
-| `logo.svg` | Logo |
+| `logo.svg`, `assets/` | Logo, social preview image |
+| `docs/GITHUB-ABOUT.md` | GitHub description and topics text |
 | `SPACEGG.md` | Detailed project memory and version history |
 | `SpacEgg-proje-ozeti.md` | Complete project summary |
 | `SpacEgg-proje-talimatlari.md` | Project working instructions |
