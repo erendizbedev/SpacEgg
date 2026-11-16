@@ -86,3 +86,44 @@ Oyun mekaniği:
 - %1 kuralı, uyku/ölüm ve nüfus düşüşü kararları tutarlı mı kontrol et.
 - Para, cüzdan ve reklam maddelerini hukuki doğrulama yapılmadan "karar verildi" yapma.
 - Şifre, parola ve hesap özetlerini bu dosyaya yazma.
+
+## 7. Ek sorular (beyin fırtınasında sorulan, cevaplanmamış; Doktor hatırlatınca tekrar sorulacak)
+
+A. Genel kapsam
+- SpacEgg'i kim oynayacak: tek bir kitle mi, herkes mi?
+- Bir oyuncu günde kaç dakika geçirsin?
+- Gezegen yok olabilir mi; olursa oyuncu ne kaybeder?
+- Gerçek ödeme ve sunucu ne zaman gündeme gelsin, hiç gelmesin mi?
+- Yankının Peşinde hikâyesi ana amaç mı, yan katman mı?
+
+B. Sınırlılık ve %1 kuralı
+- Neyin sayısı sınırlı: toplam yumurta, gezegen, yoksa her yumurta türünün ayrı üst sınırı mı?
+- Eşsizlik neyle sağlanacak: her gezegenin dünyada tek olması mı, sahipliğin kayıt altında olması mı?
+- Sayaçlarda ne gösterilecek: doğan, yok olan, yaşayan, kalan yumurta?
+- Sayaçlar gerçek ve herkese ortak mı olacak (sunucu gerekir)?
+- Yok olan gezegen sayaçta ölen mi görünsün, ölüm kalıcı mı?
+- 83 milyon gezegenin hepsi baştan var mı, sahipsizler herkese açık mı, yoksa sayı oyuncu sayısına mı bağlı?
+- Nüfus arttıkça yeni gezegenler nasıl doğacak: sıradaki oyuncuya yumurta, açık artırma, kuyruk?
+- Sayaç kaynağı: BM tahmini mi, canlı sayaç siteleri mi?
+- Kural doğrulanabilir olmalı mı (herkes "şu an tam %1" olduğunu görebilsin mi)?
+
+C. Profil, para ve cüzdan
+- Para yükleme ilk sürümde mi, önce paradan bağımsız sürümde mi?
+- Yüklenen para oyuncunun mu kalsın (çekebilsin), yoksa harcanıp çekilmesin mi?
+- Savaşta kaybeden gerçek para mı kaybeder, yalnızca oyun içi güç mü?
+- Koordinat nasıl verilsin: rastgele mi, sıra numarasıyla mı?
+- Profil linki hangi seviyede açılsın; ad serbest mi, benzersiz ve bir kez alınan bir ad mı?
+- Para katmanını oyuncunun kendi cüzdanından ödeme yaptığı, SpacEgg'in parayı tutmadığı bir yapıyla da konuşmak ister misiniz?
+
+D. Reklam ve market (ileri aşama)
+- Reklam nerede görünecek: profil sayfasında, gezegen yüzeyinde, simülasyon içinde mi?
+- Reklam geliri kime gidecek: gezegen sahibine, SpacEgg'e, paylaşım mı?
+- "Market" gezegen alım satımı mı, mağazanın genişlemesi mi?
+- Reklam verenin gezegeni seçebileceği seviye eşiği nedir?
+
+E. Savaş, çağlar, puan
+- Gezegen savaşta kalıcı ölür mü, yalnızca zarar mı görür?
+- Çağlar seviyeye mi, oyuncu seçimlerine mi bağlı?
+- Savaş zorunlu mu, barışçıl oyuncu savaşmadan en üst seviyeye çıkabilir mi?
+- Uykuya geçen gezegen geri uyandırılabilsin mi, bedeli ne olsun? Savaş ganimeti kaynak mı, yalnızca itibar mı?
+- Hedef kitle Türkiye mi, küresel mi? Simülasyon sunucuda mı, tarayıcıda mı çalışsın?
