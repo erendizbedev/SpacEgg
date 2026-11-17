@@ -3,9 +3,11 @@ package com.spacegg.app;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,6 +15,23 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
     private WebView web;
+    private final Handler handler = new Handler();
+    private boolean paused = false;
+
+    private static final String JS_PAUSE =
+        "(function(){try{if(window.SG&&SG.A&&SG.A.pauseAll)SG.A.pauseAll();}catch(e){}"
+        + "try{var m=document.querySelectorAll('audio,video');for(var i=0;i<m.length;i++)m[i].pause();}catch(e){}"
+        + "try{window.dispatchEvent(new Event('sg-pause'));}catch(e){}})();";
+    private static final String JS_RESUME =
+        "(function(){try{if(window.SG&&SG.A&&SG.A.resumeAll)SG.A.resumeAll();}catch(e){}"
+        + "try{window.dispatchEvent(new Event('sg-resume'));}catch(e){}})();";
+
+    private final Runnable hideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            hideBars();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle b) {
@@ -37,7 +56,20 @@ public class MainActivity extends Activity {
         web.setWebChromeClient(new WebChromeClient());
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
         setContentView(web);
+
+        // Tam ekran: gezinme tuslari kaydirinca gelir, birkac saniye sonra kendiliginden gizlenir.
+        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
+            new View.OnSystemUiVisibilityChangeListener() {
+                @Override
+                public void onSystemUiVisibilityChange(int visibility) {
+                    handler.removeCallbacks(hideRunnable);
+                    if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+                        handler.postDelayed(hideRunnable, 3000);
+                    }
+                }
+            });
         hideBars();
+
         if (b != null) {
             web.restoreState(b);
         } else {
@@ -61,16 +93,26 @@ public class MainActivity extends Activity {
         if (f) hideBars();
     }
 
+    // Ana ekrana donulunca: muzik durur, sayfa zamanlayicilari durur, arka planda calismaz.
     @Override
     protected void onPause() {
         super.onPause();
+        paused = true;
+        handler.removeCallbacks(hideRunnable);
+        web.evaluateJavascript(JS_PAUSE, null);
         web.onPause();
+        web.pauseTimers();
     }
 
+    // Uygulamaya tekrar girilince: kaldigi yerden devam eder.
     @Override
     protected void onResume() {
         super.onResume();
+        paused = false;
+        web.resumeTimers();
         web.onResume();
+        web.evaluateJavascript(JS_RESUME, null);
+        hideBars();
     }
 
     @Override
@@ -79,14 +121,25 @@ public class MainActivity extends Activity {
         web.saveState(o);
     }
 
+    // Geri tusu: alt sayfadaysa ana merkeze, merkezde veya giriste uygulamadan cikar.
     @Override
     public void onBackPressed() {
-        if (web.canGoBack()) web.goBack();
-        else super.onBackPressed();
+        web.evaluateJavascript("(function(){return location.hash||''})()", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String v) {
+                String h = v == null ? "" : v.replace("\"", "");
+                if (h.length() == 0 || h.equals("#/hub") || h.equals("#/login") || h.equals("#/")) {
+                    finish();
+                } else {
+                    web.evaluateJavascript("location.hash='#/hub'", null);
+                }
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
+        handler.removeCallbacks(hideRunnable);
         if (web != null) web.destroy();
         super.onDestroy();
     }
