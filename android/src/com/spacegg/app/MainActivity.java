@@ -16,7 +16,9 @@ import android.webkit.WebViewClient;
 public class MainActivity extends Activity {
     private WebView web;
     private final Handler handler = new Handler();
-    private boolean paused = false;
+    private int seq = 0;
+    private boolean inBg = false;
+    private boolean nativePaused = false;
 
     private static final String JS_PAUSE =
         "(function(){try{if(window.SG&&SG.A&&SG.A.pauseAll)SG.A.pauseAll();}catch(e){}"
@@ -52,7 +54,12 @@ public class MainActivity extends Activity {
         s.setSupportZoom(false);
         s.setUseWideViewPort(true);
         s.setLoadWithOverviewMode(false);
-        web.setWebViewClient(new WebViewClient());
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView v, String url) {
+                if (!inBg) v.evaluateJavascript(JS_RESUME, null);
+            }
+        });
         web.setWebChromeClient(new WebChromeClient());
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
         setContentView(web);
@@ -94,23 +101,46 @@ public class MainActivity extends Activity {
     }
 
     // Ana ekrana donulunca: muzik durur, sayfa zamanlayicilari durur, arka planda calismaz.
+    private void doPause(int my) {
+        if (inBg && my == seq && !nativePaused) {
+            web.onPause();
+            web.pauseTimers();
+            nativePaused = true;
+        }
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        paused = true;
+        inBg = true;
         handler.removeCallbacks(hideRunnable);
-        web.evaluateJavascript(JS_PAUSE, null);
-        web.onPause();
-        web.pauseTimers();
+        final int my = ++seq;
+        // Once sayfadaki sesi durdur, betik bitince (en gec 500 ms) zamanlayicilari durdur.
+        web.evaluateJavascript(JS_PAUSE, new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String v) {
+                doPause(my);
+            }
+        });
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doPause(my);
+            }
+        }, 500);
     }
 
     // Uygulamaya tekrar girilince: kaldigi yerden devam eder.
     @Override
     protected void onResume() {
         super.onResume();
-        paused = false;
-        web.resumeTimers();
-        web.onResume();
+        inBg = false;
+        seq++;
+        if (nativePaused) {
+            web.resumeTimers();
+            web.onResume();
+            nativePaused = false;
+        }
         web.evaluateJavascript(JS_RESUME, null);
         hideBars();
     }
