@@ -11,7 +11,7 @@
 
 ## Android uygulaması (APK)
 
-- Kurulum dosyası: [`releases/SpacEgg-v1.0.4.apk`](releases/SpacEgg-v1.0.4.apk) (Android 7.0 ve üzeri, paket adı `com.spacegg.app`).
+- Kurulum dosyası: [`releases/SpacEgg-v1.0.5.apk`](releases/SpacEgg-v1.0.5.apk) (Android 7.0 ve üzeri, paket adı `com.spacegg.app`).
 - Kurulum: APK'yı indirin, dosyayı açan tarayıcıya veya dosya yöneticisine "Bilinmeyen uygulamaları yükle" izni verin, dosyaya dokunun.
 - Kaynak: [`android/`](android/) klasörü (WebView kabuğu + `assets/index.html`). Derleme: `android/build.sh` (apt paketleri: `aapt apksigner zipalign dalvik-exchange android-sdk-platform-23`).
 - İmza anahtarı depoda yoktur; güncellemelerin mevcut kurulumun üzerine yazılması için aynı anahtar gerekir.
