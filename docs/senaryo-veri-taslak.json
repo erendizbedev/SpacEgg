@@ -1,0 +1,1381 @@
+{
+ "_not": "SpacEgg ileri sürüm senaryosu veri taslağı. Yalnızca taslak, uygulanmaz. Belge: SENARYO-ILERI-SURUM.md. Hazırlandığı sürüm: v1.0.3.",
+ "surum": {
+  "taban": "v1.0.3",
+  "yeniAlanSurumu": 1,
+  "kayitAnahtarlari": {
+   "kullanici": "u.sc",
+   "gezegen": "p.sc"
+  },
+  "yayinDilimleri": {
+   "v1.1.0": [
+    0,
+    1,
+    2
+   ],
+   "v1.2.0": [
+    3,
+    4
+   ],
+   "v1.3.0": [
+    5,
+    6
+   ],
+   "v1.4.0": [
+    7,
+    8
+   ]
+  }
+ },
+ "evreler": [
+  {
+   "id": "I",
+   "ad": "Kıvılcım",
+   "seviyeMin": 1,
+   "seviyeMax": 9,
+   "akinSayisi": 0,
+   "turleri": [],
+   "buyukDalgaSeviyeleri": [],
+   "hikaye": [
+    "c01",
+    "c05"
+   ],
+   "saatAralik": [
+    0,
+    0.5
+   ]
+  },
+  {
+   "id": "II",
+   "ad": "Komşular",
+   "seviyeMin": 10,
+   "seviyeMax": 19,
+   "akinSayisi": 3,
+   "turleri": [
+    "yoklama",
+    "yoklama",
+    "hirsiz"
+   ],
+   "buyukDalgaSeviyeleri": [],
+   "hikaye": [
+    "c06",
+    "c08"
+   ],
+   "saatAralik": [
+    0.5,
+    1.6
+   ]
+  },
+  {
+   "id": "III",
+   "ad": "Uyanış",
+   "seviyeMin": 20,
+   "seviyeMax": 29,
+   "akinSayisi": 6,
+   "turleri": [
+    "hirsiz",
+    "kusatma",
+    "yoklama",
+    "hirsiz",
+    "kusatma",
+    "hirsiz"
+   ],
+   "buyukDalgaSeviyeleri": [],
+   "hikaye": [
+    "c09",
+    "c11"
+   ],
+   "saatAralik": [
+    1.8,
+    4.1
+   ]
+  },
+  {
+   "id": "IV",
+   "ad": "Eşik",
+   "seviyeMin": 30,
+   "seviyeMax": 39,
+   "akinSayisi": 8,
+   "turleri": [
+    "kusatma",
+    "golge",
+    "hirsiz",
+    "golge",
+    "kusatma",
+    "hirsiz",
+    "golge",
+    "kusatma"
+   ],
+   "buyukDalgaSeviyeleri": [
+    30
+   ],
+   "hikaye": [
+    "c12",
+    "c13"
+   ],
+   "saatAralik": [
+    4.5,
+    9.6
+   ]
+  },
+  {
+   "id": "V",
+   "ad": "Akor",
+   "seviyeMin": 40,
+   "seviyeMax": 50,
+   "akinSayisi": 10,
+   "turleri": [
+    "kusatma",
+    "golge",
+    "hirsiz",
+    "kusatma",
+    "golge",
+    "hirsiz",
+    "kusatma",
+    "golge",
+    "hirsiz",
+    "kusatma"
+   ],
+   "buyukDalgaSeviyeleri": [
+    40,
+    48
+   ],
+   "hikaye": [
+    "c14",
+    "c15"
+   ],
+   "saatAralik": [
+    10.4,
+    23.5
+   ]
+  }
+ ],
+ "caglar": [
+  {
+   "era": 0,
+   "seviyeMin": 1,
+   "ad": "Kıvılcım Çağı",
+   "sahne": "İlk ateşler, küçük topluluk",
+   "nufusCarpani": 1.0
+  },
+  {
+   "era": 1,
+   "seviyeMin": 7,
+   "ad": "Taş Çağı",
+   "sahne": "Taş surlar, nöbet kuleleri",
+   "nufusCarpani": 1.2
+  },
+  {
+   "era": 2,
+   "seviyeMin": 13,
+   "ad": "Maden Çağı",
+   "sahne": "Bronz ve demir, ilk yollar",
+   "nufusCarpani": 1.4
+  },
+  {
+   "era": 3,
+   "seviyeMin": 19,
+   "ad": "Buhar Çağı",
+   "sahne": "Barut, çelik, ilk şehirler",
+   "nufusCarpani": 1.6
+  },
+  {
+   "era": 4,
+   "seviyeMin": 25,
+   "ad": "Makine Çağı",
+   "sahne": "Fabrikalar, enerji hatları",
+   "nufusCarpani": 1.8
+  },
+  {
+   "era": 5,
+   "seviyeMin": 31,
+   "ad": "Yörünge Çağı",
+   "sahne": "İlk uydular, gökyüzü cephesi",
+   "nufusCarpani": 2.0
+  },
+  {
+   "era": 6,
+   "seviyeMin": 37,
+   "ad": "Yıldız Çağı",
+   "sahne": "Yıldızlararası yolculuk denemeleri",
+   "nufusCarpani": 2.2
+  },
+  {
+   "era": 7,
+   "seviyeMin": 43,
+   "ad": "Birlik Çağı",
+   "sahne": "Galaksiler arası ittifaklar",
+   "nufusCarpani": 2.4
+  },
+  {
+   "era": 8,
+   "seviyeMin": 49,
+   "ad": "Akor Çağı",
+   "sahne": "Barış ve uyum; final",
+   "nufusCarpani": 2.6
+  }
+ ],
+ "nufusGostergesi": {
+  "formul": "seviye*1000*nufusCarpani",
+  "kaynagaEtkisi": false
+ },
+ "akinTurleri": [
+  {
+   "id": "yoklama",
+   "ad": "Yoklama Akını",
+   "seviyeMin": 10,
+   "katsayi": 0.6,
+   "uyariSn": 90,
+   "oncelik": "gozlem",
+   "kayip": {
+    "ustSinirYuzde": 0,
+    "kaynakSayisi": 0
+   },
+   "odul": {
+    "xp": 8,
+    "hatira": 1
+   }
+  },
+  {
+   "id": "hirsiz",
+   "ad": "Hırsız Sürüsü",
+   "seviyeMin": 18,
+   "katsayi": 0.9,
+   "uyariSn": 90,
+   "oncelik": "uyari",
+   "kayip": {
+    "ustSinirYuzde": 4,
+    "kaynakSayisi": 1
+   },
+   "odul": {
+    "xp": 6,
+    "hatira": 1
+   }
+  },
+  {
+   "id": "kusatma",
+   "ad": "Yörünge Kuşatması",
+   "seviyeMin": 24,
+   "katsayi": 1.0,
+   "uyariSn": 90,
+   "oncelik": "tehlike",
+   "kayip": {
+    "ustSinirYuzde": 6,
+    "kaynakSayisi": 2,
+    "uyduHasar": 20
+   },
+   "odul": {
+    "xp": 6,
+    "hatira": 2
+   }
+  },
+  {
+   "id": "golge",
+   "ad": "Gölge Dalgası",
+   "seviyeMin": 32,
+   "katsayi": 1.0,
+   "uyariSn": 90,
+   "oncelik": "uyari",
+   "kayip": {
+    "ustSinirYuzde": 0,
+    "kaynakSayisi": 0,
+    "kapanisDk": {
+     "ticaret": 20,
+     "diplomasi": 20
+    }
+   },
+   "odul": {
+    "xp": 6,
+    "hatira": 1
+   },
+   "cevrimdisiGelmez": true
+  },
+  {
+   "id": "buyuk",
+   "ad": "Büyük Dalga",
+   "seviyeler": [
+    30,
+    40,
+    48
+   ],
+   "katsayi": 1.15,
+   "uyariSn": 90,
+   "asamaSayisi": 3,
+   "oncelik": "buyuk",
+   "kayip": {
+    "ustSinirYuzde": 8,
+    "kaynakSayisi": 3,
+    "uyduHasar": 30
+   },
+   "odul": {
+    "xp": 12,
+    "hatira": 2
+   },
+   "cevrimdisiGelmez": true
+  },
+  {
+   "id": "sinav",
+   "ad": "Yüce Sınav",
+   "seviyeMin": 45,
+   "katsayi": null,
+   "uyariSn": null,
+   "oncelik": "ozel",
+   "kayip": {
+    "ustSinirYuzde": 0,
+    "kaynakSayisi": 0
+   },
+   "odul": {
+    "xp": 0,
+    "hatira": 0
+   }
+  }
+ ],
+ "oncelikler": {
+  "gozlem": {
+   "renk": "gri-mavi",
+   "ses": "kisa sinyal"
+  },
+  "uyari": {
+   "renk": "altin",
+   "ses": "sinyal"
+  },
+  "tehlike": {
+   "renk": "turuncu",
+   "ses": "uyari"
+  },
+  "buyuk": {
+   "renk": "kirmizi",
+   "ses": "uzun korna",
+   "bildirimKalici": true
+  },
+  "ozel": {
+   "renk": "leylak",
+   "ses": "yumusak"
+  }
+ },
+ "hesap": {
+  "saldiriGucu": "8*seviye*ircCarpani*dalgaKatsayisi*tohumluRastgele(0.85,1.15)",
+  "saldiriAltSinir": "0.5*(8*seviye)",
+  "saldiriUstSinir": "1.6*(8*seviye)",
+  "savunma": "myDef+uyduKatkisi+hatiraPayi+hazirlikPayi",
+  "uyduKatkisi": {
+   "formul": "uydu.hp/100*4",
+   "enFazlaUydu": 5
+  },
+  "hatiraPayi": {
+   "besHatiraBasina": 1,
+   "enFazla": 10
+  },
+  "hazirlikPayi": {
+   "savunmaOrani": 0.25
+  },
+  "sonucKademeleri": [
+   {
+    "id": "kusursuz",
+    "rMin": 1.3,
+    "rMax": null,
+    "ad": "Kusursuz Savunma",
+    "kayipUstSinirYuzde": 0,
+    "kaynakSayisi": 0,
+    "xp": 12,
+    "hatira": 1
+   },
+   {
+    "id": "puskurtuldu",
+    "rMin": 1.0,
+    "rMax": 1.3,
+    "ad": "Püskürtüldü",
+    "kayipUstSinirYuzde": 0,
+    "kaynakSayisi": 0,
+    "xp": 8,
+    "hatira": 1
+   },
+   {
+    "id": "zorlu",
+    "rMin": 0.7,
+    "rMax": 1.0,
+    "ad": "Zorlu Direniş",
+    "kayipUstSinirYuzde": 4,
+    "kaynakSayisi": 1,
+    "xp": 6,
+    "hatira": 1
+   },
+   {
+    "id": "agir",
+    "rMin": 0.4,
+    "rMax": 0.7,
+    "ad": "Ağır Hasar",
+    "kayipUstSinirYuzde": 6,
+    "kaynakSayisi": 2,
+    "uyduHasar": 20,
+    "xp": 6,
+    "hatira": 2
+   },
+   {
+    "id": "bastirildi",
+    "rMin": 0,
+    "rMax": 0.4,
+    "ad": "Bastırıldı",
+    "kayipUstSinirYuzde": 8,
+    "kaynakSayisi": 3,
+    "uyduHasar": 30,
+    "xp": 6,
+    "hatira": 2,
+    "yaraIzi": true
+   }
+  ],
+  "degismezSinirlar": {
+   "kaynakKayipEnFazlaYuzde": 8,
+   "paraKayipEnFazlaYuzde": 3,
+   "uyduSaglikAlt": 10,
+   "korumaSuresiDk": 20,
+   "guvenliDepoYuzde": 40,
+   "seviyeDusmez": true,
+   "gezegenYokOlmaz": true,
+   "yapiSilinmez": true
+  },
+  "yaraIziIyilesmeDk": 30
+ },
+ "turTepkileri": {
+  "sav": {
+   "ozel": "Karşı Vuruş",
+   "bedel": [
+    "kuvvet",
+    "cephane"
+   ],
+   "kusursuzEsik": 1.3,
+   "zayif": "başarısızsa moral kaybı en çok 10"
+  },
+  "med": {
+   "ozel": "Büyük Elçilik",
+   "bedel": [
+    "bilgi",
+    "refah"
+   ],
+   "basariYuzde": [
+    35,
+    70
+   ],
+   "zayif": "düşman ırka işlemez"
+  },
+  "loj": {
+   "ozel": "Konvoy Kaçışı",
+   "bedel": [
+    "yakit"
+   ],
+   "guvenliDepoYuzde": 55,
+   "zayif": "uydu hasarını azaltmaz"
+  },
+  "yik": {
+   "ozel": "Yörünge Bozma",
+   "bedel": [
+    "kaos",
+    "enerji"
+   ],
+   "zayif": "başarısızlıkta kaos artışı, uydular daha çok hasar alır"
+  },
+  "yar": {
+   "ozel": "Yeniden Yarat",
+   "bedel": [
+    "ilham",
+    "denge"
+   ],
+   "kusursuzEsik": 1.45,
+   "zayif": "ham savunma düşük, toparlanma en hızlı"
+  }
+ },
+ "ortakSecenekler": [
+  {
+   "id": "hazirlan",
+   "ad": "Hazırlan",
+   "savunmaArtisYuzde": 25
+  },
+  {
+   "id": "bekle",
+   "ad": "Bekle",
+   "bedelsiz": true,
+   "otomatik": true
+  },
+  {
+   "id": "elci",
+   "ad": "Elçi Gönder",
+   "yalnizca": [
+    "dost",
+    "tarafsiz"
+   ],
+   "basariYuzde": [
+    20,
+    40
+   ]
+  }
+ ],
+ "yuceSinav": [
+  {
+   "id": "sinav.sav",
+   "tur": "sav",
+   "seviyeMin": 45,
+   "kayip": false
+  },
+  {
+   "id": "sinav.med",
+   "tur": "med",
+   "seviyeMin": 45,
+   "kayip": false
+  },
+  {
+   "id": "sinav.loj",
+   "tur": "loj",
+   "seviyeMin": 45,
+   "kayip": false
+  },
+  {
+   "id": "sinav.yik",
+   "tur": "yik",
+   "seviyeMin": 45,
+   "kayip": false
+  },
+  {
+   "id": "sinav.yar",
+   "tur": "yar",
+   "seviyeMin": 45,
+   "kayip": false
+  }
+ ],
+ "cevrimdisi": {
+  "yarimSaatBasinaEnFazlaAkin": 1,
+  "uzaklikBasinaEnFazlaAkin": 4,
+  "savunmaCarpani": 0.9,
+  "kayipCarpani": 0.5,
+  "gelmeyenTurler": [
+   "golge",
+   "buyuk"
+  ],
+  "ozetSatiri": true
+ },
+ "iliskiEsikleri": {
+  "dusman": -40,
+  "dost": 40,
+  "ittifakGerek": 60,
+  "muttefik": 80,
+  "muttefikKaybi": 50,
+  "aralik": [
+   -100,
+   100
+  ],
+  "kararBasinaEnFazla": 30,
+  "zamanlaUyum": {
+   "periyotDk": 30,
+   "puan": 1,
+   "muttefikteIslemez": true
+  }
+ },
+ "iliskiDegisimleri": {
+  "elciArmagan": [
+   5,
+   12
+  ],
+  "ticaretIslemBasina": 1,
+  "haksizSaldiri": -25,
+  "savunmaKarsiligi": 0,
+  "akiniPuskurtme": -3,
+  "diplomasiIleDurdurma": 6,
+  "yolSoyulmasi": -10
+ },
+ "irkTipleri": [
+  {
+   "id": "ticaret",
+   "ad": "Ticaret",
+   "ticaretOrani": 1.1,
+   "saldiriEgilimi": 0.2,
+   "elciZorlugu": "kolay"
+  },
+  {
+   "id": "savas",
+   "ad": "Savaş",
+   "ticaretOrani": 0.85,
+   "saldiriEgilimi": 0.8,
+   "elciZorlugu": "zor"
+  },
+  {
+   "id": "bilgelik",
+   "ad": "Bilgelik",
+   "ticaretOrani": 1.0,
+   "saldiriEgilimi": 0.15,
+   "elciZorlugu": "orta"
+  },
+  {
+   "id": "yasam",
+   "ad": "Yaşam",
+   "ticaretOrani": 1.0,
+   "saldiriEgilimi": 0.05,
+   "elciZorlugu": "kolay"
+  },
+  {
+   "id": "golge",
+   "ad": "Gölge",
+   "ticaretOrani": 0.8,
+   "saldiriEgilimi": 0.7,
+   "elciZorlugu": "cok zor"
+  }
+ ],
+ "irklar": [
+  {
+   "id": "vireller",
+   "ad": "Vireller",
+   "takma": "Işık Dokumacıları",
+   "tip": "ticaret",
+   "galaksi": 2,
+   "yurtAd": "Sedef Kümesi",
+   "palet": [
+    "#7FE8D2",
+    "#2B6F8F",
+    "#E9FFF8"
+   ],
+   "baslangic": "tarafsiz",
+   "irkCarpani": 0.9,
+   "seviyeMin": null,
+   "deger": "Bilmek, dağıtınca çoğalır."
+  },
+  {
+   "id": "karnuklar",
+   "ad": "Karnuklar",
+   "takma": "Demir Sürüsü",
+   "tip": "savas",
+   "galaksi": 4,
+   "yurtAd": "Pas Halkası",
+   "palet": [
+    "#C4552B",
+    "#5B2A1A",
+    "#F2A65A"
+   ],
+   "baslangic": "tarafsiz",
+   "irkCarpani": 1.15,
+   "seviyeMin": null,
+   "deger": "Birimiz düşersek yüzümüz kalır."
+  },
+  {
+   "id": "osmetler",
+   "ad": "Osmetler",
+   "takma": "Derin Dinleyiciler",
+   "tip": "bilgelik",
+   "galaksi": 6,
+   "yurtAd": "Sessiz Girdap",
+   "palet": [
+    "#4D6CFF",
+    "#1B1F5E",
+    "#BFD0FF"
+   ],
+   "baslangic": "tarafsiz",
+   "irkCarpani": 0.9,
+   "seviyeMin": null,
+   "deger": "Duymadan konuşan bilgeliği kaçırır."
+  },
+  {
+   "id": "tavrinler",
+   "ad": "Tavrinler",
+   "takma": "Gezgin Tüccarlar",
+   "tip": "ticaret",
+   "galaksi": null,
+   "yurtAd": "Yol yıldızı noktaları",
+   "palet": [
+    "#FFC83D",
+    "#8A4B12",
+    "#FFF1B8"
+   ],
+   "baslangic": "dost",
+   "irkCarpani": 0.95,
+   "seviyeMin": 15,
+   "deger": "Yol bitince hikâye biter."
+  },
+  {
+   "id": "ulakarlar",
+   "ad": "Ulakarlar",
+   "takma": "Kül Kâhinleri",
+   "tip": "savas",
+   "galaksi": 3,
+   "yurtAd": "Kor Dizisi",
+   "palet": [
+    "#FF6A3D",
+    "#3B0F0A",
+    "#FFD2A8"
+   ],
+   "baslangic": "tarafsiz",
+   "irkCarpani": 1.2,
+   "seviyeMin": null,
+   "deger": "Ateşi görmeden gölge bilinmez."
+  },
+  {
+   "id": "esmirler",
+   "ad": "Eşmirler",
+   "takma": "Taş Bahçıvanları",
+   "tip": "yasam",
+   "galaksi": 1,
+   "yurtAd": "Yeşil Sedir",
+   "palet": [
+    "#6BDB7A",
+    "#1F5A3A",
+    "#E6FFD0"
+   ],
+   "baslangic": "dost",
+   "irkCarpani": 0.9,
+   "seviyeMin": null,
+   "deger": "Taş da yeşerir, yeter ki beklenir."
+  },
+  {
+   "id": "draveklar",
+   "ad": "Draveklar",
+   "takma": "Boşluk Avcıları",
+   "tip": "golge",
+   "galaksi": 8,
+   "yurtAd": "Kara Çayır",
+   "palet": [
+    "#B15CFF",
+    "#1A0B33",
+    "#E0C2FF"
+   ],
+   "baslangic": "dusman",
+   "irkCarpani": 1.1,
+   "seviyeMin": 36,
+   "deger": "Boşluğu dolduran, sahibi olur."
+  },
+  {
+   "id": "animsarlar",
+   "ad": "Anımsarlar",
+   "takma": "Hafıza Tutucuları",
+   "tip": "bilgelik",
+   "galaksi": null,
+   "yurtAd": "Kadim Eşik (haritada görünmez)",
+   "palet": [
+    "#FFF1C9",
+    "#6A5A3A",
+    "#FFFFFF"
+   ],
+   "baslangic": "ozel",
+   "irkCarpani": 0.9,
+   "seviyeMin": 36,
+   "deger": "Unutulan, yeniden doğar."
+  }
+ ],
+ "irkNotlari": {
+  "draveklar": "yalnızca öte galakside düşman başlar",
+  "animsarlar": "ilişki puanı hikâye kararlarından başlar; saldırmaz",
+  "osmetler": "c05 koruyucu yolunda dost başlar",
+  "bosGalaksiler": [
+   5,
+   7,
+   9
+  ]
+ },
+ "galaksiHaritasi": {
+  "galaksiSayisi": 9,
+  "uzaklik": "dairesel galaksi numarası farkı",
+  "ayniGalaksi": 0,
+  "komsu": 1,
+  "ote": 2,
+  "sarmal": "10 -> 1"
+ },
+ "temasKurali": {
+  "ayniGalaksiSeviyeMin": 10,
+  "komsuGalaksiSeviyeMin": 25,
+  "oteGalaksiSeviyeMin": 36,
+  "kapiSezi": 31,
+  "kapiAcilis": 36,
+  "kapiKaydi": "p.unl.kapi=1",
+  "kasifErkenSeviye": 3
+ },
+ "temasBasamaklari": [
+  "sinyal",
+  "gozlem",
+  "karsilasma",
+  "anlasma",
+  "kalici"
+ ],
+ "karsilasmaSecenekleri": [
+  "selam",
+  "bekle",
+  "kalkan"
+ ],
+ "temasOlaylari": [
+  {
+   "id": "temas.vireller.sinyal",
+   "irk": "vireller",
+   "basamak": 1
+  },
+  {
+   "id": "temas.vireller.gozlem",
+   "irk": "vireller",
+   "basamak": 2
+  },
+  {
+   "id": "temas.vireller.karsilasma",
+   "irk": "vireller",
+   "basamak": 3
+  },
+  {
+   "id": "temas.vireller.anlasma",
+   "irk": "vireller",
+   "basamak": 4
+  },
+  {
+   "id": "temas.vireller.kalici",
+   "irk": "vireller",
+   "basamak": 5
+  },
+  {
+   "id": "temas.karnuklar.sinyal",
+   "irk": "karnuklar",
+   "basamak": 1
+  },
+  {
+   "id": "temas.karnuklar.gozlem",
+   "irk": "karnuklar",
+   "basamak": 2
+  },
+  {
+   "id": "temas.karnuklar.karsilasma",
+   "irk": "karnuklar",
+   "basamak": 3
+  },
+  {
+   "id": "temas.karnuklar.anlasma",
+   "irk": "karnuklar",
+   "basamak": 4
+  },
+  {
+   "id": "temas.karnuklar.kalici",
+   "irk": "karnuklar",
+   "basamak": 5
+  },
+  {
+   "id": "temas.osmetler.sinyal",
+   "irk": "osmetler",
+   "basamak": 1
+  },
+  {
+   "id": "temas.osmetler.gozlem",
+   "irk": "osmetler",
+   "basamak": 2
+  },
+  {
+   "id": "temas.osmetler.karsilasma",
+   "irk": "osmetler",
+   "basamak": 3
+  },
+  {
+   "id": "temas.osmetler.anlasma",
+   "irk": "osmetler",
+   "basamak": 4
+  },
+  {
+   "id": "temas.osmetler.kalici",
+   "irk": "osmetler",
+   "basamak": 5
+  },
+  {
+   "id": "temas.tavrinler.sinyal",
+   "irk": "tavrinler",
+   "basamak": 1
+  },
+  {
+   "id": "temas.tavrinler.gozlem",
+   "irk": "tavrinler",
+   "basamak": 2
+  },
+  {
+   "id": "temas.tavrinler.karsilasma",
+   "irk": "tavrinler",
+   "basamak": 3
+  },
+  {
+   "id": "temas.tavrinler.anlasma",
+   "irk": "tavrinler",
+   "basamak": 4
+  },
+  {
+   "id": "temas.tavrinler.kalici",
+   "irk": "tavrinler",
+   "basamak": 5
+  },
+  {
+   "id": "temas.ulakarlar.sinyal",
+   "irk": "ulakarlar",
+   "basamak": 1
+  },
+  {
+   "id": "temas.ulakarlar.gozlem",
+   "irk": "ulakarlar",
+   "basamak": 2
+  },
+  {
+   "id": "temas.ulakarlar.karsilasma",
+   "irk": "ulakarlar",
+   "basamak": 3
+  },
+  {
+   "id": "temas.ulakarlar.anlasma",
+   "irk": "ulakarlar",
+   "basamak": 4
+  },
+  {
+   "id": "temas.ulakarlar.kalici",
+   "irk": "ulakarlar",
+   "basamak": 5
+  },
+  {
+   "id": "temas.esmirler.sinyal",
+   "irk": "esmirler",
+   "basamak": 1
+  },
+  {
+   "id": "temas.esmirler.gozlem",
+   "irk": "esmirler",
+   "basamak": 2
+  },
+  {
+   "id": "temas.esmirler.karsilasma",
+   "irk": "esmirler",
+   "basamak": 3
+  },
+  {
+   "id": "temas.esmirler.anlasma",
+   "irk": "esmirler",
+   "basamak": 4
+  },
+  {
+   "id": "temas.esmirler.kalici",
+   "irk": "esmirler",
+   "basamak": 5
+  },
+  {
+   "id": "temas.draveklar.sinyal",
+   "irk": "draveklar",
+   "basamak": 1
+  },
+  {
+   "id": "temas.draveklar.gozlem",
+   "irk": "draveklar",
+   "basamak": 2
+  },
+  {
+   "id": "temas.draveklar.karsilasma",
+   "irk": "draveklar",
+   "basamak": 3
+  },
+  {
+   "id": "temas.draveklar.anlasma",
+   "irk": "draveklar",
+   "basamak": 4
+  },
+  {
+   "id": "temas.draveklar.kalici",
+   "irk": "draveklar",
+   "basamak": 5
+  },
+  {
+   "id": "temas.animsarlar.sinyal",
+   "irk": "animsarlar",
+   "basamak": 1
+  },
+  {
+   "id": "temas.animsarlar.gozlem",
+   "irk": "animsarlar",
+   "basamak": 2
+  },
+  {
+   "id": "temas.animsarlar.karsilasma",
+   "irk": "animsarlar",
+   "basamak": 3
+  },
+  {
+   "id": "temas.animsarlar.anlasma",
+   "irk": "animsarlar",
+   "basamak": 4
+  },
+  {
+   "id": "temas.animsarlar.kalici",
+   "irk": "animsarlar",
+   "basamak": 5
+  }
+ ],
+ "ozelOlaylar": [
+  {
+   "id": "sinyal.ilk",
+   "seviyeMin": 7,
+   "ad": "Yabancı Sinyal"
+  },
+  {
+   "id": "isik.ilk",
+   "seviyeMin": 25,
+   "ad": "İlk Işık (komşu galaksi)"
+  },
+  {
+   "id": "kapi.sezi",
+   "seviyeMin": 31,
+   "ad": "Kapı Sezildi"
+  },
+  {
+   "id": "kapi.acilis",
+   "seviyeMin": 36,
+   "ad": "Kadim Eşik"
+  }
+ ],
+ "diplomasi": [
+  {
+   "id": "elci",
+   "ad": "Elçi Gönder",
+   "iliski": [
+    5,
+    12
+   ],
+   "bedel": "tür kaynağı",
+   "beklemeDk": 5
+  },
+  {
+   "id": "armagan",
+   "ad": "Armağan",
+   "iliski": [
+    8,
+    8
+   ],
+   "bedel": "para + kaynak",
+   "beklemeDk": 8
+  },
+  {
+   "id": "anit",
+   "ad": "Ortak Anıt",
+   "iliski": [
+    12,
+    12
+   ],
+   "bedel": "büyük bedel",
+   "beklemeDk": 30
+  },
+  {
+   "id": "ticaretAnlasma",
+   "ad": "Ticaret Anlaşması",
+   "iliski": [
+    0,
+    0
+   ],
+   "bedel": "para",
+   "beklemeDk": 15
+  },
+  {
+   "id": "ittifak",
+   "ad": "İttifak Yemini",
+   "puanGerek": 60,
+   "sonrakiPuan": 80,
+   "bedel": "para + söz",
+   "beklemeDk": 45
+  },
+  {
+   "id": "savasIlani",
+   "ad": "Savaş İlanı",
+   "iliski": [
+    -40,
+    -40
+   ],
+   "bedel": "yok",
+   "beklemeDk": null
+  }
+ ],
+ "ticaretYollari": {
+  "sinirlar": [
+   {
+    "seviyeMin": 15,
+    "yol": 2
+   },
+   {
+    "seviyeMin": 25,
+    "yol": 3
+   },
+   {
+    "seviyeMin": 36,
+    "yol": 4
+   },
+   {
+    "seviyeMin": 45,
+    "yol": 5
+   }
+  ],
+  "getiri": "taban*ircTipiOrani*(1+yolculukDaliPayi)",
+  "cevrimdisiEnFazlaSaat": 8,
+  "golgeKapanisDk": 20
+ },
+ "ittifak": {
+  "enFazlaMuttefik": 3,
+  "buyukDalgaSavunmaPuaniMuttefikBasina": 10,
+  "buyukDalgaKayipAzalmaYuzde": 20,
+  "yardimIstegiSn": 90,
+  "cevapsizPuan": -5,
+  "ittifakBozulmaz": true
+ },
+ "bilimDallari": [
+  {
+   "id": "gokbilim",
+   "ad": "Gökbilim",
+   "kademe": 5,
+   "bonus": {
+    "akinUyariSn": 5
+   }
+  },
+  {
+   "id": "madde",
+   "ad": "Madde",
+   "kademe": 5,
+   "bonus": {
+    "uretimYuzde": 2
+   }
+  },
+  {
+   "id": "yasam",
+   "ad": "Yaşam",
+   "kademe": 5,
+   "bonus": {
+    "cevrimdisiKayipYuzde": -5
+   }
+  },
+  {
+   "id": "haberlesme",
+   "ad": "Haberleşme",
+   "kademe": 5,
+   "bonus": {
+    "elciSansPuan": 2
+   }
+  },
+  {
+   "id": "savunma",
+   "ad": "Savunma",
+   "kademe": 5,
+   "bonus": {
+    "savunma": 1
+   }
+  },
+  {
+   "id": "yolculuk",
+   "ad": "Yolculuk",
+   "kademe": 5,
+   "bonus": {
+    "yolGetiriYuzde": 3
+   }
+  }
+ ],
+ "turBilimEgilimi": {
+  "sav": {
+   "ucuz": [
+    "savunma"
+   ],
+   "pahali": [
+    "haberlesme"
+   ]
+  },
+  "med": {
+   "ucuz": [
+    "haberlesme",
+    "yasam"
+   ],
+   "pahali": [
+    "savunma"
+   ]
+  },
+  "loj": {
+   "ucuz": [
+    "madde",
+    "yolculuk"
+   ],
+   "pahali": []
+  },
+  "yik": {
+   "ucuz": [
+    "gokbilim",
+    "savunma"
+   ],
+   "pahali": [
+    "yasam"
+   ]
+  },
+  "yar": {
+   "ucuz": [
+    "yasam",
+    "haberlesme"
+   ],
+   "pahali": []
+  },
+  "esikDegisimYuzde": 20
+ },
+ "uygarlikOlaylari": [
+  {
+   "id": "uyg.kutuphane",
+   "ad": "Büyük Kütüphane",
+   "minLvl": 13,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.kitlik",
+   "ad": "Kıtlık Yılı",
+   "minLvl": 13,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.ortakdil",
+   "ad": "Ortak Dil",
+   "minLvl": 19,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.ustalar",
+   "ad": "Gezgin Ustalar",
+   "minLvl": 19,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.liman",
+   "ad": "Yeni Liman",
+   "minLvl": 25,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.hastalik",
+   "ad": "Hastalıkla Mücadele",
+   "minLvl": 25,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.uydutoreni",
+   "ad": "İlk Uydu Töreni",
+   "minLvl": 31,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.haritacilar",
+   "ad": "Yıldız Haritacıları",
+   "minLvl": 31,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.anit",
+   "ad": "Kuşaklararası Anıt",
+   "minLvl": 37,
+   "cat": "uyg"
+  },
+  {
+   "id": "uyg.uyum",
+   "ad": "Büyük Uyum",
+   "minLvl": 43,
+   "cat": "uyg"
+  }
+ ],
+ "yanBolumler": [
+  {
+   "id": "yan.vireller",
+   "irk": "vireller",
+   "sekme": "yan"
+  },
+  {
+   "id": "yan.karnuklar",
+   "irk": "karnuklar",
+   "sekme": "yan"
+  },
+  {
+   "id": "yan.osmetler",
+   "irk": "osmetler",
+   "sekme": "yan"
+  },
+  {
+   "id": "yan.tavrinler",
+   "irk": "tavrinler",
+   "sekme": "yan"
+  },
+  {
+   "id": "yan.ulakarlar",
+   "irk": "ulakarlar",
+   "sekme": "yan"
+  },
+  {
+   "id": "yan.esmirler",
+   "irk": "esmirler",
+   "sekme": "yan"
+  },
+  {
+   "id": "yan.draveklar",
+   "irk": "draveklar",
+   "sekme": "yan"
+  },
+  {
+   "id": "yan.animsarlar",
+   "irk": "animsarlar",
+   "sekme": "yan"
+  }
+ ],
+ "hikayeDallari": {
+  "c05": {
+   "koruyucu": {
+    "osmetlerDost": true,
+    "akinAzalmaYuzde": 20,
+    "akinGucArtisYuzde": "hafif"
+   },
+   "kasif": {
+    "tavrinlerErken": true,
+    "temasErkenSeviye": 3
+   },
+   "donusturucu": {
+    "animsarBag": "guclu",
+    "yaraticiOlayArtisi": true
+   }
+  },
+  "c09": "36. seviyedeki Anımsar buluşmasının tonunu değiştirir",
+  "c12": "36. seviyedeki Anımsar buluşmasının tonunu değiştirir",
+  "anaBolumSayisi": 15,
+  "sonSayisi": 3
+ },
+ "rozetler": [
+  {
+   "id": "scn01",
+   "ad": "Öncü Işık"
+  },
+  {
+   "id": "scn02",
+   "ad": "Kapı Bekçisi"
+  },
+  {
+   "id": "scn03",
+   "ad": "İlk Elçi"
+  },
+  {
+   "id": "scn04",
+   "ad": "Yol Kurucu"
+  },
+  {
+   "id": "scn05",
+   "ad": "Müttefik Yemini"
+  },
+  {
+   "id": "scn06",
+   "ad": "Demir Kalkan"
+  },
+  {
+   "id": "scn07",
+   "ad": "Taş Sabrı"
+  },
+  {
+   "id": "scn08",
+   "ad": "Yıldız Haritacısı"
+  },
+  {
+   "id": "scn09",
+   "ad": "Sessiz Dinleyici"
+  },
+  {
+   "id": "scn10",
+   "ad": "Boşluk Pazarlığı"
+  },
+  {
+   "id": "scn11",
+   "ad": "Hatıra Taşıyıcı"
+  },
+  {
+   "id": "scn12",
+   "ad": "Akor Elçisi"
+  }
+ ]
+}
