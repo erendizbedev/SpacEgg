@@ -1,6 +1,11 @@
 # SpacEgg — Değişiklik Günlüğü
 Sürüm kaynağı: `data/version.json`.
 
+## 2.2.0 "Dijital Yankı" (versionCode 8)
+- Arayüz sesleri yeniden tasarlandı: 44 katmanlı dijital uzay efekti (FM çan, sonar, bit-ezilmiş arpej, veri cıvıltısı, parıltı, alt-ses); çekmece sürükleme tıkı dahil
+- Kozmik etkileşim sesleri: 56 ses; gezegen türü, yıldız sınıfı ve fazı, galaksi türü, gözlem, karar, ölçek geçişi, hız, olaylar, keşif, rozet, fotoğraf; sesler nesne kimliğinden türer
+- Tek ortak ses bağlamı, tier 0'da hafif mod, eşzamanlı ses sınırı
+
 ## 2.1.0 — Yeni yüzey
 - 9 ayrı yazı tipi ailesi (logo, başlık, HUD, günlük, menü, gövde, mono, etiket), uygulama içine gömülü; Türkçe karakterler doğrulandı
 - Dikey açılış ekranı: logo ve büyük, kodla çizilmiş sarmal galaksi; ardından giriş menüsü

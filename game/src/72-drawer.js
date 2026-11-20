@@ -85,7 +85,7 @@ D.toggle=function(){return isOpen?D.close():D.open();};
 D.back=function(){if(isOpen){D.close();return true;}return false;};
 
 function go(route,params){
-  try{SG.A2&&SG.A2.ui&&SG.A2.ui('tap');}catch(e){}
+  try{SG.A2&&SG.A2.ui&&SG.A2.ui('select');}catch(e){}
   D.close({instant:true,nofocus:true});
   try{SG.go(route,params);}catch(e){SG.log.err('drawer.go',e);}
 }
@@ -191,7 +191,7 @@ function fill(){
   bodyEl.appendChild(row('globe','Eski SpacEgg (v1)','Gezegen büyütme oyunu olduğu gibi duruyor',function(){go('hub');}));
   bodyEl.appendChild(h('div',{class:'dr-ver num'},'SpacEgg '+(SG.ver||'2.0')+(SG.codename?' · '+SG.codename:'')+(SG.verCode?' · sürüm kodu '+SG.verCode:'')));
   bodyEl.appendChild(h('button',{type:'button',class:'btn danger block dr-out',onclick:function(){
-    try{SG.A2&&SG.A2.ui&&SG.A2.ui('close');}catch(e){}
+    try{SG.A2&&SG.A2.ui&&SG.A2.ui('cancel');}catch(e){}
     D.close({instant:true,nofocus:true});
     try{SG.S&&SG.S.save&&SG.S.save();}catch(e){}
     try{SG.G.logout();}catch(e){SG.go('login');}
@@ -232,7 +232,7 @@ function tile(icon,label,get,set){
   var on=get();
   var b=h('button',{type:'button',class:'dr-tile',role:'switch','aria-checked':on?'true':'false',onclick:function(){
     on=!on;b.setAttribute('aria-checked',on?'true':'false');try{set(on);}catch(e){SG.log.err('drawer.tile',e);}
-    try{SG.A2&&SG.A2.ui&&SG.A2.ui('tap');}catch(e){}
+    try{SG.A2&&SG.A2.ui&&SG.A2.ui(on?'toggle-on':'toggle-off');}catch(e){}
   }});
   b.appendChild(HUD.ic(icon,22));b.appendChild(h('span',null,label));
   return b;
@@ -305,6 +305,7 @@ function onMove(e){
   if(drag.started){
     var x=drag.mode==='open'?dx:drag.w+dx;
     setX(x);
+    try{SG.Sfx&&SG.Sfx.drag&&SG.Sfx.drag(x/drag.w);}catch(er){}
     var dt=now-drag.lt;if(dt>0){drag.v=(e.clientX-drag.last)/dt;drag.last=e.clientX;drag.lt=now;}
     e.stopPropagation();
   }else if(drag.mode==='open'){e.stopPropagation();}

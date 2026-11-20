@@ -146,7 +146,7 @@ HUD.nav=function(active){
   var btns={};
   items.forEach(function(it){
     var b=h('button',{type:'button','aria-label':it[2],'aria-current':it[0]===active?'page':null,onclick:function(){
-      try{SG.A2&&SG.A2.ui&&SG.A2.ui('tap');}catch(e){}
+      try{SG.A2&&SG.A2.ui&&SG.A2.ui('nav');}catch(e){}
       if(it[0]==='cosmos'){if(active==='cosmos')return;SG.go('cosmos');return;}
       if(it[0]===active)return;
       SG.go('journal',{tab:it[3]});}});
@@ -160,7 +160,6 @@ HUD.nav=function(active){
 /* ---- menü (çekmece) düğmesi: ≥44 px, SG.Drawer varsa açar ---- */
 HUD.menuBtn=function(){
   var b=h('button',{type:'button',class:'h-ibtn h-menu','aria-label':'Menüyü aç','aria-haspopup':'dialog','aria-expanded':'false',onclick:function(){
-    try{SG.A2&&SG.A2.ui&&SG.A2.ui('open');}catch(e){}
     try{SG.Drawer&&SG.Drawer.open();}catch(e){SG.log.err('menuBtn',e);}
   }},HUD.ic('menu',22));
   b.setAttribute('data-dr-btn','1');
@@ -169,7 +168,7 @@ HUD.menuBtn=function(){
 /* ---- geri düğmesi (Kayıtlar/Ayarlar gibi çekmeceden açılan sayfalar) ---- */
 HUD.backBtn=function(){
   var to=function(){return HUD.uni()?'cosmos':'create';};
-  return h('button',{type:'button',class:'h-ibtn h-back','aria-label':'Evrene dön',onclick:function(){try{SG.A2&&SG.A2.ui&&SG.A2.ui('close');}catch(e){}SG.go(to());}},HUD.ic('back',22));
+  return h('button',{type:'button',class:'h-ibtn h-back','aria-label':'Evrene dön',onclick:function(){try{SG.A2&&SG.A2.ui&&SG.A2.ui('back');}catch(e){}SG.go(to());}},HUD.ic('back',22));
 };
 
 /* ---- olay toast'ı (kozmik olaylar, keşifler): kapsayıcı görünüm tarafından verilir ---- */
@@ -181,6 +180,7 @@ HUD.toast=function(box,o){
   if(o.icon)el.appendChild(HUD.ic(o.icon,20));
   var tx=h('span',{class:'h-toast-t'});if(o.title)tx.appendChild(h('b',null,o.title+' '));tx.appendChild(document.createTextNode(o.text||''));
   el.appendChild(tx);
+  if(o.sound){try{HUD.sound(o.sound);}catch(e){}}
   var gone=false;function bye(){if(gone)return;gone=true;el.classList.add('out');setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},SG.RM?0:300);}
   el.addEventListener('click',function(){try{o.onTap&&o.onTap();}catch(e){SG.log.err('hud.toast',e);}bye();});
   box.appendChild(el);setTimeout(bye,o.ms||5200);

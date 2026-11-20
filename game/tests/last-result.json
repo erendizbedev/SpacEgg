@@ -1,0 +1,501 @@
+{
+ "file": "/home/claude/work/app2/dist/SpacEgg.html",
+ "when": "2026-11-20T20:44:32.794Z",
+ "summary": {
+  "pass": 12,
+  "fail": 0,
+  "skip": 0
+ },
+ "results": [
+  {
+   "name": "acilis_giris",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "ilk görünüm login: login"
+    },
+    {
+     "ok": true,
+     "msg": "kullanıcı adı ve parola alanları var"
+    },
+    {
+     "ok": true,
+     "msg": "oturum kaydı yok"
+    },
+    {
+     "ok": true,
+     "msg": "konsol hatası: "
+    }
+   ],
+   "notes": [],
+   "ms": 3926
+  },
+  {
+   "name": "kayit_giris_cikis",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "kayıt sonrası giriş yapıldı; görünüm=create"
+    },
+    {
+     "ok": true,
+     "msg": "giriş sonrası görünüm uygun: create"
+    },
+    {
+     "ok": true,
+     "msg": "çıkış sonrası login"
+    },
+    {
+     "ok": true,
+     "msg": "hash #/login"
+    },
+    {
+     "ok": true,
+     "msg": "yanlış parola login'de kalır ve hata gösterir"
+    },
+    {
+     "ok": true,
+     "msg": "doğru parola ile giriş"
+    },
+    {
+     "ok": true,
+     "msg": "konsol hatası: "
+    }
+   ],
+   "notes": [],
+   "ms": 7704
+  },
+  {
+   "name": "hash_koruma",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "oturumsuz #/hub -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "oturumsuz #/egg -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "oturumsuz #/world -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "oturumsuz #/cosmos -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "oturumsuz #/journal -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "oturumsuz #/saves -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "oturumsuz #/prefs -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "oturumsuz #/create -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "oturumsuz #/settings -> login (login)"
+    },
+    {
+     "ok": true,
+     "msg": "çalışırken hash değişimi de login'e döner"
+    },
+    {
+     "ok": true,
+     "msg": "konsol hatası: "
+    }
+   ],
+   "notes": [],
+   "ms": 38294
+  },
+  {
+   "name": "oturum_yeniden_acilis",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "yeniden yüklemede önce açılış (intro) görünür"
+    },
+    {
+     "ok": true,
+     "msg": "intro sonrası oturumsuz giriş ekranı"
+    },
+    {
+     "ok": true,
+     "msg": "sg1_session temiz"
+    }
+   ],
+   "notes": [],
+   "ms": 9071
+  },
+  {
+   "name": "tasma",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "390x800 login: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 intro: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 hub: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 egg: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 world: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 galaxy: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 shop: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 missions: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 story: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 settings: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 create: yatay taşma yok (390/390)"
+    },
+    {
+     "skip": true,
+     "msg": "390x800 cosmos: erişilemedi"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 journal: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 saves: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 prefs: yatay taşma yok (390/390)"
+    },
+    {
+     "ok": true,
+     "msg": "390x800 konsol hatası: "
+    },
+    {
+     "ok": true,
+     "msg": "360x640 login: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 intro: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 hub: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 egg: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 world: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 galaxy: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 shop: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 missions: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 story: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 settings: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 create: yatay taşma yok (360/360)"
+    },
+    {
+     "skip": true,
+     "msg": "360x640 cosmos: erişilemedi"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 journal: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 saves: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 prefs: yatay taşma yok (360/360)"
+    },
+    {
+     "ok": true,
+     "msg": "360x640 konsol hatası: "
+    }
+   ],
+   "notes": [],
+   "ms": 25792
+  },
+  {
+   "name": "hareket_azaltma",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "prefers-reduced-motion -> SG.RM true"
+    },
+    {
+     "ok": true,
+     "msg": "hareket azaltmada sürekli CSS animasyonu az (0)"
+    },
+    {
+     "ok": true,
+     "msg": "konsol hatası: "
+    }
+   ],
+   "notes": [
+    "sonsuz CSS animasyonu: 0"
+   ],
+   "ms": 3194
+  },
+  {
+   "name": "klavye",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "Tab ile en az 3 farklı öğeye odak (8)"
+    },
+    {
+     "ok": true,
+     "msg": "odak gövdeye düşmüyor / tuzak yok"
+    },
+    {
+     "ok": true,
+     "msg": "sekme aria-selected var"
+    },
+    {
+     "ok": true,
+     "msg": "görünür etkileşimli öğelerin boyutu var"
+    },
+    {
+     "ok": true,
+     "msg": "konsol hatası: "
+    }
+   ],
+   "notes": [],
+   "ms": 4907
+  },
+  {
+   "name": "dokunma_alani",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "küçük dokunma hedefi sayısı ≤3 (0)"
+    }
+   ],
+   "notes": [
+    "40px altı düğmeler: yok"
+   ],
+   "ms": 5608
+  },
+  {
+   "name": "kayit_sistemi",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "oluştur/kaydet/aç turu"
+    },
+    {
+     "ok": true,
+     "msg": "dışa/içe aktarma turu (SGU2:)"
+    },
+    {
+     "ok": true,
+     "msg": "bozuk içe aktarma reddedilir (hata: Bozuk veri (geçersiz karakter).)"
+    },
+    {
+     "ok": true,
+     "msg": "aynı tohum aynı evreni üretir"
+    },
+    {
+     "ok": true,
+     "msg": "bozuk kayıt sonrası yedekten açıldı"
+    },
+    {
+     "ok": true,
+     "msg": "bozuk veri sg2_corrupt_ olarak saklandı"
+    },
+    {
+     "ok": true,
+     "msg": "konsol hatası: "
+    }
+   ],
+   "notes": [],
+   "ms": 4984
+  },
+  {
+   "name": "yeni_gorunumler",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "görünüm açıldı: create (create)"
+    },
+    {
+     "ok": true,
+     "msg": "create içerik çizdi"
+    },
+    {
+     "ok": true,
+     "msg": "görünüm açıldı: cosmos (cosmos)"
+    },
+    {
+     "ok": true,
+     "msg": "cosmos içerik çizdi"
+    },
+    {
+     "ok": true,
+     "msg": "cosmos canvas var"
+    },
+    {
+     "ok": true,
+     "msg": "görünüm açıldı: journal (journal)"
+    },
+    {
+     "ok": true,
+     "msg": "journal içerik çizdi"
+    },
+    {
+     "ok": true,
+     "msg": "görünüm açıldı: saves (saves)"
+    },
+    {
+     "ok": true,
+     "msg": "saves içerik çizdi"
+    },
+    {
+     "ok": true,
+     "msg": "görünüm açıldı: prefs (prefs)"
+    },
+    {
+     "ok": true,
+     "msg": "prefs içerik çizdi"
+    },
+    {
+     "ok": true,
+     "msg": "konsol hatası: "
+    }
+   ],
+   "notes": [
+    "cosmos fps (başsız): 32.9"
+   ],
+   "ms": 14207
+  },
+  {
+   "name": "perf",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "başlangıç kademesi 0..2: 0"
+    },
+    {
+     "ok": true,
+     "msg": "ölçüm toplanıyor (fps 29.1, örnek 110)"
+    },
+    {
+     "ok": true,
+     "msg": "report() alanları tam"
+    },
+    {
+     "ok": true,
+     "msg": "setTier(2) elle: kalite=high, mod manual"
+    },
+    {
+     "ok": true,
+     "msg": "setTier(0): kalite=low"
+    },
+    {
+     "ok": true,
+     "msg": "setTier(\"auto\") otomatiğe döner"
+    },
+    {
+     "ok": true,
+     "msg": "düşük fps (20) bir kademe düşürür (0->0)"
+    },
+    {
+     "ok": true,
+     "msg": "elle seçimde otomatik düşürme yapmaz"
+    },
+    {
+     "ok": true,
+     "msg": "p:tier olayı yayınlanır (5)"
+    },
+    {
+     "ok": true,
+     "msg": "konsol hatası: "
+    }
+   ],
+   "notes": [],
+   "ms": 5297
+  },
+  {
+   "name": "yasam_dongusu",
+   "status": "GECTI",
+   "checks": [
+    {
+     "ok": true,
+     "msg": "pause/resume sonrası oturum korunur"
+    },
+    {
+     "ok": true,
+     "msg": "pause/resume konsol hatası: "
+    }
+   ],
+   "notes": [],
+   "ms": 6334
+  }
+ ]
+}
