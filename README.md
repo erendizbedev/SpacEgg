@@ -5,7 +5,7 @@
 
 Hiçlikten bir evren yarat, galaksileri keşfet, yıldızların ve dünyaların hikâyesini izle. SpacEgg; kozmik ölçeği hissettiren, bilimden ilham alan, baskı yapmayan sakin bir keşif oyunudur. Android'de WebView kabuğu içinde tek dosyalık bir web uygulaması olarak çalışır.
 
-**En yeni kurulum dosyası:** [`releases/SpacEgg-v2.2.0.apk`](releases/SpacEgg-v2.2.0.apk) · Android 7.0+ · paket `com.spacegg.app` · sürüm 2.2.0 (kod 7)
+**En yeni kurulum dosyası:** [`releases/SpacEgg-v2.2.0.apk`](releases/SpacEgg-v2.2.0.apk) · Android 7.0+ · paket `com.spacegg.app` · sürüm 2.2.0 (kod 8)
 
 ## Ekranlar
 <p>
@@ -69,7 +69,8 @@ node tests/run.js                  # başsız Chrome ile 12 test
 Ayrıntı: [`docs/ARCH-2.0.md`](docs/ARCH-2.0.md) · kararlar: [`docs/KARAR-KAYDI.md`](docs/KARAR-KAYDI.md) · değişiklikler: [`docs/CHANGELOG.md`](docs/CHANGELOG.md) · yayın kontrolü: [`docs/YAYIN-KONTROL.md`](docs/YAYIN-KONTROL.md)
 
 ## Sürüm geçmişi
-- **2.2.0** yazı tipleri, dikey açılış ekranı, sol çekmece menü
+- **2.2.0** 44 arayüz + 56 kozmik dijital uzay sesi (kod sentezli)
+- **2.1.0** yazı tipleri, dikey açılış ekranı, sol çekmece menü
 - **2.0.0** Evren Yaratma Simülatörü: yeni çekirdek, kayıt sistemi, keşifler
 - **1.0.x** gezegen büyütme oyunu (APK, giriş modülü, galaksi efektleri); `releases/` altında
 
