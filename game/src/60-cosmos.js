@@ -345,7 +345,7 @@ function create(canvas,o){
         var tw=lbT[i].length*sz*.56+6,th=sz+4,hit=false;
         if(!pass){for(var j=0;j<rcN;j++){if(abs(lbX[i]-rcX[j])<(tw+rcW[j])*.5&&abs(lbY[i]-rcY[j])<(th+rcH[j])*.5){hit=true;break;}}if(hit)continue;}
         if(rcN<LBN){rcX[rcN]=lbX[i];rcY[rcN]=lbY[i];rcW[rcN]=tw;rcH[rcN]=th;rcN++;}
-        if(sz!==lastS){c.font='500 '+sz.toFixed(1)+'px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';lastS=sz;}
+        if(sz!==lastS){c.font='500 '+sz.toFixed(1)+'px "SG HUD",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';lastS=sz;}
         c.globalAlpha=lbA[i];c.strokeText(lbT[i],lbX[i],lbY[i]);c.fillStyle='#dfe8ff';c.fillText(lbT[i],lbX[i],lbY[i]);}
       c.globalAlpha=1;}
   }

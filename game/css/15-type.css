@@ -1,0 +1,142 @@
+/* SpacEgg 2.1 — tipografi: rol bazlı yazı aileleri (aileler css/05-fonts.css'ten, tools/fonts.py üretir).
+   Not: main.css 15-type'tan sonra yüklenir; eşit özgüllükte o kazanır, bu yüzden #app[data-view] / html:root / body ön ekleri kullanılır. */
+:root{
+  --f-logo:'SG Logo','SG Wide','Orbitron',system-ui,sans-serif;            /* logo, büyük % ve dev sayılar: geniş, uzay-bilim kurgu */
+  --f-title:'SG Title','Syne',system-ui,sans-serif;                          /* intro/giriş/oluştur başlıkları: tuhaf-geniş, sanatsal */
+  --f-hud:'SG HUD','Oxanium',system-ui,sans-serif;                           /* oyun içi HUD, etiket, sayı: kesik köşeli, dar, tabular */
+  --f-journal:'SG Journal','Fraunces',Georgia,'Times New Roman',serif;       /* Günlük, hikâye: editoryal serif */
+  --f-menu:'SG Menu','Bricolage Grotesque',system-ui,sans-serif;             /* Ayarlar, Kayıtlar, çekmece, düğmeler: sıcak grotesk */
+  --f-body:'SG Body','Figtree',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;  /* paragraf gövdesi: çok okunaklı */
+  --f-mono:'SG Mono','JetBrains Mono',ui-monospace,Menlo,Consolas,monospace; /* koordinat, tohum, kod, zaman damgası */
+  --f-tag:'SG Tag','Chakra Petch',system-ui,sans-serif;                      /* bilim etiketi, rozet, çip, sekme: teknik */
+}
+html:root{--font:var(--f-body)}
+html,body{font-synthesis-weight:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+body{font-family:var(--f-body)}
+
+/* ---- ortak öğeler ---- */
+body .btn,body button.btn{font-family:var(--f-menu);font-weight:700;letter-spacing:.005em}
+body .card h3,body h2{font-family:var(--f-menu)}
+body .chip,body .lg-tag,body .tag{font-family:var(--f-tag);font-weight:600;letter-spacing:.04em}
+body .fld>span,body .ff-lab,body .ff-msg{font-family:var(--f-menu)}
+body .inp{font-family:var(--f-body)}
+body .coin,body .res,body .res .v,body .lvbox b,body .num,body .kv .v{font-family:var(--f-hud);font-variant-numeric:tabular-nums}
+body .toast{font-family:var(--f-hud);font-weight:500;letter-spacing:.01em}
+body .nav button,body .nav .h-nav button{font-family:var(--f-tag);font-weight:600;letter-spacing:.03em;text-transform:none}
+body .brand{font-family:var(--f-logo);font-weight:800;letter-spacing:.01em;line-height:1.08;padding:.06em 0}
+body .mute,body .small,body .tiny{font-family:inherit}
+body .sg-tag,body .h-tag{font-family:var(--f-tag);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+body .h-tag{font-size:.62em}
+
+/* ---- intro (açılış, dikey): logo + başlık ---- */
+#app[data-view=intro]{font-family:var(--f-title)}
+#app[data-view=intro] h1,#app[data-view=intro] .brand,#app[data-view=intro] .in-brand,#app[data-view=intro] .in-logo-text{font-family:var(--f-logo);font-weight:800;letter-spacing:.04em;line-height:1.1;padding:.08em 0}
+#app[data-view=intro] .in-sub,#app[data-view=intro] .in-slogan,#app[data-view=intro] p{font-family:var(--f-title);font-weight:500;letter-spacing:.02em;line-height:1.35}
+#app[data-view=intro] .in-hint,#app[data-view=intro] .in-ver,#app[data-view=intro] small{font-family:var(--f-tag);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:11.5px}
+
+/* ---- giriş ---- */
+#app[data-view=login]{font-family:var(--f-body)}
+#app[data-view=login] .brand{font-size:clamp(34px,11vw,52px);letter-spacing:.02em}
+#app[data-view=login] .lg-slogan{font-family:var(--f-title);font-weight:600;letter-spacing:.005em;line-height:1.3}
+#app[data-view=login] .lg-line{font-family:var(--f-journal);font-style:italic;font-weight:400;font-size:15px}
+#app[data-view=login] .lg-h2,#app[data-view=login] .lg-ct,#app[data-view=login] .lgm-t,#app[data-view=login] h2,#app[data-view=login] h3{font-family:var(--f-title);font-weight:700;letter-spacing:-.005em;line-height:1.2}
+#app[data-view=login] .lg-pct{font-family:var(--f-logo);font-weight:800;line-height:1.1}
+#app[data-view=login] .lg-by,#app[data-view=login] .lg-by1,#app[data-view=login] .lg-pt,#app[data-view=login] .lg-pv,#app[data-view=login] .lg-bi,#app[data-view=login] .lg-ftby{font-family:var(--f-tag);font-weight:600;letter-spacing:.04em}
+#app[data-view=login] .lg-card p,#app[data-view=login] .lg-note,#app[data-view=login] .lgm-note,#app[data-view=login] .lgm-s{font-family:var(--f-body);font-weight:400;line-height:1.5}
+#app[data-view=login] .lg-cta,#app[data-view=login] .lgm-go,#app[data-view=login] .lg-home,#app[data-view=login] .lgm-alt,#app[data-view=login] .lgm-lnk,#app[data-view=login] .btn{font-family:var(--f-menu);font-weight:700}
+#app[data-view=login] .ff-lab,#app[data-view=login] .ff-msg,#app[data-view=login] .pw-txt{font-family:var(--f-menu);font-weight:500}
+#app[data-view=login] .ff-in,#app[data-view=login] input{font-family:var(--f-menu);font-weight:500;letter-spacing:.01em}
+
+/* ---- oyun içi (cosmos HUD) ---- */
+#app[data-view=cosmos]{font-family:var(--f-hud)}
+#app[data-view=cosmos] .h-name{font-family:var(--f-title);font-weight:700;letter-spacing:-.01em;line-height:1.15;padding-top:.06em}
+#app[data-view=cosmos] .h-time,#app[data-view=cosmos] .h-segb,#app[data-view=cosmos] .h-crumb,#app[data-view=cosmos] .h-prop dd,#app[data-view=cosmos] .h-fx,#app[data-view=cosmos] .h-goals-h{font-family:var(--f-hud);font-variant-numeric:tabular-nums;letter-spacing:.015em}
+#app[data-view=cosmos] .h-segb{font-weight:700}
+#app[data-view=cosmos] .h-crumb{font-weight:600}
+#app[data-view=cosmos] .h-sh-head h2{font-family:var(--f-title);font-weight:700;letter-spacing:-.01em;line-height:1.2;padding-top:.05em}
+#app[data-view=cosmos] .h-prop dt{font-family:var(--f-tag);font-weight:600;letter-spacing:.05em;font-size:.76em;text-transform:uppercase}
+#app[data-view=cosmos] .h-sec,#app[data-view=cosmos] .h-act b{font-family:var(--f-menu);font-weight:700}
+#app[data-view=cosmos] .h-act,#app[data-view=cosmos] .h-result,#app[data-view=cosmos] .h-goals ul,#app[data-view=cosmos] .h-onb p,#app[data-view=cosmos] .h-li,#app[data-view=cosmos] .h-sh-body p,#app[data-view=cosmos] .h-lock{font-family:var(--f-body);font-weight:400}
+#app[data-view=cosmos] .h-onb h3,#app[data-view=cosmos] .h-ov-card h2{font-family:var(--f-title);font-weight:700;letter-spacing:-.005em;line-height:1.2}
+#app[data-view=cosmos] .h-onb-n,#app[data-view=cosmos] .h-pips{font-family:var(--f-tag);font-weight:600;letter-spacing:.1em}
+#app[data-view=cosmos] .h-toast-t b{font-family:var(--f-mono);font-weight:500;letter-spacing:0}
+#app[data-view=cosmos] .h-bbcap{font-family:var(--f-journal);font-style:italic}
+body .h-toast{font-family:var(--f-hud);font-weight:500}
+body .h-toast .h-toast-t b{font-family:var(--f-mono)}
+
+/* ---- evren oluştur ---- */
+#app[data-view=create]{font-family:var(--f-body)}
+#app[data-view=create] .top h1{font-size:clamp(22px,6.8vw,30px);font-family:var(--f-title);font-weight:700;letter-spacing:-.02em;line-height:1.15;padding-top:.06em}
+#app[data-view=create] .top h1 small{font-family:var(--f-journal);font-style:italic;font-weight:400;letter-spacing:0;font-size:14px}
+#app[data-view=create] .h-preset b,#app[data-view=create] .h-preset strong,#app[data-view=create] h2{font-family:var(--f-title);font-weight:700}
+#app[data-view=create] #cr-seed,#app[data-view=create] .h-seed{font-family:var(--f-mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+#app[data-view=create] #cr-name{font-family:var(--f-menu);font-weight:600}
+#app[data-view=create] .h-cta{font-family:var(--f-menu);font-weight:800;letter-spacing:.01em}
+#app[data-view=create] .h-bbcap{font-family:var(--f-journal);font-style:italic}
+
+/* ---- Günlük: editoryal ---- */
+#app[data-view=journal]{font-family:var(--f-journal)}
+#app[data-view=journal] .top h1{font-family:var(--f-journal);font-weight:700;letter-spacing:-.02em;font-variation-settings:"opsz" 72;line-height:1.1;padding-top:.05em}
+#app[data-view=journal] .top h1 small{font-family:var(--f-journal);font-style:italic;font-weight:400;font-size:14px}
+#app[data-view=journal] h2,#app[data-view=journal] h3{font-family:var(--f-journal);font-weight:600;letter-spacing:-.01em}
+#app[data-view=journal] .h-tl-i,#app[data-view=journal] .h-tl-i *,#app[data-view=journal] .h-disc,#app[data-view=journal] .h-disc *{font-family:var(--f-journal);font-weight:400;line-height:1.45}
+#app[data-view=journal] .h-tl-i .small,#app[data-view=journal] .h-tl-i .tiny,#app[data-view=journal] .h-tl-i .mute{font-family:var(--f-mono);font-size:.78em;letter-spacing:.02em}
+#app[data-view=journal] .h-badge,#app[data-view=journal] .h-badge *{font-family:var(--f-tag);font-weight:600;letter-spacing:.03em}
+#app[data-view=journal] .h-segb,#app[data-view=journal] .h-seg button,#app[data-view=journal] .tab,#app[data-view=journal] .tabs button{font-family:var(--f-tag);font-weight:600;letter-spacing:.05em}
+#app[data-view=journal] .h-tag{font-family:var(--f-tag)}
+
+/* ---- Kayıtlar / Ayarlar: temiz sıcak grotesk ---- */
+#app[data-view=saves],#app[data-view=prefs]{font-family:var(--f-menu)}
+#app[data-view=saves] .top h1,#app[data-view=prefs] .top h1{font-family:var(--f-menu);font-weight:800;letter-spacing:-.025em;line-height:1.1;padding-top:.05em}
+#app[data-view=saves] .top h1 small,#app[data-view=prefs] .top h1 small{font-family:var(--f-body);font-weight:400}
+#app[data-view=saves] h2,#app[data-view=prefs] h2,#app[data-view=saves] h3,#app[data-view=prefs] h3{font-family:var(--f-menu);font-weight:700;letter-spacing:-.01em}
+#app[data-view=saves] .h-sv-name,#app[data-view=saves] .h-save b{font-family:var(--f-menu);font-weight:700}
+#app[data-view=saves] .small,#app[data-view=saves] .tiny,#app[data-view=saves] .mute,#app[data-view=prefs] .small,#app[data-view=prefs] .mute,#app[data-view=prefs] .tiny{font-family:var(--f-body);font-weight:400}
+#app[data-view=saves] textarea.inp,#app[data-view=saves] .h-ta,#app[data-view=saves] .h-export{font-family:var(--f-mono);font-weight:500;font-size:12.5px;letter-spacing:0}
+#app[data-view=prefs] .h-setrow,#app[data-view=prefs] .h-setrow b{font-family:var(--f-menu);font-weight:600}
+#app[data-view=prefs] .h-setrow .small,#app[data-view=prefs] .h-setrow .mute{font-family:var(--f-body);font-weight:400}
+#app[data-view=saves] .h-banner,#app[data-view=saves] .h-link,#app[data-view=prefs] .h-link{font-family:var(--f-body);font-weight:500}
+
+/* ---- çekmece menü (başka ajan: .dr- önekli sınıflar) ---- */
+body .dr-title{font-family:var(--f-title);font-weight:700;letter-spacing:-.01em;line-height:1.15;padding-top:.05em}
+body .dr-item{font-family:var(--f-menu);font-weight:600;letter-spacing:-.005em}
+body .dr-sub{font-family:var(--f-body);font-weight:400;line-height:1.4}
+body .dr-tag,body .dr-badge{font-family:var(--f-tag);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.72em}
+body .dr-user{font-family:var(--f-hud);font-weight:700;letter-spacing:.01em}
+body .dr-mono,body .dr-seed{font-family:var(--f-mono);font-weight:500}
+
+/* ---- v1 görünümleri ---- */
+#app[data-view=hub] .top h1{font-size:clamp(19px,6vw,27px);font-family:var(--f-title);font-weight:700;letter-spacing:-.025em;line-height:1.12;padding-top:.05em}
+#app[data-view=hub] .top h1 small{font-family:var(--f-body);font-weight:400}
+#app[data-view=hub] .card h3{font-family:var(--f-menu);font-weight:700}
+#app[data-view=egg] .top h1,#app[data-view=egg] .typehead h2{font-size:clamp(19px,6vw,26px);font-family:var(--f-title);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+#app[data-view=egg] .item h3,#app[data-view=egg] .item b{font-family:var(--f-menu);font-weight:700}
+#app[data-view=world]{font-family:var(--f-hud)}
+#app[data-view=world] .pname h1{font-family:var(--f-logo);font-weight:800;letter-spacing:.01em;line-height:1.15;font-size:clamp(18px,5.4vw,26px);padding-top:.05em}
+#app[data-view=world] .res,#app[data-view=world] .res .v,#app[data-view=world] .lvbox b,#app[data-view=world] .speed button,#app[data-view=world] .tick{font-family:var(--f-hud);font-variant-numeric:tabular-nums;font-weight:700}
+#app[data-view=world] .act,#app[data-view=world] .act b{font-family:var(--f-menu);font-weight:700}
+#app[data-view=world] .type-line,#app[data-view=world] .rules,#app[data-view=world] .evtoast{font-family:var(--f-body)}
+#app[data-view=galaxy]{font-family:var(--f-hud)}
+#app[data-view=galaxy] .top h1{font-size:clamp(19px,6vw,27px);font-family:var(--f-title);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+#app[data-view=galaxy] .pc-name{font-family:var(--f-title);font-weight:700;letter-spacing:-.01em;line-height:1.15;padding-top:.05em}
+#app[data-view=galaxy] .pc-coord,#app[data-view=galaxy] .pc-id{font-family:var(--f-mono);font-weight:500;letter-spacing:.03em}
+#app[data-view=galaxy] .pc-lab,#app[data-view=galaxy] .pc-type,#app[data-view=galaxy] .pc-rel,#app[data-view=galaxy] .pc-lvl{font-family:var(--f-tag);font-weight:600;letter-spacing:.06em}
+#app[data-view=galaxy] .pc-val,#app[data-view=galaxy] .pc-cell b{font-family:var(--f-hud);font-weight:700;font-variant-numeric:tabular-nums}
+#app[data-view=galaxy] .pc-info,#app[data-view=galaxy] .pc-warn{font-family:var(--f-body);font-weight:400}
+#app[data-view=shop]{font-family:var(--f-menu)}
+#app[data-view=shop] .top h1{font-family:var(--f-menu);font-weight:800;letter-spacing:-.03em;line-height:1.1;padding-top:.05em}
+#app[data-view=shop] .item b,#app[data-view=shop] .card h3{font-family:var(--f-menu);font-weight:700}
+#app[data-view=shop] .item .small,#app[data-view=shop] .item .mute{font-family:var(--f-body)}
+#app[data-view=missions]{font-family:var(--f-hud)}
+#app[data-view=missions] .top h1{font-family:var(--f-hud);font-weight:800;letter-spacing:.01em;line-height:1.15;text-transform:none}
+#app[data-view=missions] .card h3{font-family:var(--f-hud);font-weight:700}
+#app[data-view=missions] .small,#app[data-view=missions] .mute{font-family:var(--f-body);font-weight:400}
+#app[data-view=story]{font-family:var(--f-journal)}
+#app[data-view=story] .top h1,#app[data-view=story] .md h2,#app[data-view=story] h2,#app[data-view=story] h3{font-family:var(--f-journal);font-weight:700;letter-spacing:-.015em;line-height:1.15;padding-top:.05em}
+#app[data-view=story] .md,#app[data-view=story] .md p,#app[data-view=story] .card p{font-family:var(--f-journal);font-weight:400;line-height:1.55;font-size:16px}
+#app[data-view=story] .choice{font-family:var(--f-journal);font-weight:600;font-style:italic}
+#app[data-view=story] .small,#app[data-view=story] .mute{font-family:var(--f-body)}
+#app[data-view=settings]{font-family:var(--f-menu)}
+#app[data-view=settings] .top h1{font-family:var(--f-menu);font-weight:800;letter-spacing:-.025em;line-height:1.1;padding-top:.05em}
+#app[data-view=settings] .card h3{font-family:var(--f-menu);font-weight:700}
+#app[data-view=settings] .small,#app[data-view=settings] .mute,#app[data-view=settings] .fld>span{font-family:var(--f-body)}

@@ -152,16 +152,24 @@ public class MainActivity extends Activity {
     }
 
     // Geri tusu: alt sayfadaysa ana merkeze, merkezde veya giriste uygulamadan cikar.
+    private static final String JS_BACK = "(function(){try{var S=window.SG;if(S&&S.Drawer&&S.Drawer.back&&S.Drawer.back()){return 'STAY';}"
+        + "var h=(location.hash||'').replace('#/','');var a=S&&S.S&&S.S.active&&S.S.active();"
+        + "if(h===''||h==='intro'||h==='login'||h==='cosmos')return 'EXIT';"
+        + "if(h==='create')return a?'#/cosmos':'EXIT';"
+        + "if(h==='journal'||h==='saves'||h==='prefs'||h==='hub')return a?'#/cosmos':'EXIT';"
+        + "return '#/hub';}catch(e){return 'EXIT';}})()";
+
     @Override
     public void onBackPressed() {
-        web.evaluateJavascript("(function(){return location.hash||''})()", new ValueCallback<String>() {
+        web.evaluateJavascript(JS_BACK, new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String v) {
-                String h = v == null ? "" : v.replace("\"", "");
-                if (h.length() == 0 || h.equals("#/hub") || h.equals("#/login") || h.equals("#/")) {
+                String r = v == null ? "EXIT" : v.replace("\"", "");
+                if (r.equals("STAY")) return;
+                if (r.equals("EXIT") || r.length() == 0 || r.equals("null")) {
                     finish();
                 } else {
-                    web.evaluateJavascript("location.hash='#/hub'", null);
+                    web.evaluateJavascript("location.hash='" + r + "'", null);
                 }
             }
         });

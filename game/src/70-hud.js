@@ -13,12 +13,14 @@ var ONB_FB=[
   {title:'Evrenine hoş geldin',text:'Tek parmakla kaydır, iki parmakla sıkıştırarak yakınlaş. Çift dokunmak bir nesneye odaklanır.'},
   {title:'Zamanı sen yönet',text:'Üstteki çubukla kozmik zamanı durdur, hızlandır ya da yavaşlat. Yıldızlar zamanla evrim geçirir.'},
   {title:'Gözlemle ve öğren',text:'Bir nesneye dokun. Her gözlem bir bilgi katmanı açar. Etiketler bilginin gerçek, basitleştirilmiş ya da kurgu olduğunu söyler.'},
-  {title:'Hikâyeni takip et',text:'Günlük sekmesi evreninin tarihçesini ve keşiflerini tutar. Kayıtlar sekmesinden yedek alabilirsin.'}
+  {title:'Hikâyeni takip et',text:'Günlük ve Keşifler sekmeleri evreninin tarihçesini tutar. Yedek almak için ekranın solundan sağa kaydır, menüyü aç.'}
 ];
 HUD.onboardSteps=function(){
   var a=HUD.T('onboard',null);
   if(!Array.isArray(a)||a.length<1)return ONB_FB;
-  return a.map(function(s,i){return typeof s==='string'?{title:(ONB_FB[i]&&ONB_FB[i].title)||'Rehber',text:s}:s;});
+  var out=a.map(function(s,i){return typeof s==='string'?{title:(ONB_FB[i]&&ONB_FB[i].title)||'Rehber',text:s}:s;});
+  out=out.concat([{id:'menu',target:'menu',title:'Menü solda',text:'Ekranın sol kenarından sağa kaydır ya da sol üstteki menü düğmesine dokun. Kayıtlar, ayarlar, hedefler ve daha fazlası orada.'}]);
+  return out;
 };
 
 /* ---- ikonlar (24x24 çizgi) ---- */
@@ -49,7 +51,17 @@ var IC={
   edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>',
   trash:'<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/>',
   exit:'<path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/>',
-  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  menu:'<path d="M4 7h16M4 12h16M4 17h10"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  user:'<circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-4 3.6-6 7-6s6.2 2 7 6"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.1 1-1.1 1.8M12 17v.5"/>',
+  volume:'<path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/>',
+  mute:'<path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M16 9l5 6M21 9l-5 6"/>',
+  music:'<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
+  layers:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
+  chevr:'<path d="M9 6l6 6-6 6"/>'
 };
 HUD.ic=function(name,size){
   var s=size||22;var el=document.createElement('span');el.className='h-ic';el.setAttribute('aria-hidden','true');
@@ -129,15 +141,35 @@ HUD.seg=function(o){
 
 /* ---- alt gezinme çubuğu (mevcut .nav görünümü) ---- */
 HUD.nav=function(active){
-  var items=[['cosmos','globe','Evren'],['journal','book','Günlük'],['saves','save','Kayıtlar'],['prefs','sliders','Ayarlar']];
+  var items=[['cosmos','globe','Evren',null],['journal','book','Günlük','history'],['disc','star','Keşifler','disc']];
   var nav=h('nav',{class:'nav h-nav','aria-label':'Ana gezinme'});
+  var btns={};
   items.forEach(function(it){
     var b=h('button',{type:'button','aria-label':it[2],'aria-current':it[0]===active?'page':null,onclick:function(){
-      if(it[0]===active&&it[0]!=='cosmos')return;try{SG.A2&&SG.A2.ui&&SG.A2.ui('tap');}catch(e){}SG.go(it[0]);}});
+      try{SG.A2&&SG.A2.ui&&SG.A2.ui('tap');}catch(e){}
+      if(it[0]==='cosmos'){if(active==='cosmos')return;SG.go('cosmos');return;}
+      if(it[0]===active)return;
+      SG.go('journal',{tab:it[3]});}});
     var ic=HUD.ic(it[1],22);ic.classList.add('ic');b.appendChild(ic);b.appendChild(h('span',null,it[2]));
-    nav.appendChild(b);
+    btns[it[0]]=b;nav.appendChild(b);
   });
+  nav.setActive=function(n){active=n;Object.keys(btns).forEach(function(k){if(k===n)btns[k].setAttribute('aria-current','page');else btns[k].removeAttribute('aria-current');});};
   return nav;
+};
+
+/* ---- menü (çekmece) düğmesi: ≥44 px, SG.Drawer varsa açar ---- */
+HUD.menuBtn=function(){
+  var b=h('button',{type:'button',class:'h-ibtn h-menu','aria-label':'Menüyü aç','aria-haspopup':'dialog','aria-expanded':'false',onclick:function(){
+    try{SG.A2&&SG.A2.ui&&SG.A2.ui('open');}catch(e){}
+    try{SG.Drawer&&SG.Drawer.open();}catch(e){SG.log.err('menuBtn',e);}
+  }},HUD.ic('menu',22));
+  b.setAttribute('data-dr-btn','1');
+  return b;
+};
+/* ---- geri düğmesi (Kayıtlar/Ayarlar gibi çekmeceden açılan sayfalar) ---- */
+HUD.backBtn=function(){
+  var to=function(){return HUD.uni()?'cosmos':'create';};
+  return h('button',{type:'button',class:'h-ibtn h-back','aria-label':'Evrene dön',onclick:function(){try{SG.A2&&SG.A2.ui&&SG.A2.ui('close');}catch(e){}SG.go(to());}},HUD.ic('back',22));
 };
 
 /* ---- olay toast'ı (kozmik olaylar, keşifler): kapsayıcı görünüm tarafından verilir ---- */

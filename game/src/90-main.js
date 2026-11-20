@@ -8,8 +8,8 @@ SG.homeRoute=function(){
 };
 SG.guard=function(n){
   var u=null;try{u=SG.G&&SG.G.user&&SG.G.user();}catch(e){}
-  if(!u)return'login';
-  if(n==='login')return SG.homeRoute();
+  if(!u)return n==='intro'?'intro':'login';
+  if(n==='login'||n==='intro')return SG.homeRoute();
   return n;
 };
 function unlockOnce(){
@@ -19,9 +19,10 @@ function unlockOnce(){
   ['pointerdown','touchend','keydown','click'].forEach(function(ev){document.removeEventListener(ev,unlockOnce,true);});
 }
 ['pointerdown','touchend','keydown','click'].forEach(function(ev){document.addEventListener(ev,unlockOnce,true);});
-var MCTX={login:'login',hub:'hub',egg:'hub',shop:'shop',world:'world',galaxy:'galaxy',missions:'hub',story:'hub',settings:'hub',create:'galaxy',cosmos:'galaxy',journal:'hub',saves:'hub',prefs:'hub'};
+var MCTX={intro:'login',login:'login',hub:'hub',egg:'hub',shop:'shop',world:'world',galaxy:'galaxy',missions:'hub',story:'hub',settings:'hub',create:'galaxy',cosmos:'galaxy',journal:'hub',saves:'hub',prefs:'hub'};
 function ctxMusic(name){try{if(!SG.A||!SG.A.music)return;SG.A.music.start(MCTX[name]||'hub');var p=SG.G&&SG.G.planet&&SG.G.planet();if(p){SG.A.music.setType&&SG.A.music.setType(p.type);SG.A.music.setEra&&SG.A.music.setEra(Math.min(8,Math.floor(((p.lvl||1)-1)/6)));}}catch(e){}}
 function boot(){
+  try{if(document.fonts&&document.fonts.load){document.fonts.load('600 13px "SG HUD"');document.fonts.load('700 20px "SG Title"');}}catch(e){}
   if(SG.store.get('rm',false)){SG.RM=true;document.body.classList.add('rm');}
   var bg=document.getElementById('bg');
   if(!bg){bg=document.createElement('canvas');bg.id='bg';document.body.insertBefore(bg,document.body.firstChild);}
@@ -36,6 +37,7 @@ function boot(){
     SG.test={state:function(){return{user:SG.G.user&&SG.G.user(),planet:SG.G.planet&&SG.G.planet(),view:SG.current(),errors:SG.log.list.slice()};},
       forceLvl:function(){return false;},fastForward:function(sec){SG.G.advance&&SG.G.advance(sec);return true;},pass:function(){return SG.log.list.length===0;},errors:function(){return SG.log.list.slice();}};
   }
+  try{if(SG.hasView&&SG.hasView('intro')&&!SG.G.user()&&!/^#\/intro/.test(location.hash))history.replaceState(null,'','#/intro');}catch(e){}
   SG.start();
   window.addEventListener('pagehide',function(){try{SG.G&&SG.G.save&&SG.G.save();}catch(e){}});
 }

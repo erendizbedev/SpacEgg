@@ -1,6 +1,14 @@
 # SpacEgg — Değişiklik Günlüğü
 Sürüm kaynağı: `data/version.json`.
 
+## 2.1.0 — Yeni yüzey
+- 9 ayrı yazı tipi ailesi (logo, başlık, HUD, günlük, menü, gövde, mono, etiket), uygulama içine gömülü; Türkçe karakterler doğrulandı
+- Dikey açılış ekranı: logo ve büyük, kodla çizilmiş sarmal galaksi; ardından giriş menüsü
+- Sol kenardan sağa kaydırınca açılan çekmece menü: Evrenim, Evrenlerim, Kayıtlar, Yedek/Dışa aktar, Günlük, Keşifler, Hedefler, Fotoğraf modu, hızlı ayarlar, Ayarlar, Rehber, Hakkında, Eski SpacEgg (v1), Çıkış
+- Ayarlar ve Kayıtlar alt sekmeden çıkarıldı; alt sekmeler: Evren, Günlük, Keşifler
+- Android geri tuşu: çekmeceyi kapatır, alt sayfadan evrene döner, evrende çıkar
+- Marka yazımı her yerde "SpacEgg"
+
 ## 2.0.0 "Büyük Patlama" (versionCode 6)
 - Yeni ürün kimliği: Evren Yaratma Simülatörü. Tohumdan evren, kesintisiz Evren→Galaksi→Sistem→Gezegen yakınlaşması.
 - Zaman kontrolü (durdur, 1×–1000×), yıldız yaşam döngüsü, yörüngeler, kozmik olaylar, gezegen iklimi.

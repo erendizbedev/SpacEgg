@@ -38,8 +38,8 @@ A.wordmarkSVG=function(h){var p='sw'+(++nid)+'_';h=h||48;var w=Math.round(h*4.9)
   '<svg x="0" y="0" width="50" height="50" viewBox="0 0 100 100">'+iconBody(p)+'</svg>'+
   '<defs><linearGradient id="'+p+'t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#BFE9FF"/></linearGradient>'+
   '<linearGradient id="'+p+'y" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9A0"/><stop offset="1" stop-color="#F59A2C"/></linearGradient></defs>'+
-  '<text x="57" y="35" font-family="Inter,\'Segoe UI\',Roboto,system-ui,sans-serif" font-size="31" font-weight="800" textLength="186" lengthAdjust="spacingAndGlyphs" letter-spacing=".5">'+
-  '<tspan fill="url(#'+p+'t)">Space</tspan><tspan fill="url(#'+p+'y)">Egg</tspan></text></svg>';};
+  '<text x="57" y="35" style="font-family:var(--f-logo,Inter,system-ui,sans-serif)" font-size="31" font-weight="800" textLength="186" lengthAdjust="spacingAndGlyphs" letter-spacing=".5">'+
+  '<tspan fill="url(#'+p+'t)">Spac</tspan><tspan fill="url(#'+p+'y)">Egg</tspan></text></svg>';};
 
 /* ---------- ortak çizim yardımcıları ---------- */
 function glow(c,x,y,r,col,a){var g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,rgba(col,a));g.addColorStop(.4,rgba(col,a*.35));g.addColorStop(1,rgba(col,0));c.fillStyle=g;c.beginPath();c.arc(x,y,r,0,TAU);c.fill();}

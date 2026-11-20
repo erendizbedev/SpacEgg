@@ -1,6 +1,6 @@
 <p align="center"><img src="assets/social-preview.png" alt="SpacEgg" width="720"></p>
 
-# SpacEgg 2.0 — Evren Yaratma Simülatörü
+# SpacEgg 2.1 — Evren Yaratma Simülatörü
 > *Create a universe. Witness its story.*
 
 Hiçlikten bir evren yarat, galaksileri keşfet, yıldızların ve dünyaların hikâyesini izle. SpacEgg; kozmik ölçeği hissettiren, bilimden ilham alan ve baskı yapmayan, sakin bir keşif oyunudur. Android için tek dosyalık bir web uygulaması (WebView) olarak çalışır.
@@ -17,7 +17,7 @@ Hiçlikten bir evren yarat, galaksileri keşfet, yıldızların ve dünyaların 
 > Sürüm geçmişi: v1.0.x APK'ları `releases/` altında durur; eski tek dosyalı v71 oyunu `spacegg-v71.html` olarak saklanır.
 
 ## Android kurulumu
-1. `releases/` klasöründeki en yeni `SpacEgg-v2.0.0.apk` dosyasını indir (Android 7.0+, paket `com.spacegg.app`).
+1. `releases/` klasöründeki en yeni `SpacEgg-v2.1.0.apk` dosyasını indir (Android 7.0+, paket `com.spacegg.app`).
 2. "Bilinmeyen uygulamaları yükle" iznini dosyayı açan uygulamaya ver ve dosyaya dokun.
 3. Güncellemelerin üzerine yazılması için aynı imza anahtarı gerekir; anahtar depoda yoktur.
 

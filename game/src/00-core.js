@@ -65,8 +65,9 @@ SG.loop={
   remove:function(name){delete tasks[name];var i=order.indexOf(name);if(i>=0)order.splice(i,1);}
 };
 SG.now=function(){return Date.now();};
-var views={},cur=null,curName='',ROUTES=['login','hub','egg','world','galaxy','shop','missions','story','settings','create','cosmos','journal','saves','prefs'];
+var views={},cur=null,curName='',ROUTES=['intro','login','hub','egg','world','galaxy','shop','missions','story','settings','create','cosmos','journal','saves','prefs'];
 SG.view=function(name,def){views[name]=def;};
+SG.hasView=function(n){return !!views[n];};
 SG.routes=ROUTES;
 SG.current=function(){return curName;};
 function render(name,params){
@@ -87,7 +88,7 @@ SG.go=function(name,params){
 window.addEventListener('hashchange',function(){
   var m=/^#\/([a-z]+)/.exec(location.hash);var n=m?m[1]:'login';
   var u0=null;try{u0=SG.G&&SG.G.user&&SG.G.user();}catch(e){}
-  if(!u0&&n!=='login'){history.replaceState(null,'','#/login');n='login';}
+  if(!u0&&n!=='login'&&n!=='intro'){history.replaceState(null,'','#/login');n='login';}
   if(n===curName&&!SG._params)return;
   var p=SG._params;SG._params=null;render(n,p);
 });

@@ -23,6 +23,7 @@ async function open(o = {}, hash = '', q = '?test=1') {
   await p.goto(URL_ + q + hash);
   await p.waitFor('window.SG&&SG.current&&document.getElementById("app").getAttribute("data-view")', 6000);
   await p.sleep(300);
+  if (await p.ev('SG.current()') === 'intro') { await p.sleep(800); await p.click('.in-wrap'); await p.waitFor('SG.current()!=="intro"', 4000); await p.sleep(300); }
   return p;
 }
 async function register(p, name, pass) {
@@ -77,7 +78,9 @@ T.oturum_yeniden_acilis = async t => {
   const p = await open();
   await register(p, 'qatest2', 'Parola9x');
   await p.goto(URL_ + '?test=1'); await p.sleep(900);
-  t.ok(await view(p) === 'login', 'yeniden yüklemede oturumsuz başlar');
+  t.ok(await view(p) === 'intro', 'yeniden yüklemede önce açılış (intro) görünür');
+  await p.sleep(800); await p.click('.in-wrap'); await p.waitFor('SG.current()!=="intro"', 4000);
+  t.ok(await view(p) === 'login', 'intro sonrası oturumsuz giriş ekranı');
   t.ok(await p.ev('SG.store.get("session",null)===null'), 'sg1_session temiz');
   await p.close();
 };

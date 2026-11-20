@@ -132,3 +132,9 @@ body.rm .hv *,body.rm .hv-page *,body.rm .h-onb{animation:none!important;transit
 .h-sticky{position:sticky;bottom:0;z-index:3;margin:0 -14px;padding:10px 14px calc(10px + var(--safeb));background:linear-gradient(180deg,rgba(4,5,13,0),rgba(4,5,13,.92) 38%)}
 .h-sticky .h-cta{margin-top:0}
 .h-eye{color:var(--tc2);border-color:color-mix(in srgb,var(--tc) 60%,transparent)}
+
+/* ---- çekmece düğmesi / sayfa üst çubuğu ---- */
+.h-menu,.h-back{min-width:44px;min-height:44px}
+.h-pagetop{display:flex;align-items:center;gap:10px}
+.h-pagetop h1{margin:0}
+body.dr-lock .h-canvas{pointer-events:none}

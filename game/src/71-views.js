@@ -19,9 +19,10 @@ var ROWS={
 };
 
 /* ortak sayfa iskeleti (create dışındaki sayfalar) */
-function page(root,title,sub,active){
+function page(root,title,sub,active,kind){
   var v=h('div',{class:'v hv-page'+(active?'':' nonav')});var w=h('div',{class:'wrap'});
-  w.appendChild(h('div',{class:'top'},h('h1',null,title,sub?h('small',null,sub):null)));
+  var lead=kind==='back'?HUD.backBtn():kind==='menu'?HUD.menuBtn():null;
+  w.appendChild(h('div',{class:'top h-pagetop'},lead,h('h1',{class:'grow'},title,sub?h('small',null,sub):null)));
   v.appendChild(w);root.appendChild(v);if(active)root.appendChild(HUD.nav(active));
   return w;
 }
@@ -41,7 +42,7 @@ SG.view('create',{
     var st={bb:null,tm:null,busy:false,preset:'sakin'};this._st=st;
     var saves=[];try{saves=SG.S.list()||[];}catch(e){SG.log.err('create.list',e);}
     var v=h('div',{class:'v hv-page nonav hv-create'});var w=h('div',{class:'wrap'});v.appendChild(w);
-    w.appendChild(h('div',{class:'top'},h('h1',null,T('create.title','Evreni yarat'),h('small',null,T('slogan','Hiçlikten bir evren yarat. Galaksileri keşfet. Yıldızların ve dünyaların hikâyesini şekillendir.')))));
+    w.appendChild(h('div',{class:'top h-pagetop'},HUD.menuBtn(),h('h1',{class:'grow'},T('create.title','Evreni yarat'),h('small',null,T('slogan','Hiçlikten bir evren yarat. Galaksileri keşfet. Yıldızların ve dünyaların hikâyesini şekillendir.')))));
     var cv=h('canvas',{class:'h-bb','aria-hidden':'true'});
     w.appendChild(h('div',{class:'h-bbwrap'},cv,h('div',{class:'h-bbcap'},T('create.caption','Bu tohumdan doğacak evrenin ilk anı'))));
     var name=h('input',{class:'inp',type:'text',maxlength:'28',value:randName(),autocomplete:'off',id:'cr-name','aria-describedby':'cr-name-h'});
@@ -114,7 +115,7 @@ SG.view('cosmos',{
     var crumbs=h('nav',{class:'h-crumbs','aria-label':'Konum'});
     var toasts=HUD.toastBox();
     var top=h('header',{class:'h-top2'},
-      h('div',{class:'h-r1'},h('div',{class:'grow'},nameEl,timeEl),bList,bPhoto),
+      h('div',{class:'h-r1'},HUD.menuBtn(),h('div',{class:'grow'},nameEl,timeEl),bList,bPhoto),
       h('div',{class:'h-r2'},speed,bUp),crumbs,toasts);
     /* alt sayfa: alt panel + hedefler */
     var sheet=h('section',{class:'h-sheet',hidden:'hidden','aria-label':'Seçili nesne'});
@@ -318,6 +319,7 @@ SG.view('cosmos',{
       if(!st.alive||!d)return;HUD.sound('unlock');
       HUD.toast(toasts,{icon:'star',title:'Keşif:',text:d.title||'',cls:'disc',ms:6000});paintGoals();
     }));
+    st.offs.push(SG.bus.on('hud:photo',function(){if(st.alive)photoMode(true);}));
     st.offs.push(SG.bus.on('p:tier',function(n){try{R&&R.setQuality&&R.setQuality(n);}catch(e){}}));
     st.offs.push(SG.bus.on('prefs',function(){try{R&&R.setReducedMotion&&R.setReducedMotion(!!SG.RM);}catch(e){}}));
 
@@ -343,8 +345,9 @@ SG.view('cosmos',{
 
     bUp.hidden=true;crumbs.hidden=true;paintGoals();
     try{SG.A2&&SG.A2.start&&SG.A2.start();SG.A2&&SG.A2.setScale('universe');SG.A2&&SG.A2.setSpeed(uni.speedIx);}catch(e){}
-    if(HUD.needsOnboarding()){st.onb=HUD.onboarding(view,{targets:['.h-canvas','.h-speed','.h-canvas','.h-nav'],onDone:function(){st.onb=null;paintGoals();}});paintGoals();}
+    if(HUD.needsOnboarding()){st.onb=HUD.onboarding(view,{targets:['.h-canvas','.h-canvas','.h-speed','.h-nav','.h-menu'],onDone:function(){st.onb=null;paintGoals();}});paintGoals();}
     if(params&&params.focus)setTimeout(function(){if(st.alive)focusTo(params.focus);},60);
+    if(params&&params.photo)setTimeout(function(){if(st.alive)photoMode(true);},120);
   },
   unmount:function(){
     var st=this._st;if(!st)return;st.alive=false;
@@ -360,16 +363,18 @@ SG.view('cosmos',{
 
 /* =========================== JOURNAL =========================== */
 SG.view('journal',{
-  mount:function(root){
-    var uni=HUD.uni();var w=page(root,T('journal.title','Günlük'),uni?uni.name:'',"journal");
+  mount:function(root,params){
+    var uni=HUD.uni();var w=page(root,T('journal.title','Günlük'),uni?uni.name:'',"journal",'menu');
+    var navEl=root.querySelector('.h-nav');
     if(!uni){w.appendChild(h('div',{class:'card'},h('p',null,'Henüz bir evrenin yok.'),btn('Evren yarat','block',function(){SG.go('create');},'spark')));return;}
-    var tab='history';
+    var tab=(params&&(params.tab==='disc'||params.tab==='badge'||params.tab==='history'))?params.tab:'history';
     var body=h('div');
     var seg=HUD.seg({label:'Günlük bölümleri',value:tab,items:[{v:'history',label:'Tarihçe'},{v:'disc',label:'Keşifler'},{v:'badge',label:'Rozetler'}],onChange:function(v){tab=v;paint();}});
     w.appendChild(seg);w.appendChild(body);
     function prog(){try{return SG.Disc.progress(uni);}catch(e){return{done:0,total:0,byCat:{}};}}
     function paint(){
       body.textContent='';
+      if(navEl&&navEl.setActive)navEl.setActive(tab==='history'?'journal':'disc');
       if(tab==='history'){
         var j=((uni.state&&uni.state.journal)||[]).slice().sort(function(a,b){return(b.t||0)-(a.t||0);}).slice(0,100);
         body.appendChild(h('h2',null,'Kozmik tarihçe'));
@@ -414,8 +419,8 @@ SG.view('journal',{
 
 /* =========================== SAVES =========================== */
 SG.view('saves',{
-  mount:function(root){
-    var w=page(root,T('saves.title','Kayıtlar'),'Evrenlerin burada saklanır','saves');
+  mount:function(root,params){
+    var w=page(root,T('saves.title','Kayıtlar'),'Evrenlerin burada saklanır',null,'back');
     var st=this._st={timer:null,bk:null,exp:null};
     var body=h('div');
     function status(){try{var s=SG.S.status&&SG.S.status();if(s&&s.msg)return h('div',{class:'h-banner '+(s.ok?'h-b-ok':'h-b-warn'),role:'status'},HUD.ic(s.ok?'check':'warn',18),h('span',null,s.msg));}catch(e){}return null;}
@@ -480,6 +485,12 @@ SG.view('saves',{
         btn('Panoya kopyala','block',function(){HUD.copy(ta.value,ta).then(function(ok){msg.className='small '+(ok?'h-ok':'h-bad');msg.textContent=ok?'Kopyalandı.':'Kopyalanamadı. Metni seçip elle kopyala.';});},'copy'),msg);
     }
     w.appendChild(body);paint();
+    if(params&&params.focus){setTimeout(function(){
+      try{
+        if(params.focus==='export'){var au=HUD.uni();if(au){var t='';try{t=SG.S.exportText(au.id)||'';}catch(e){SG.log.err('saves.export',e);}st.exp={id:au.id,name:au.name,text:t};paint();var bx=body.querySelector('.h-export');if(bx)bx.scrollIntoView({block:'start',behavior:SG.RM?'auto':'smooth'});}}
+        else if(params.focus==='import'){var ta=body.querySelector('textarea');if(ta){ta.scrollIntoView({block:'center',behavior:SG.RM?'auto':'smooth'});ta.focus({preventScroll:true});}}
+      }catch(e){SG.log.err('saves.focus',e);}
+    },80);}
   },
   unmount:function(){this._st=null;}
 });
@@ -487,7 +498,7 @@ SG.view('saves',{
 /* =========================== PREFS =========================== */
 SG.view('prefs',{
   mount:function(root){
-    var w=page(root,T('prefs.title','Ayarlar'),'Erişilebilirlik, ses ve kalite','prefs');
+    var w=page(root,T('prefs.title','Ayarlar'),'Erişilebilirlik, ses ve kalite',null,'back');
     var st=this._st={timer:null};
     function sw(label,desc,get,set){
       var on=get();var b=h('button',{type:'button',class:'h-sw',role:'switch','aria-checked':on?'true':'false','aria-label':label,onclick:function(){on=!on;b.setAttribute('aria-checked',on?'true':'false');set(on);HUD.sound('tap');}},h('i',null));
