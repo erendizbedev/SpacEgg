@@ -1,0 +1,66 @@
+/* SpacEgg 2.0 — tasarım tokenları (Teknik Sanatçı). Yalnız --sg-* ad alanı; v1 değişkenlerine dokunmaz.
+   Kural: her renk bir anlam taşır. Neon (--sg-glow-*) yalnız etkileşim ve önemli durumda. */
+:root{
+  /* zemin: derin siyah/füme */
+  --sg-void:#04050d;--sg-deep:#070a1c;--sg-smoke:#0c1128;--sg-panel:rgba(12,16,36,.78);--sg-panel2:rgba(22,28,58,.82);
+  --sg-line:rgba(160,175,255,.16);--sg-line2:rgba(160,175,255,.30);
+  /* metin */
+  --sg-ink:#eef1ff;--sg-mute:#9aa1c4;--sg-faint:#6c749c;
+  /* anlam renkleri */
+  --sg-accent:#4DD6FF;      /* seçim, odak, birincil etkileşim */
+  --sg-accent2:#8f7bff;     /* ikincil / galaksi */
+  --sg-gold:#FFC83D;        /* önemli: keşif, yumurta kimliği */
+  --sg-ok:#46E39B;          /* yaşanabilir, başarı */
+  --sg-bad:#FF5A4D;         /* tehlike, ölüm, hata */
+  --sg-warn:#FFB23D;        /* uyarı, sıcak */
+  --sg-cold:#BFE6FF;        /* buz, soğuk */
+  /* bilim etiketi rozetleri */
+  --sg-tag-gercek:#46E39B;--sg-tag-basit:#4DD6FF;--sg-tag-kurgu:#B15CFF;
+  /* yıldız spektral sınıfları (O→M) */
+  --sg-cls-O:#9bb0ff;--sg-cls-B:#aabfff;--sg-cls-A:#cad7ff;--sg-cls-F:#f8f7ff;--sg-cls-G:#ffecaa;--sg-cls-K:#ffc482;--sg-cls-M:#ff8064;
+  /* neon (yalnız etkileşim) */
+  --sg-glow-a:0 0 0 1px rgba(77,214,255,.55),0 0 18px rgba(77,214,255,.35);
+  --sg-glow-g:0 0 0 1px rgba(255,200,61,.55),0 0 18px rgba(255,200,61,.30);
+  /* boşluk ölçeği (4px tabanlı) */
+  --sg-s1:4px;--sg-s2:8px;--sg-s3:12px;--sg-s4:16px;--sg-s5:24px;--sg-s6:32px;--sg-s7:48px;
+  /* köşe ve yükseklik */
+  --sg-r1:6px;--sg-r2:12px;--sg-r3:20px;--sg-rpill:999px;
+  --sg-e0:none;--sg-e1:0 1px 2px rgba(0,0,0,.45);--sg-e2:0 6px 20px rgba(0,0,0,.5);--sg-e3:0 16px 48px rgba(0,0,0,.6);
+  /* tipografi: sistem yazı tipi, ölçeklenebilir */
+  --sg-font:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
+  --sg-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sg-fs:1;                                  /* yazı ölçeği çarpanı (fs125/fs150 ile değişir) */
+  --sg-t-xs:calc(12px*var(--sg-fs));--sg-t-sm:calc(13px*var(--sg-fs));--sg-t-md:calc(15px*var(--sg-fs));
+  --sg-t-lg:calc(18px*var(--sg-fs));--sg-t-xl:calc(24px*var(--sg-fs));--sg-t-2xl:calc(32px*var(--sg-fs));
+  --sg-lh:1.45;
+  /* hareket */
+  --sg-dur-fast:120ms;--sg-dur:220ms;--sg-dur-slow:420ms;--sg-ease:cubic-bezier(.2,.7,.2,1);
+  /* dokunma alanı (WCAG/Android: en az 44px) */
+  --sg-hit:44px;--sg-bar:56px;--sg-safeb:env(safe-area-inset-bottom,0px);--sg-safet:env(safe-area-inset-top,0px);
+  /* odak halkası */
+  --sg-focus:2px solid var(--sg-accent);
+}
+/* yazı ölçeği */
+body.fs125{--sg-fs:1.25}
+body.fs150{--sg-fs:1.5}
+/* yüksek kontrast: daha açık metin, belirgin çizgi, neon kapalı, panel opak */
+body.hc{
+  --sg-void:#000;--sg-deep:#000;--sg-smoke:#05060f;--sg-panel:#06081a;--sg-panel2:#0b0e24;
+  --sg-line:rgba(255,255,255,.55);--sg-line2:rgba(255,255,255,.85);
+  --sg-ink:#fff;--sg-mute:#dfe3ff;--sg-faint:#c4c9ee;
+  --sg-accent:#6fe3ff;--sg-gold:#ffd86b;--sg-ok:#6dffb4;--sg-bad:#ff8379;--sg-warn:#ffc766;
+  --sg-glow-a:0 0 0 2px #6fe3ff;--sg-glow-g:0 0 0 2px #ffd86b;
+  --sg-focus:3px solid #fff;
+}
+/* hareket azaltma (SG.RM ile birlikte body.rm eklenir): geçişler anlık, animasyonlar kapalı */
+body.rm{--sg-dur-fast:0ms;--sg-dur:0ms;--sg-dur-slow:0ms}
+body.rm *,body.rm *::before,body.rm *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+@media (prefers-reduced-motion:reduce){
+  :root{--sg-dur-fast:0ms;--sg-dur:0ms;--sg-dur-slow:0ms}
+}
+/* yardımcı sınıflar (UI ajanı kullanabilir) */
+.sg-hit{min-width:var(--sg-hit);min-height:var(--sg-hit)}
+.sg-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sg-tag{display:inline-flex;align-items:center;gap:4px;font-size:var(--sg-t-xs);font-weight:700;letter-spacing:.02em;padding:2px 8px;border-radius:var(--sg-rpill);border:1px solid currentColor;line-height:1.4}
+.sg-tag.gercek{color:var(--sg-tag-gercek)}.sg-tag.basit{color:var(--sg-tag-basit)}.sg-tag.kurgu{color:var(--sg-tag-kurgu)}
+.sg-focusable:focus-visible,.sg-hit:focus-visible{outline:var(--sg-focus);outline-offset:2px}

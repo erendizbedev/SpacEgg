@@ -1,0 +1,253 @@
+[
+ {
+  "id": "c01",
+  "minLvl": 1,
+  "title": "Çatlak",
+  "text": "Kabuğun altında bir ses titredi. Henüz ne gezegendi ne de yumurta; yalnızca bir yankının ilk çatlağıydı. Uzayın karanlığı, sanki seni bekliyormuş gibi sessizce eğildi.",
+  "typeLines": {
+   "sav": "Silah sesi değil, ilk ses: kalbinin davulu.",
+   "med": "Sıcak bir nefes; toprak yeşermeye hazır.",
+   "loj": "Yüzeyin altında damarlar parlıyor: demir, silis, söz.",
+   "yik": "Karanlık bile seni tanımak için yaklaştı.",
+   "yar": "Boşluk, ilk çizgi için kendini sana açtı."
+  }
+ },
+ {
+  "id": "c02",
+  "minLvl": 3,
+  "title": "İlk Yankı",
+  "text": "Gezegenin ilk soğuk gecesinde, uzaktan üç notalık bir yankı geldi. Aynı üç nota, aynı sırayla. Rüzgâr onu götürdü, ama hafızan onu bırakmadı.",
+  "typeLines": {
+   "sav": "Askerler yankıyı bir komut sandı.",
+   "med": "Köydeki en yaşlı kadın yankıyı eski bir ninniye benzetti.",
+   "loj": "Maden ocaklarında yankı taşlara çarpıp çoğaldı.",
+   "yik": "Yankı, çekim alanında burkuldu ama kaybolmadı.",
+   "yar": "Yankıyı bir renk olarak gördün: ince, gümüş."
+  }
+ },
+ {
+  "id": "c03",
+  "minLvl": 5,
+  "title": "Soğuyan Kabuk",
+  "text": "Kabuk soğudu, atmosfer inceldi ve yüzeyde ilk su damlaları belirdi. Yankı her geceyle biraz daha belirginleşti; sanki bir adres tarif ediyordu.",
+  "typeLines": {
+   "sav": "Surlar yükselirken yankı sur taşlarında yankılandı.",
+   "med": "İlk tarlalara yankının notaları ekildi.",
+   "loj": "Rafineri borularından aynı üç nota geçti.",
+   "yik": "Yörüngende dönen kayalar yankıyla titreşti.",
+   "yar": "Okyanusun dalgaları yankıyla aynı ritimde kıpırdadı."
+  }
+ },
+ {
+  "id": "c04",
+  "minLvl": 7,
+  "title": "Komşunun Sesi",
+  "text": "Ufukta bir gezegen belirdi; senden küçük, senden eski. Yankıyı o da duymuştu. İkiniz de aynı soruyu sordunuz: Bu ses kimin?",
+  "typeLines": {
+   "sav": "Komşuya bir sınır değil, bir elçi gönderdin.",
+   "med": "Komşunun halkıyla ilk kez aynı notayı mırıldandınız.",
+   "loj": "Komşuyla ilk kargo, yalnızca bir mektup taşıdı.",
+   "yik": "Komşu senden korktu; sen yalnızca yankıyı dinliyordun.",
+   "yar": "Komşuya ilk hediyen bir renk oldu."
+  }
+ },
+ {
+  "id": "c05",
+  "minLvl": 9,
+  "title": "İlk Karar: Yankıya Cevap",
+  "text": "Yankı artık her gece geliyor; bu kez bir boşlukla bitiyor, tıpkı cevap bekleyen bir soru gibi. Cevap vermek, kendini duyurmak demek. Susmak ise yankıyı kaybetme riski.",
+  "typeLines": {
+   "sav": "Savaş davulu mu, barış davulu mu çalacaksın?",
+   "med": "Köy meydanında oylama yapıldı.",
+   "loj": "Hatlar yankıyı taşıyabilir, ama kime?",
+   "yik": "Karanlık cevap vermeni istiyor; seni dinliyor.",
+   "yar": "Cevap yaratmaksa, kendi sesini çizebilirsin."
+  },
+  "decision": {
+   "q": "Yankıya nasıl karşılık vereceksin?",
+   "options": [
+    {
+     "id": "koruyucu",
+     "label": "Yankıyı koru: kimseye duyurma, gezegenini ve komşularını gizle."
+    },
+    {
+     "id": "kasif",
+     "label": "Yankıya cevap ver: kaynağını keşfetmek için sinyal gönder."
+    },
+    {
+     "id": "donusturucu",
+     "label": "Yankıyı dönüştür: onu kendi sesine çevirip yeniden yay."
+    }
+   ]
+  }
+ },
+ {
+  "id": "c06",
+  "minLvl": 12,
+  "title": "Gölgeli Rota",
+  "text": "Yankının gittiği yön haritalarda boş görünüyordu. Gölgeli bir rota: yıldızlar orada bile seyrek. Yine de yankı, ısrarla o yönden akıyordu.",
+  "typeLines": {
+   "sav": "Ordular rotaya çıkmaya hazır, ama kimse emin değil.",
+   "med": "Bilgeler haritayı çizmeye başladı.",
+   "loj": "Boru hatları rota boyunca uzatılmaya başlandı.",
+   "yik": "Rota senin gölgenle çakışıyor; kayıp bir yol gibi.",
+   "yar": "Rotayı fırça darbeleriyle önceden çizdin."
+  }
+ },
+ {
+  "id": "c07",
+  "minLvl": 15,
+  "title": "Anlatılmayan Harita",
+  "text": "Eski bir hatıra kutusunda parçalanmış bir harita buldun. Üç gezegen işaretliydi, dördüncüsü silinmişti. Silinen yerde, yankının üç notası kazınmıştı.",
+  "typeLines": {
+   "sav": "Harita, bir savaş planının değil, bir davetin parçasıydı.",
+   "med": "Harita, atalarının göç yolunu gösteriyor.",
+   "loj": "Harita, kayıp bir tedarik ağını anlatıyor.",
+   "yik": "Harita, yıkılmış bir gezegenin mezar taşı gibi.",
+   "yar": "Harita yarım; tamamlamak sana kaldı."
+  }
+ },
+ {
+  "id": "c08",
+  "minLvl": 18,
+  "title": "Kayıp Gezegen",
+  "text": "Haritadaki silik yerde kimse yoktu; yalnızca eski bir yörünge izi ve dönen tozlar. Bu gezegen yok edilmemiş, yankıya dönüşmüştü.",
+  "typeLines": {
+   "sav": "Sessiz bir yenilgi: kimse savaşmamıştı.",
+   "med": "Gezegen medeniyetinin son şarkısını bırakmış.",
+   "loj": "Yük gemileri, yankıyı taşıyarak kaybolmuş.",
+   "yik": "Karanlık hepsini nazikçe yutmuş görünüyor.",
+   "yar": "Bir yaratıcı gezegen kendini renge çevirmiş."
+  }
+ },
+ {
+  "id": "c09",
+  "minLvl": 20,
+  "title": "İkinci Karar: Kapının Anahtarı",
+  "text": "Kayıp gezegenin kalıntısında bir anahtar çıktı: dönen, ışıklı, üç notalık bir kilit. Bir kapı vardı ve yankı onun ardındaydı. Anahtar kullanılırsa kapı açılacak; ama hiçbir şey eskisi gibi kalmayacak.",
+  "typeLines": {
+   "sav": "Anahtarı kılıcın yerine kuşandın.",
+   "med": "Anahtarı meydanda halka gösterdin.",
+   "loj": "Anahtarı kargo gemisine yükledin.",
+   "yik": "Anahtar karanlığa dokunduğunda ışıdı.",
+   "yar": "Anahtar, bir fırça gibi parmaklarında döndü."
+  },
+  "decision": {
+   "q": "Kapının anahtarı ile ne yapacaksın?",
+   "options": [
+    {
+     "id": "koruyucu",
+     "label": "Anahtarı sakla ve kapıyı koru; ardındakini zamana bırak."
+    },
+    {
+     "id": "kasif",
+     "label": "Kapıyı aç ve içeri gir; yankının kaynağına kendin git."
+    },
+    {
+     "id": "donusturucu",
+     "label": "Anahtarı eritip kapıyı yeniden biçimlendir; yeni bir geçit yarat."
+    }
+   ]
+  }
+ },
+ {
+  "id": "c10",
+  "minLvl": 24,
+  "title": "Dönen Sessizlik",
+  "text": "Anahtar kararın ardından yankı sustu. Üç gün boyunca evrenin sesi kesildi. Sessizlik, yankının dinlenmesi gibi değil, nefesini tutması gibiydi.",
+  "typeLines": {
+   "sav": "Askerler ilk kez silahlarını indirdi.",
+   "med": "Şehirlerde ilk kez herkes aynı anda sustu.",
+   "loj": "Makineler bir an için durdu.",
+   "yik": "Çekim alanın bile sakinleşti.",
+   "yar": "Renkler soldu; sonra daha derin döndü."
+  }
+ },
+ {
+  "id": "c11",
+  "minLvl": 28,
+  "title": "Uydunun Fısıltısı",
+  "text": "Gezegeninin etrafında dönen uydu bir gece konuşmaya başladı. Dil bilmiyordu, ama notalar tanıdıktı. Yankı, yörüngeden sana ulaşmak için bir kanal bulmuştu.",
+  "typeLines": {
+   "sav": "Karakol uydusu bir düşman sinyali yerine bir şarkı aldı.",
+   "med": "İletişim uydusu eski bir dili çözdü.",
+   "loj": "Lojistik uydusu koordinat okudu.",
+   "yik": "Karanlık uydu, gölgeye dil verdi.",
+   "yar": "Uydun, sen yarattığın için seni tanıyor."
+  }
+ },
+ {
+  "id": "c12",
+  "minLvl": 31,
+  "title": "Üçüncü Karar: Yankının Sahibi",
+  "text": "Yankı sonunda seninle konuştu: Ben bir kayıp gezegenin hafızasıyım. Beni korur musun, yanıtlar mısın, yoksa yeniden mi yazarsın? Sesin içindeki kırılganlık, gezegenin için bile fazlaydı.",
+  "typeLines": {
+   "sav": "Savaşçı bir kalp bile bu sesi duyunca titredi.",
+   "med": "Bilge halk gece boyu tartıştı.",
+   "loj": "Elementlerin dili bile bir an için sustu.",
+   "yik": "Karanlık seni dinledi, hükmetmedi.",
+   "yar": "Yaratıcı ruhun bunu bekliyordu."
+  },
+  "decision": {
+   "q": "Yankıyı ne yapacaksın?",
+   "options": [
+    {
+     "id": "koruyucu",
+     "label": "Koru: yankıyı bir hazine gibi sakla; kimse ona zarar vermesin."
+    },
+    {
+     "id": "kasif",
+     "label": "Keşfet: yankının geçmişini ve kaynağını sonuna kadar araştır."
+    },
+    {
+     "id": "donusturucu",
+     "label": "Dönüştür: yankıyı yeni bir doğuşa, yeni bir gezegene çevir."
+    }
+   ]
+  }
+ },
+ {
+  "id": "c13",
+  "minLvl": 36,
+  "title": "Kadim Eşik",
+  "text": "Yankının izi seni evrenin kenarına, hiçbir haritada görünmeyen bir eşiğe götürdü. Eşik bir gezegen değildi; bir sessizlik, bir bekleyişti.",
+  "typeLines": {
+   "sav": "Orduyu eşiğin dışında bıraktın.",
+   "med": "Halkını eşiğe davet ettin.",
+   "loj": "Tedarik hatları burada sona erdi.",
+   "yik": "Karanlık eşiği yutmadı; ona saygı duydu.",
+   "yar": "Eşiği çizdin ve eşik seni çizdi."
+  }
+ },
+ {
+  "id": "c14",
+  "minLvl": 43,
+  "title": "Eşiğin Ötesi",
+  "text": "Eşiğin ötesinde yalnızca üç nota vardı: birincisi seni, ikincisi komşularını, üçüncüsü bütün galaksiyi çağırıyordu. Ve her notanın arkasında bir sorusu: Kimsin?",
+  "typeLines": {
+   "sav": "Kılıcını yere bıraktın: bu savaş değildi.",
+   "med": "Şehir ışıklarınız eşiğin ötesine uzandı.",
+   "loj": "Her elementin bir notası olduğunu anladın.",
+   "yik": "Karanlık da bir sestir; sen onu duydun.",
+   "yar": "Yaratmak, çağrılmaktı."
+  }
+ },
+ {
+  "id": "c15",
+  "minLvl": 50,
+  "title": "Yankının Peşinde",
+  "text": "Yankı seni buldu. Ya da sen yankıyı. Üç nota birleşti ve evrende ilk kez tek bir akor oldu. Bu bir son değildi; yalnızca bir başlangıcın duyulmasıydı. Sonuç, yol boyunca verdiğin kararlarla şekillendi.",
+  "typeLines": {
+   "sav": "Barış zırhını giydin.",
+   "med": "Medeniyetin yıldızlara torun oldu.",
+   "loj": "Tedarik ağın evrenin damarı oldu.",
+   "yik": "Karanlık, ışığın dengesini öğrendi.",
+   "yar": "Evren senin tuvalin oldu."
+  },
+  "endings": {
+   "koruyucu": "Koruyucu Son: Yankıyı sakladın. Gezegenler arasında bir sessizlik değil, bir güven doğdu. Hazine seninle birlikte büyüdü ve hiçbir karanlık ona uzanamadı.",
+   "kasif": "Kaşif Son: Yankının kaynağına yürüdün. Geçmişin kayıp gezegenlerini buldun, her birinin hikâyesini geri getirdin. Evren artık eksiksiz bir harita.",
+   "donusturucu": "Dönüştürücü Son: Yankıyı yeni bir doğuşa çevirdin. Boşlukta yepyeni bir gezegen açıldı; ilk nefesini senin üç notan oldu."
+  }
+ }
+]

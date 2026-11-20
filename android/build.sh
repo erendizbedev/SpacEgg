@@ -3,7 +3,7 @@ set -e
 cd "$(dirname "$0")"
 AJ=/usr/lib/android-sdk/platforms/android-23/android.jar
 rm -rf classes out; mkdir -p classes out
-aapt package -f -M AndroidManifest.xml -S res -A assets -I $AJ --min-sdk-version 24 --target-sdk-version 34 --version-code 5 --version-name 1.0.5 -F out/base.apk
+aapt package -f -M AndroidManifest.xml -S res -A assets -I $AJ --min-sdk-version 24 --target-sdk-version 34 --version-code 6 --version-name 2.0.0 -F out/base.apk
 javac --release 8 -cp $AJ -d classes src/com/spacegg/app/MainActivity.java 2>&1 | grep -v "^warning\|^Picked\|^Note" || true
 dalvik-exchange --dex --min-sdk-version=24 --output=out/classes.dex classes
 (cd out && aapt add base.apk classes.dex >/dev/null)

@@ -1,0 +1,657 @@
+<!DOCTYPE html><meta charset="utf-8"><title>SG.S selftest</title><body><div id="app"></div><script>window.__E=[];window.addEventListener("error",function(e){window.__E.push(e.message+" @"+e.lineno);document.title="HATA "+e.message+" @"+e.lineno;var p=document.createElement("pre");p.id="out";p.textContent="HATA "+e.message+" satir "+e.lineno+" "+(window.__D||"");document.body.appendChild(p);});</script><script>
+/* SpacEgg v1.0 — çekirdek */
+(function(){
+'use strict';
+var SG=window.SG={ver:'2.0.0',D:{},A:{},E:{},W:{},G:{},UI:{},test:null};
+var mem={};
+SG.log={list:[],err:function(where,e){var m=where+': '+(e&&e.message?e.message:e);SG.log.list.push(m);if(SG.log.list.length>200)SG.log.list.shift();try{console.error('[SG]',m);}catch(_){}} };
+window.addEventListener('error',function(ev){SG.log.err('window',ev.error||ev.message);});
+window.addEventListener('unhandledrejection',function(ev){SG.log.err('promise',ev.reason);});
+try{var vj=document.getElementById('d-ver');var vo=vj?JSON.parse(vj.textContent):null;if(vo&&vo.version){SG.ver=vo.version;SG.verCode=vo.code;SG.codename=vo.codename;}}catch(e){}
+SG.RM=false;
+try{var mq=window.matchMedia('(prefers-reduced-motion: reduce)');SG.RM=!!mq.matches;mq.addEventListener&&mq.addEventListener('change',function(e){SG.RM=!!e.matches;});}catch(e){}
+SG.clamp=function(v,a,b){return v<a?a:v>b?b:v;};
+SG.lerp=function(a,b,t){return a+(b-a)*t;};
+SG.hash=function(s){s=String(s);var h=2166136261>>>0;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h>>>0;};
+SG.rng=function(seed){var a=(typeof seed==='number'?seed:SG.hash(seed))>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};};
+SG.pick=function(arr,r){r=r||Math.random;return arr[Math.floor(r()*arr.length)];};
+var uidN=0;SG.uid=function(){uidN++;return Date.now().toString(36)+uidN.toString(36)+Math.floor(Math.random()*1e6).toString(36);};
+SG.$=function(sel,root){return(root||document).querySelector(sel);};
+SG.$$=function(sel,root){return Array.prototype.slice.call((root||document).querySelectorAll(sel));};
+SG.h=function(tag,attrs){
+  var el=document.createElement(tag);
+  if(attrs){for(var k in attrs){if(!Object.prototype.hasOwnProperty.call(attrs,k))continue;var v=attrs[k];if(v==null||v===false)continue;
+    if(k==='class')el.className=v;else if(k==='text')el.textContent=v;
+    else if(k==='style'&&typeof v==='object'){for(var s in v)el.style.setProperty(s.indexOf('-')>=0||s.indexOf('--')===0?s:s.replace(/[A-Z]/g,function(m){return'-'+m.toLowerCase();}),v[s]);}
+    else if(k.slice(0,2)==='on'&&typeof v==='function')el.addEventListener(k.slice(2).toLowerCase(),v);
+    else el.setAttribute(k,v===true?'':v);}}
+  for(var i=2;i<arguments.length;i++){var c=arguments[i];if(c==null||c===false)continue;if(Array.isArray(c)){c.forEach(function(x){if(x!=null&&x!==false)el.appendChild(x.nodeType?x:document.createTextNode(String(x)));});}else el.appendChild(c.nodeType?c:document.createTextNode(String(c)));}
+  return el;
+};
+SG.fmt={
+  int:function(n){n=Math.round(n);return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');},
+  num:function(n){var a=Math.abs(n);if(a<1000)return String(Math.round(n*10)/10).replace('.',',');
+    if(a<1e6)return(Math.round(n/100)/10+'').replace('.',',')+' bin';
+    if(a<1e9)return(Math.round(n/1e5)/10+'').replace('.',',')+' milyon';
+    if(a<1e12)return(Math.round(n/1e8)/10+'').replace('.',',')+' milyar';
+    return(Math.round(n/1e11)/10+'').replace('.',',')+' trilyon';},
+  dur:function(s){s=Math.max(0,Math.round(s));var d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),x=s%60;
+    if(d)return d+' g '+h+' sa';if(h)return h+' sa '+m+' dk';if(m)return m+' dk '+(x?x+' sn':'');return x+' sn';},
+  ago:function(ms){return SG.fmt.dur(ms/1000)+' önce';}
+};
+SG.store={
+  _p:'sg1_',
+  get:function(k,d){try{var v=localStorage.getItem(SG.store._p+k);if(v==null)return k in mem?mem[k]:d;return JSON.parse(v);}catch(e){return k in mem?mem[k]:d;}},
+  set:function(k,v){mem[k]=v;try{localStorage.setItem(SG.store._p+k,JSON.stringify(v));return true;}catch(e){return false;}},
+  del:function(k){delete mem[k];try{localStorage.removeItem(SG.store._p+k);}catch(e){}}
+};
+var L={};
+SG.bus={
+  on:function(ev,fn){(L[ev]=L[ev]||[]).push(fn);return function(){SG.bus.off(ev,fn);};},
+  off:function(ev,fn){var a=L[ev];if(!a)return;var i=a.indexOf(fn);if(i>=0)a.splice(i,1);},
+  once:function(ev,fn){var off=SG.bus.on(ev,function(d){off();fn(d);});return off;},
+  emit:function(ev,d){var a=L[ev];if(!a)return;a.slice().forEach(function(f){try{f(d);}catch(e){SG.log.err('bus:'+ev,e);}});}
+};
+var tasks={},order=[],last=0,running=false,T0=0;
+function frame(ts){
+  if(!running)return;
+  if(document.hidden){last=0;requestAnimationFrame(frame);return;}
+  if(!last)last=ts;var dt=Math.min(0.1,(ts-last)/1000);last=ts;if(dt<=0){requestAnimationFrame(frame);return;}
+  if(!T0)T0=ts;var t=(ts-T0)/1000;
+  for(var i=0;i<order.length;i++){var f=tasks[order[i]];if(f){try{f(dt,t);}catch(e){SG.log.err('loop:'+order[i],e);}}}
+  requestAnimationFrame(frame);
+}
+SG.loop={
+  add:function(name,fn){if(!tasks[name])order.push(name);tasks[name]=fn;if(!running){running=true;last=0;requestAnimationFrame(frame);}},
+  remove:function(name){delete tasks[name];var i=order.indexOf(name);if(i>=0)order.splice(i,1);}
+};
+SG.now=function(){return Date.now();};
+var views={},cur=null,curName='',ROUTES=['login','hub','egg','world','galaxy','shop','missions','story','settings','create','cosmos','journal','saves','prefs'];
+SG.view=function(name,def){views[name]=def;};
+SG.routes=ROUTES;
+SG.current=function(){return curName;};
+function render(name,params){
+  if(ROUTES.indexOf(name)<0)name='login';
+  var root=document.getElementById('app');
+  if(cur&&cur.unmount){try{cur.unmount();}catch(e){SG.log.err('unmount',e);}}
+  root.textContent='';curName=name;cur=views[name]||null;
+  root.setAttribute('data-view',name);
+  if(cur&&cur.mount){try{cur.mount(root,params||{});}catch(e){SG.log.err('mount:'+name,e);}}
+  SG.bus.emit('view',{name:name,params:params});
+}
+SG.go=function(name,params){
+  SG._params=params||{};
+  var h='#/'+name;
+  if(location.hash===h){render(name,SG._params);return;}
+  location.hash=h;
+};
+window.addEventListener('hashchange',function(){
+  var m=/^#\/([a-z]+)/.exec(location.hash);var n=m?m[1]:'login';
+  var u0=null;try{u0=SG.G&&SG.G.user&&SG.G.user();}catch(e){}
+  if(!u0&&n!=='login'){history.replaceState(null,'','#/login');n='login';}
+  if(n===curName&&!SG._params)return;
+  var p=SG._params;SG._params=null;render(n,p);
+});
+SG.start=function(){
+  var m=/^#\/([a-z]+)/.exec(location.hash);var n=m?m[1]:'login';
+  var guard=SG.guard?SG.guard(n):n;
+  if(guard!==n){history.replaceState(null,'','#/'+guard);n=guard;}
+  render(n,{});
+};
+})();
+
+</script><script>
+/* SpacEgg 2.0 — kayıt sistemi (SG.S)
+   Sürümlü, kullanıcıya ayrık, 3 dönüşümlü yedekli, sağlama toplamlı kayıt. Ayrıntı: docs/KAYIT-SISTEMI.md */
+(function(){
+'use strict';
+var SG=window.SG=window.SG||{};
+var SCHEMA=2,ENV=1,MAXUNI=1500000,MAXTEXT=2*1024*1024,MAXLIST=24,NB=3,BK_GAP=90000,AUTO=20;
+var ID=/^[A-Za-z0-9_-]{1,40}$/,KEY=/^[A-Za-z0-9_-]{1,40}$/;
+var PRESETS=['sakin','yogun','seyrek'],KINDS=['spiral','barred','elliptical','irregular'];
+var user=null,store=null,A=null,IDX=null,triedAct=false,acc=0,lastSum={},lastBk={},inited=false;
+var mem={};                                  // yazılamayan kayıtların bellek yedeği
+var msgs={mem:'',rec:'',conf:'',err:''};
+var extra={};                                // modüllerin kaydettiği ek state anahtarları
+
+/* ---------- yardımcılar ---------- */
+function bad(k){return k==='__proto__'||k==='constructor'||k==='prototype';}
+function hasOwn(o,k){return Object.prototype.hasOwnProperty.call(o,k);}
+function fnv(s){var h=2166136261>>>0;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h>>>0;}
+function sum(s){var h=SG.hash?SG.hash(s):fnv(s);return h.toString(36)+'.'+s.length.toString(36);}
+function num(v,lo,hi,d){return(typeof v==='number'&&isFinite(v))?(v<lo?lo:v>hi?hi:v):d;}
+function int(v,lo,hi,d){var n=num(v,lo,hi,null);return n==null?d:Math.round(n);}
+function str(v,max){if(typeof v!=='string')return'';return v.replace(/[\u0000-\u001f\u007f\u2028\u2029]/g,' ').slice(0,max);}
+function nameOf(v){return str(v,40).replace(/[<>]/g,'').replace(/\s+/g,' ').trim();}
+function now(){return Date.now();}
+var lastStamp=0;function stamp(){var n=now();if(n<=lastStamp)n=lastStamp+1;return(lastStamp=n);}   // artan zaman damgası: aynı milisaniyede bile yedek sırası bozulmaz
+function okId(id){return typeof id==='string'&&ID.test(id)&&!bad(id);}
+function okKey(k){return typeof k==='string'&&KEY.test(k)&&!bad(k);}
+function isObj(o){return o&&typeof o==='object'&&!Array.isArray(o);}
+function clone(v){try{return JSON.parse(JSON.stringify(v),function(k,x){return bad(k)?undefined:x;});}catch(e){return undefined;}}
+function enc(n){n=String(n).trim();var h='';if(n.length>40){h='~'+fnv(n).toString(36);n=n.slice(0,40);}return n.replace(/[^A-Za-z0-9]/g,function(c){return'_'+c.charCodeAt(0).toString(16)+'_';})+h;}
+function P(){return user==null?null:'sg2_'+enc(user)+'_';}
+function kMain(id){return P()+'u_'+id;}
+function kBk(id,i){return P()+'b_'+id+'_'+i;}
+function setErr(m){msgs.err=m;try{SG.bus&&SG.bus.emit('s:status',status());}catch(e){}}
+function warn(k,m){msgs[k]=m;try{SG.bus&&SG.bus.emit('s:status',status());}catch(e){}}
+
+/* ---------- depolama katmanı (localStorage + bellek yedeği) ---------- */
+function probe(){try{var s=window.localStorage;var k='sg2__probe';s.setItem(k,'1');s.removeItem(k);return s;}catch(e){return null;}}
+function hasMem(){for(var k in mem)if(hasOwn(mem,k))return true;return false;}
+function rawGet(k){if(hasOwn(mem,k))return mem[k];if(!store)return null;try{return store.getItem(k);}catch(e){return null;}}
+function rawSet(k,v){
+  if(store){try{store.setItem(k,v);if(hasOwn(mem,k)){delete mem[k];if(!hasMem()&&store)msgs.mem='';}return true;}catch(e){}}
+  mem[k]=v;
+  warn('mem',store?'Cihaz belleği dolu: kayıt yalnız bu oturumda tutuluyor. Evreni dışa aktar.':'Bu cihazda kalıcı depolama yok: kayıt yalnız bu oturumda tutuluyor. Evreni dışa aktar.');
+  return false;
+}
+function rawDel(k){delete mem[k];if(store){try{store.removeItem(k);}catch(e){}}}
+function rawKeys(prefix){
+  var out=[],seen={},k,i;
+  for(k in mem)if(hasOwn(mem,k)&&k.indexOf(prefix)===0&&!seen[k]){seen[k]=1;out.push(k);}
+  if(store){try{for(i=0;i<store.length;i++){k=store.key(i);if(k&&k.indexOf(prefix)===0&&!seen[k]){seen[k]=1;out.push(k);}}}catch(e){}}
+  return out;
+}
+
+/* ---------- şema, göç, doğrulama ---------- */
+var MIG={
+  1:function(u){u.v=2;if(!isObj(u.state))u.state={};return u;},                 // v1 → v2
+  2:function(u){u.v=3;if(!isObj(u.state))u.state={};if(!isObj(u.state.seen))u.state.seen={};return u;} // v2 → v3 (örnek/test iskeleti)
+};
+function migrate(u,target){
+  target=target||SCHEMA;
+  if(!isObj(u))return null;
+  var v=typeof u.v==='number'&&isFinite(u.v)?Math.floor(u.v):1;
+  if(v<1||v>target)return null;                   // geçersiz ya da bu uygulamadan yeni sürüm
+  while(v<target){var f=MIG[v];if(!f)return null;u=f(u);v=u.v;}
+  return u;
+}
+function shapeMap(src,cap,fn){var out={},n=0;if(!isObj(src))return out;for(var k in src){if(!hasOwn(src,k)||!okKey(k))continue;if(n>=cap)break;var v=fn(src[k]);if(v===undefined)continue;out[k]=v;n++;}return out;}
+function shapeList(src,cap,fn){var out=[];if(!Array.isArray(src))return out;for(var i=0;i<src.length&&out.length<cap;i++){var v=fn(src[i]);if(v!==undefined)out.push(v);}return out;}
+function shapeGalaxies(src){
+  return shapeList(src,12,function(g){
+    if(!isObj(g)||typeof g.id!=='string'||!/^g\d{1,3}$/.test(g.id))return undefined;
+    return{id:g.id,name:nameOf(g.name)||g.id,kind:KINDS.indexOf(g.kind)>=0?g.kind:'irregular',x:num(g.x,-1,1,0),y:num(g.y,-1,1,0),
+      r:num(g.r,0.01,0.5,0.1),rot:num(g.rot,-1000,1000,0),hue:num(g.hue,0,360,200),arms:int(g.arms,0,12,2),starCount:int(g.starCount,0,5000,300)};
+  });
+}
+function shapeState(s,strict){
+  s=isObj(s)?s:{};
+  var st={};
+  st.observed=shapeMap(s.observed,5000,function(v){return int(v,0,3,undefined);});
+  st.params=shapeMap(s.params,1000,function(p){
+    if(!isObj(p))return undefined;var o={},n=0;
+    for(var k in p){if(!hasOwn(p,k)||!/^[a-z][A-Za-z]{0,15}$/.test(k)||bad(k)||n>=12)continue;var x=num(p[k],-1000,1000,undefined);if(x===undefined)continue;o[k]=x;n++;}
+    return o;});
+  st.decisions=shapeList(s.decisions,500,function(d){
+    if(!isObj(d)||typeof d.target!=='string'||!okId(d.target)||typeof d.action!=='string'||!/^[A-Za-z0-9_.-]{1,64}$/.test(d.action))return undefined;
+    return{t:num(d.t,0,1e9,0),target:d.target,action:d.action};});
+  st.disc=shapeMap(s.disc,2000,function(v){return num(v,0,1e15,undefined);});
+  st.events=shapeList(s.events,100,function(e){
+    if(!isObj(e))return undefined;
+    return{id:str(e.id,64),type:/^[a-z][a-z-]{0,23}$/.test(e.type)?e.type:'event',t:num(e.t,0,1e9,0),target:str(e.target,40),galaxy:str(e.galaxy,16),
+      severity:int(e.severity,1,3,1),text:str(e.text,300)};});
+  st.journal=shapeList(s.journal,500,function(j){
+    if(!isObj(j))return undefined;
+    return{t:num(j.t,0,1e15,0),kind:/^[a-z][a-z-]{0,23}$/.test(j.kind)?j.kind:'note',text:str(j.text,400),target:str(j.target,40)};});
+  // modüllerin ek alanları: yalnız kendi verisi (JSON, ≤300 KB). Güvenilir kaynakta (strict=false) bilinmeyen anahtarlar da korunur.
+  for(var k in s){
+    if(!hasOwn(s,k)||bad(k)||hasOwn(st,k)||!/^[A-Za-z][A-Za-z0-9_]{0,31}$/.test(k))continue;
+    if(strict&&!extra[k])continue;
+    var c=clone(s[k]);if(c===undefined)continue;
+    try{if(JSON.stringify(c).length>300000)continue;}catch(e){continue;}
+    st[k]=c;
+  }
+  return st;
+}
+/* strict=true: güvenilmeyen girdi (içe aktarma) — yalnız bilinen alanlar, galaksiler tohumdan yeniden üretilir */
+function shape(u,strict){
+  if(!isObj(u))return null;
+  var v=int(u.v,1,SCHEMA,null);if(v==null)return null;
+  var seed=str(u.seed,64).trim();if(!seed)return null;
+  var o={};
+  if(!strict){for(var k in u){if(hasOwn(u,k)&&!bad(k)&&/^[A-Za-z][A-Za-z0-9_]{0,31}$/.test(k))o[k]=clone(u[k]);}}
+  o.v=v;o.id=okId(u.id)?u.id:'';o.name=nameOf(u.name)||'Evren';o.seed=seed;
+  o.preset=PRESETS.indexOf(u.preset)>=0?u.preset:'sakin';
+  o.t=num(u.t,0,1e7,0);o.speedIx=int(u.speedIx,0,4,1);o.created=num(u.created,0,4e12,now());
+  var g=null;
+  if(strict||!Array.isArray(u.galaxies)){
+    if(SG.U&&SG.U.gen){try{var gen=SG.U.gen(seed,{preset:o.preset,name:o.name});if(gen&&Array.isArray(gen.galaxies))g=shapeGalaxies(gen.galaxies);}catch(e){SG.log&&SG.log.err('S.shape.gen',e);}}
+    if(!g)g=shapeGalaxies(u.galaxies);
+  }else g=shapeGalaxies(u.galaxies);
+  o.galaxies=g;
+  o.state=shapeState(u.state,strict);
+  return o;
+}
+
+/* ---------- paketleme ---------- */
+function pack(u){
+  var d;try{d=JSON.stringify(u);}catch(e){return null;}
+  if(!d||d.length>MAXUNI)return null;
+  var s=sum(d);
+  return{d:d,sum:s,env:JSON.stringify({f:ENV,v:u.v,sum:s,saved:stamp(),t:u.t,d:d})};
+}
+function parseEnv(raw){
+  if(typeof raw!=='string'||raw.length>MAXUNI+2000)return null;
+  try{var e=JSON.parse(raw);if(isObj(e)&&e.f===ENV&&typeof e.d==='string'&&e.sum===sum(e.d))return e;}catch(x){}
+  return null;
+}
+function unpack(raw){
+  var e=parseEnv(raw);if(!e)return{err:'sağlama/biçim'};
+  var u;try{u=JSON.parse(e.d);}catch(x){return{err:'json'};}
+  u=migrate(u);if(!u)return{err:'sürüm'};
+  u=shape(u,false);if(!u||!okId(u.id))return{err:'alan'};
+  return{uni:u,saved:typeof e.saved==='number'?e.saved:0,sum:e.sum,bytes:raw.length};
+}
+
+/* ---------- indeks ---------- */
+function meta(u,saved,bytes){return{id:u.id,name:u.name,seed:u.seed,t:u.t,saved:saved||now(),bytes:bytes||0};}
+function bkList(id){
+  var out=[];
+  for(var i=0;i<NB;i++){var raw=rawGet(kBk(id,i));if(raw==null)continue;var e=parseEnv(raw);out.push({ix:i,saved:e?(typeof e.saved==='number'?e.saved:0):-1,t:e?e.t:0,raw:raw,valid:!!e});}
+  return out;
+}
+function rebuildIdx(){
+  var p=P(),ids={},out=[],keys=rawKeys(p+'u_').concat(rawKeys(p+'b_')),i;
+  for(i=0;i<keys.length;i++){
+    var rest=keys[i].slice(p.length),m=/^u_([A-Za-z0-9_-]{1,40})$/.exec(rest)||/^b_([A-Za-z0-9_-]{1,40})_[0-9]$/.exec(rest);
+    if(m&&okId(m[1]))ids[m[1]]=1;
+  }
+  for(var id in ids){
+    var r=unpack(rawGet(kMain(id))),best=r.uni?r:null;
+    if(!best){var bl=bkList(id).sort(function(a,b){return b.saved-a.saved;});for(var j=0;j<bl.length&&!best;j++){var rr=unpack(bl[j].raw);if(rr.uni)best=rr;}}
+    if(best)out.push(meta(best.uni,best.saved,best.bytes));
+  }
+  IDX=out;writeIdx();return out;
+}
+function loadIdx(){
+  if(IDX)return IDX;
+  if(!P())return(IDX=[]);
+  var raw=rawGet(P()+'idx'),a=null;
+  if(raw!=null){try{a=JSON.parse(raw);}catch(e){a=null;}}
+  if(Array.isArray(a)){
+    var ok=true,out=[];
+    for(var i=0;i<a.length;i++){var m=a[i];if(!isObj(m)||!okId(m.id)){ok=false;break;}out.push({id:m.id,name:nameOf(m.name)||'Evren',seed:str(m.seed,64),t:num(m.t,0,1e7,0),saved:num(m.saved,0,4e12,0),bytes:num(m.bytes,0,1e8,0)});}
+    if(ok)return(IDX=out);
+  }
+  if(raw==null&&rawKeys(P()+'u_').length===0&&rawKeys(P()+'b_').length===0)return(IDX=[]);
+  return rebuildIdx();
+}
+function writeIdx(){if(P()&&IDX)rawSet(P()+'idx',JSON.stringify(IDX));}
+function touch(m){loadIdx();for(var i=0;i<IDX.length;i++)if(IDX[i].id===m.id){IDX[i]=m;return;}IDX.push(m);}
+function newId(){loadIdx();var id;do{id='u'+(SG.uid?SG.uid():fnv(String(now()+Math.random())).toString(36));id=id.replace(/[^A-Za-z0-9_-]/g,'').slice(0,40);}while(!okId(id)||IDX.some(function(m){return m.id===id;})||rawGet(kMain(id))!=null);return id;}
+
+/* ---------- yedek ve kurtarma ---------- */
+function pushBackup(id,raw,avoid){
+  var l=bkList(id),slot=-1,i;
+  for(i=0;i<NB;i++){if(i===avoid)continue;if(!l.some(function(b){return b.ix===i;})){slot=i;break;}}
+  if(slot<0){var old=Infinity;for(i=0;i<l.length;i++){if(l[i].ix===avoid)continue;if(l[i].saved<old){old=l[i].saved;slot=l[i].ix;}}}
+  if(slot<0)slot=0;
+  var kb=kBk(id,slot);                         // yedek yazılamazsa sessizce atlanır; ana kayıt öncelikli (uyarı vermez)
+  if(store){try{store.setItem(kb,raw);delete mem[kb];}catch(e){}}else mem[kb]=raw;
+  lastBk[id]=now();
+}
+function archiveCorrupt(id,raw,why){
+  if(raw==null)return'';
+  var k='sg2_corrupt_'+now()+'_'+fnv(String(id)+String(raw.length)).toString(36);
+  try{if(store){store.setItem(k,JSON.stringify({user:user,id:id,why:why,at:now(),raw:String(raw).slice(0,MAXUNI+2000)}));return k;}}catch(e){}
+  return'';
+}
+function fmtDate(ms){try{var d=new Date(ms);return d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}catch(e){return'';}}
+/* ana kaydı (gerekirse yedekten kurtararak) oku. Yan etki: durum mesajı, bozuk kopya arşivi, ana kaydın onarımı */
+function readFor(id){
+  if(!P()||!okId(id))return null;
+  var raw=rawGet(kMain(id)),r;
+  if(raw!=null){r=unpack(raw);if(r.uni&&r.uni.id===id){lastSum[id]=r.sum;return r;}}
+  var arch=raw!=null?archiveCorrupt(id,raw,r&&r.err):'';
+  var bl=bkList(id).filter(function(b){return b.valid;}).sort(function(a,b){return b.saved-a.saved;});
+  for(var i=0;i<bl.length;i++){
+    var rr=unpack(bl[i].raw);
+    if(rr.uni&&rr.uni.id===id){
+      rawSet(kMain(id),bl[i].raw);lastSum[id]=rr.sum;
+      warn('rec',(raw!=null?'Kayıt bozuktu':'Kayıt bulunamadı')+'; '+fmtDate(bl[i].saved)+' yedeğinden kurtarıldı.'+(arch?' Bozuk kopya saklandı.':''));
+      return rr;
+    }
+  }
+  if(raw!=null||bl.length)setErr('Kayıt okunamadı ve sağlam yedek yok.'+(arch?' Bozuk kopya saklandı ('+arch+').':''));
+  return null;
+}
+
+/* ---------- kaydetme ---------- */
+function saveCore(forceWrite,forceBackup){
+  if(!A||!P())return false;
+  var id=A.id,p=pack(A);
+  if(!p){setErr('Evren verisi çok büyük, kaydedilemedi.');return false;}
+  if(!forceWrite&&lastSum[id]===p.sum)return true;
+  var cur=rawGet(kMain(id));
+  if(cur!=null){
+    var e=parseEnv(cur);
+    if(e){
+      if(lastSum[id]&&e.sum!==lastSum[id]){pushBackup(id,cur);warn('conf','Evren başka bir sekmede de değişmişti; o sürüm yedeğe alındı.');}
+      else if(forceBackup||now()-(lastBk[id]||bkInit(id))>BK_GAP)pushBackup(id,cur);
+    }else archiveCorrupt(id,cur,'yazma-öncesi');
+  }
+  var persisted=rawSet(kMain(id),p.env);
+  lastSum[id]=p.sum;
+  touch(meta(A,now(),p.env.length));writeIdx();
+  rawSet(P()+'act',id);
+  return persisted;
+}
+function bkInit(id){var l=bkList(id),m=0;for(var i=0;i<l.length;i++)if(l[i].saved>m)m=l[i].saved;lastBk[id]=m;return m;}
+
+/* ---------- genel API ---------- */
+var S=SG.S={
+  schema:SCHEMA,
+  init:function(){
+    if(inited)return S;inited=true;
+    store=probe();
+    if(!store)warn('mem','Bu cihazda kalıcı depolama yok: kayıt yalnız bu oturumda tutuluyor. Evreni dışa aktar.');
+    var flush=function(){try{saveCore(false,false);}catch(e){SG.log&&SG.log.err('S.flush',e);}};
+    window.addEventListener('pagehide',flush);
+    window.addEventListener('sg-pause',flush);
+    document.addEventListener('visibilitychange',function(){if(document.hidden)flush();});
+    window.addEventListener('storage',function(ev){
+      try{
+        if(!P()||!ev.key||ev.key.indexOf(P())!==0)return;
+        if(ev.key===P()+'idx'){IDX=null;return;}
+        if(A&&ev.key===kMain(A.id)&&ev.newValue){var e=parseEnv(ev.newValue);if(e&&e.sum!==lastSum[A.id])warn('conf','Evren başka bir sekmede değişti. Bu sekme kaydedince o sürüm yedeğe alınır.');}
+      }catch(e){}
+    });
+    return S;
+  },
+  setUser:function(name){
+    if(!inited)S.init();
+    try{if(A&&P())saveCore(true,false);}catch(e){SG.log&&SG.log.err('S.setUser',e);}
+    user=(name==null||String(name).trim()==='')?null:String(name);
+    A=null;IDX=null;triedAct=false;acc=0;lastSum={};lastBk={};msgs.rec='';msgs.conf='';msgs.err='';
+    return S;
+  },
+  user:function(){return user;},
+  list:function(){
+    if(!P())return[];loadIdx();
+    if(A)for(var i=0;i<IDX.length;i++)if(IDX[i].id===A.id){IDX[i].t=A.t;IDX[i].name=A.name;}
+    return IDX.slice().sort(function(a,b){return b.saved-a.saved;}).map(function(m){return{id:m.id,name:m.name,seed:m.seed,t:m.t,saved:m.saved,bytes:m.bytes};});
+  },
+  create:function(o){
+    o=o||{};
+    if(!P()){setErr('Önce giriş yapmalısın.');return null;}
+    if(!SG.U||typeof SG.U.gen!=='function')throw new Error('SG.S.create: SG.U.gen yok — evren üretilemez (06-universe.js yüklenmedi)');
+    loadIdx();
+    if(IDX.length>=MAXLIST){setErr('En fazla '+MAXLIST+' evren saklanabilir. Birini silmelisin.');return null;}
+    var seed=str(o.seed,64).trim()||(SG.uid?SG.uid():String(now()));
+    var preset=PRESETS.indexOf(o.preset)>=0?o.preset:'sakin';
+    var name=nameOf(o.name)||('Evren '+(IDX.length+1));
+    var uni=SG.U.gen(seed,{preset:preset,name:name});
+    if(!isObj(uni))throw new Error('SG.S.create: SG.U.gen evren döndürmedi');
+    uni.name=name;uni.seed=seed;uni.preset=preset;
+    if(!okId(uni.id)||IDX.some(function(m){return m.id===uni.id;})||rawGet(kMain(uni.id))!=null)uni.id=newId();
+    if(typeof uni.v!=='number')uni.v=SCHEMA;
+    var c=shape(uni,false);
+    if(!c)throw new Error('SG.S.create: evren verisi geçersiz');
+    if(A)saveCore(true,false);
+    A=c;lastSum[c.id]=null;saveCore(true,false);
+    return A;
+  },
+  active:function(){
+    if(A)return A;
+    if(!triedAct&&P()){triedAct=true;var id=rawGet(P()+'act');if(okId(id))S.open(id);}
+    return A;
+  },
+  open:function(id){
+    if(!P()||!okId(id))return null;
+    if(A&&A.id===id)return A;
+    if(A)saveCore(true,false);
+    var r=readFor(id);if(!r)return null;
+    A=r.uni;triedAct=true;rawSet(P()+'act',id);
+    touch(meta(A,r.saved,r.bytes));writeIdx();
+    return A;
+  },
+  save:function(force){return saveCore(!!force,!!force);},
+  autosave:function(dt){acc+=(dt>0?dt:0);if(acc>=AUTO){acc=0;return saveCore(false,false);}return null;},
+  remove:function(id){
+    if(!P()||!okId(id))return false;
+    loadIdx();
+    if(A&&A.id===id){A=null;rawDel(P()+'act');}
+    rawDel(kMain(id));for(var i=0;i<NB;i++)rawDel(kBk(id,i));
+    IDX=IDX.filter(function(m){return m.id!==id;});writeIdx();
+    delete lastSum[id];delete lastBk[id];
+    return true;
+  },
+  rename:function(id,name){
+    name=nameOf(name);if(!name||!P()||!okId(id))return false;
+    if(A&&A.id===id){A.name=name;return saveCore(true,false)!==undefined;}
+    var r=readFor(id);if(!r)return false;
+    r.uni.name=name;var p=pack(r.uni);if(!p)return false;
+    rawSet(kMain(id),p.env);lastSum[id]=p.sum;touch(meta(r.uni,now(),p.env.length));writeIdx();
+    return true;
+  },
+  exportText:function(id){
+    if(!P()||!okId(id))return null;
+    var u=null;
+    if(A&&A.id===id)u=A;else{var r=readFor(id);u=r&&r.uni;}
+    if(!u)return null;
+    var p=pack(u);if(!p)return null;
+    var t='SGU2:'+b64e(JSON.stringify({f:'SGU2',v:u.v,sum:p.sum,d:p.d}));
+    return t.length>MAXTEXT?null:t;
+  },
+  importText:function(text){
+    try{
+      if(!P())return{ok:false,error:'Önce giriş yapmalısın.'};
+      if(typeof text!=='string')return{ok:false,error:'Metin değil.'};
+      text=text.trim();
+      if(text.length>MAXTEXT)return{ok:false,error:'Dosya çok büyük (en fazla 2 MB).'};
+      if(text.indexOf('SGU2:')!==0)return{ok:false,error:'Biçim tanınmadı (SGU2: ile başlamalı).'};
+      var b=text.slice(5).replace(/\s+/g,'');
+      if(!b||!/^[A-Za-z0-9+/]+={0,2}$/.test(b)||b.length%4!==0)return{ok:false,error:'Bozuk veri (geçersiz karakter).'};
+      var js;try{js=b64d(b);}catch(e){return{ok:false,error:'Bozuk veri (çözülemedi).'};}
+      var e;try{e=JSON.parse(js);}catch(x){return{ok:false,error:'Bozuk veri (JSON).'};}
+      if(!isObj(e)||e.f!=='SGU2'||typeof e.d!=='string'||e.d.length>MAXUNI)return{ok:false,error:'Biçim tanınmadı.'};
+      if(e.sum!==sum(e.d))return{ok:false,error:'Sağlama toplamı uyuşmuyor: dosya değişmiş ya da eksik.'};
+      var u;try{u=JSON.parse(e.d);}catch(x){return{ok:false,error:'Bozuk veri (evren).'};}
+      u=migrate(u);if(!u)return{ok:false,error:'Bu evren daha yeni bir sürümden; güncelle.'};
+      u=shape(u,true);if(!u)return{ok:false,error:'Evren verisi geçersiz.'};
+      loadIdx();
+      if(IDX.length>=MAXLIST)return{ok:false,error:'En fazla '+MAXLIST+' evren saklanabilir. Birini silmelisin.'};
+      if(!okId(u.id)||IDX.some(function(m){return m.id===u.id;})||rawGet(kMain(u.id))!=null)u.id=newId();
+      var p=pack(u);if(!p)return{ok:false,error:'Evren çok büyük.'};
+      rawSet(kMain(u.id),p.env);lastSum[u.id]=p.sum;touch(meta(u,now(),p.env.length));writeIdx();
+      return{ok:true,id:u.id,name:u.name};
+    }catch(err){SG.log&&SG.log.err('S.import',err);return{ok:false,error:'İçe aktarılamadı.'};}
+  },
+  backups:function(id){
+    if(!P()||!okId(id))return[];
+    return bkList(id).filter(function(b){return b.valid;}).sort(function(a,b){return b.saved-a.saved;}).map(function(b){return{ix:b.ix,saved:b.saved,t:b.t};});
+  },
+  restore:function(id,ix){
+    if(!P()||!okId(id)||!(ix>=0&&ix<NB))return null;
+    var raw=rawGet(kBk(id,ix));if(raw==null)return null;
+    var r=unpack(raw);if(!r.uni||r.uni.id!==id)return null;
+    var cur=rawGet(kMain(id));if(cur!=null&&parseEnv(cur))pushBackup(id,cur,ix);
+    rawSet(kMain(id),raw);lastSum[id]=r.sum;touch(meta(r.uni,r.saved,r.bytes));writeIdx();
+    if(A&&A.id===id)A=r.uni;
+    return r.uni;
+  },
+  status:function(){return status();},
+  clearStatus:function(){msgs.rec='';msgs.conf='';msgs.err='';if(!hasMem()&&store)msgs.mem='';return status();},
+  registerStateKey:function(k){if(typeof k==='string'&&/^[A-Za-z][A-Za-z0-9_]{0,31}$/.test(k)&&!bad(k))extra[k]=1;return S;}
+};
+function status(){
+  var m=msgs.err||msgs.mem||msgs.rec||msgs.conf||'';
+  return{ok:!m,msg:m,recovered:!!msgs.rec,mem:!!msgs.mem,conflict:!!msgs.conf,error:!!msgs.err};
+}
+function b64e(s){return btoa(unescape(encodeURIComponent(s)));}
+function b64d(b){return decodeURIComponent(escape(atob(b)));}
+
+/* test kancaları (üretimde zararsız) */
+S._test={
+  useStorage:function(s){store=s||null;},
+  reset:function(){mem={};msgs={mem:'',rec:'',conf:'',err:''};A=null;IDX=null;triedAct=false;lastSum={};lastBk={};acc=0;},
+  mem:function(){return mem;},unpack:unpack,shape:shape,migrate:migrate,pack:pack,sum:sum,kMain:kMain,kBk:kBk,prefix:P,NB:NB,probe:probe
+};
+})();
+
+</script><script>
+(function(){
+var R=[],P=0,F=0;
+function ok(c,n,x){if(c){P++;R.push('PASS '+n);}else{F++;R.push('FAIL '+n+(x!==undefined?' :: '+x:''));}}
+function Fake(limit){this.d={};this.limit=limit||Infinity;this.sets=0;}
+Fake.prototype={get length(){return Object.keys(this.d).length;},key:function(i){return Object.keys(this.d)[i]||null;},
+  getItem:function(k){return Object.prototype.hasOwnProperty.call(this.d,k)?this.d[k]:null;},
+  setItem:function(k,v){var t=0,o=this.d;for(var x in o)if(x!==k)t+=o[x].length+x.length;if(t+v.length+k.length>this.limit)throw new Error('QuotaExceededError');this.d[k]=String(v);this.sets++;},
+  removeItem:function(k){delete this.d[k];}};
+// SG.U taklidi (deterministik)
+SG.U={gen:function(seed,o){var r=SG.rng(seed),g=[];for(var i=0;i<8;i++)g.push({id:'g'+i,name:'Galaksi '+i,kind:['spiral','barred','elliptical','irregular'][i%4],x:r()*2-1,y:r()*2-1,r:.1,rot:r()*6,hue:r()*360,arms:2,starCount:400});
+  return{v:2,id:'u'+SG.hash(seed).toString(36),name:(o&&o.name)||'E',seed:seed,preset:(o&&o.preset)||'sakin',t:0,speedIx:1,created:Date.now(),galaxies:g,state:{observed:{},params:{},decisions:[],disc:{},events:[],journal:[]}};}};
+var S=SG.S,T=S._test;
+function fresh(lim){var f=new Fake(lim);T.reset();T.useStorage(f);S.setUser(null);return f;}
+function enc64(o){return 'SGU2:'+btoa(unescape(encodeURIComponent(JSON.stringify(o))));}
+function envFor(u,mut){var d=JSON.stringify(u);return enc64({f:'SGU2',v:u.v,sum:mut?'x.1':T.sum(d),d:d});}
+S.init();
+
+// 1 gidiş-dönüş
+var f=fresh();S.setUser('doktor');
+var u=S.create({name:'Deneme',seed:'abc',preset:'yogun'});
+ok(u&&u.id&&u.name==='Deneme'&&u.preset==='yogun','create');
+u.t=123.5;u.state.observed.g0s1=2;ok(S.save(true)===true,'save true');
+T.reset();T.useStorage(f);S.setUser('doktor');
+var a=S.active();ok(a&&a.t===123.5&&a.state.observed.g0s1===2&&a.galaxies.length===8,'active() yeniden yüklenir');
+ok(S.list().length===1&&S.list()[0].name==='Deneme','list');
+ok(JSON.stringify(a).length<20000,'boyut küçük: '+JSON.stringify(a).length);
+// SG.U yok -> create hata
+var saveU=SG.U;SG.U=null;var thrown=false;try{S.create({name:'x'});}catch(e){thrown=/SG\.U\.gen/.test(e.message);}SG.U=saveU;ok(thrown,'SG.U yokken create net hata');
+
+// 2 bozuk ana kayıt -> yedekten kurtarma
+f=fresh();S.setUser('doktor');u=S.create({name:'K',seed:'k1'});var id=u.id;
+u.t=10;S.save(true);u.t=20;S.save(true);u.t=30;S.save(true);
+ok(S.backups(id).length>=2,'yedekler var',S.backups(id).length);
+var mk=T.kMain(id),raw=f.d[mk];f.d[mk]=raw.replace('"t":30','"t":31').replace(/(\\"t\\":)30/,'$131');
+f.d[mk]=raw.slice(0,raw.length-30)+'BOZUK';
+T.reset();T.useStorage(f);S.setUser('doktor');
+var o=S.open(id);ok(o&&o.t<30&&o.t>=10,'bozuk kayıt yedekten kurtarıldı t='+(o&&o.t));
+var st=S.status();ok(!st.ok&&st.recovered&&/yedeğinden/.test(st.msg),'status recovered',JSON.stringify(st));
+ok(Object.keys(f.d).some(function(k){return k.indexOf('sg2_corrupt_')===0;}),'bozuk kopya saklandı');
+S.clearStatus();ok(S.status().ok,'clearStatus');
+ok(unpackOK(f.d[mk]),'ana kayıt onarıldı');
+function unpackOK(r){return !!T.unpack(r).uni;}
+
+// 3 bozuk + yedek yok
+f=fresh();S.setUser('doktor');u=S.create({name:'Y',seed:'y1'});id=u.id;
+for(var i=0;i<3;i++)rmKey(f,T.kBk(id,i));
+f.d[T.kMain(id)]='{"f":1,"sum":"1.1","d":"xx"}';
+T.reset();T.useStorage(f);S.setUser('doktor');
+ok(S.open(id)===null&&S.status().error&&!S.status().ok,'yedeksiz bozuk: null + hata');
+ok(Object.keys(f.d).some(function(k){return k.indexOf('sg2_corrupt_')===0;}),'yedeksiz bozuk: kopya saklandı');
+function rmKey(f,k){delete f.d[k];}
+// çöp JSON
+f.d[T.kMain(id)]='%%%çöp';T.reset();T.useStorage(f);S.setUser('doktor');
+ok(S.open(id)===null,'çöp metin: çökmez, null');
+// indeks bozuk -> yeniden kur
+f=fresh();S.setUser('doktor');var a1=S.create({name:'A',seed:'s1'}),b1=S.create({name:'B',seed:'s2'});
+f.d[T.prefix()+'idx']='[{"id":"../x"}]';T.reset();T.useStorage(f);S.setUser('doktor');
+ok(S.list().length===2,'indeks yeniden kuruldu: '+S.list().length);
+f.d[T.prefix()+'idx']='çöp';T.reset();T.useStorage(f);S.setUser('doktor');ok(S.list().length===2,'indeks çöp -> yeniden');
+
+// 4 kota dolu
+f=fresh(900);S.setUser('doktor');
+var q=S.create({name:'Kota',seed:'q1'});
+ok(q&&S.status().mem&&!S.status().ok,'kota dolu: bellek yedeği + uyarı',JSON.stringify(S.status()));
+q.t=77;var r1=S.save(true);ok(r1===false,'kota: save false döner, atmaz');
+var q2=S.open(q.id);ok(q2&&q2.t===77,'kota: oturumda okunur');
+ok(S.exportText(q.id)&&S.exportText(q.id).indexOf('SGU2:')===0,'kota: dışa aktarma çalışır');
+// depolama yok
+fresh();T.useStorage(null);S.setUser('doktor');
+var n=S.create({name:'NoLS',seed:'n1'});ok(n&&S.status().mem,'localStorage yok: çalışır + uyarı');
+n.t=5;S.save(true);ok(S.open(n.id).t===5&&S.list().length===1,'localStorage yok: kayıt-oku');
+
+// 5 içe aktarma saldırıları
+f=fresh();S.setUser('doktor');var base=SG.U.gen('imp',{});
+function imp(t){return S.importText(t);}
+ok(!imp(123).ok,'imp: sayı');
+ok(!imp('merhaba').ok,'imp: yanlış biçim');
+ok(!imp('SGU2:'+new Array(2*1024*1024+10).join('A')).ok,'imp: 2MB üstü');
+ok(!imp('SGU2:@@@!!').ok,'imp: geçersiz base64');
+ok(!imp('SGU2:'+btoa('degil json')).ok,'imp: base64 ama json değil');
+ok(!imp(envFor(base,true)).ok,'imp: yanlış sağlama');
+ok(!imp(enc64({f:'XXX',d:'{}',sum:'1.1'})).ok,'imp: yanlış f');
+var evilBase=JSON.parse(JSON.stringify(base));
+evilBase.state={observed:JSON.parse('{"__proto__":{"pwn":1},"constructor":{"x":1},"g0s1":9,"g0":-4,"../a":1}'),
+  params:{p1:{atm:1e99,water:'x',albedo:0.3,'__proto__':{z:1}}},decisions:[{t:1,target:'../../etc',action:'a'},{t:1,target:'g0s1p1',action:'apply.atm'}],
+  disc:{ok1:5,'__proto__':3},events:new Array(300).fill({id:'e',type:'<script>',t:1,target:'g0',galaxy:'g0',severity:99,text:'x'.repeat(2000)}),journal:[{t:1,kind:'A B',text:'<img onerror=1>'}],
+  evilExtra:{a:1},__proto__x:1};
+evilBase.name='<b>Ad\u0000\n</b>'+'x'.repeat(200);evilBase.t=-5;evilBase.speedIx=99;evilBase.preset='hack';evilBase.id='../../x';
+evilBase.galaxies=[{id:'g0',name:'<>',x:99,y:NaN}];evilBase.admin=true;
+var res=imp(envFor(evilBase));ok(res.ok,'imp: saldırı yükü temizlenerek kabul',JSON.stringify(res));
+var iu=S.open(res.id);if(!iu){window.__D=("DBG "+JSON.stringify(S.status())+JSON.stringify(res)+JSON.stringify(T.unpack(T_raw(res.id))));}
+ok(({}).pwn===undefined&&Object.prototype.pwn===undefined,'imp: prototype kirlenmedi');
+ok(iu.state.observed.g0s1===3&&iu.state.observed.g0===0&&!('../a' in iu.state.observed)&&!hasOwn(iu.state.observed,'constructor'),'imp: observed temizlendi');
+ok(iu.state.params.p1&&iu.state.params.p1.atm===1000&&iu.state.params.p1.water===undefined&&iu.state.params.p1.albedo===0.3,'imp: params sınırlandı');
+ok(iu.state.decisions.length===1&&iu.state.decisions[0].target==='g0s1p1','imp: kararlar filtrelendi');
+ok(iu.state.events.length===100&&iu.state.events[0].text.length===300&&iu.state.events[0].severity===3&&iu.state.events[0].type==='event','imp: olaylar sınırlandı');
+ok(iu.state.journal[0].kind==='note','imp: journal');
+ok(iu.state.evilExtra===undefined&&iu.admin===undefined,'imp: bilinmeyen alanlar atıldı');
+ok(iu.name.indexOf('<')<0&&iu.name.length<=40&&!/[\u0000\n]/.test(iu.name),'imp: ad temizlendi');
+ok(iu.t===0&&iu.speedIx===4&&iu.preset==='sakin','imp: aralıklar');
+ok(iu.id!=='../../x'&&/^[A-Za-z0-9_-]+$/.test(iu.id),'imp: id güvenli');
+ok(iu.galaxies.length===8,'imp: galaksiler tohumdan yeniden üretildi');
+function T_raw(id){return f.d[T.kMain(id)];}
+function hasOwn(o,k){return Object.prototype.hasOwnProperty.call(o,k);}
+var huge=JSON.parse(JSON.stringify(base));huge.state={events:new Array(400).fill({id:'e',text:'x'.repeat(4000)})};
+ok(!imp(envFor(huge)).ok,'imp: 1,5 MB üstü evren reddedilir');
+// kayıtlı ek state anahtarı
+S.registerStateKey('seen');var ex=JSON.parse(JSON.stringify(base));ex.state={seen:{g0:1}};
+var r2=imp(envFor(ex));ok(r2.ok&&S.open(r2.id).state.seen&&S.open(r2.id).state.seen.g0===1,'imp: kayıtlı ek anahtar korunur');
+// aynı id -> yeni id
+var good=S.exportText(S.list()[0].id);var c1=imp(good),c2=imp(good);ok(c1.ok&&c2.ok&&c1.id!==c2.id,'imp: aynı id → yeni id');
+// gidiş-dönüş
+var ex1=S.exportText(res.id);var back=imp(ex1);ok(back.ok&&S.open(back.id).state.observed.g0s1===3,'export→import gidiş-dönüş');
+// Türkçe / emoji
+f=fresh();S.setUser('doktor');var tu=S.create({name:'Gökçe Evreni ✨',seed:'çğş🌌'});var tx=S.exportText(tu.id);var ti=imp(tx);ok(ti.ok&&S.open(ti.id).name==='Gökçe Evreni ✨'&&S.open(ti.id).seed==='çğş🌌','UTF-8 güvenli dışa/içe aktarma');
+// liste sınırı
+f=fresh();S.setUser('doktor');for(i=0;i<24;i++)S.create({name:'U'+i,seed:'s'+i});ok(S.create({seed:'zz'})===null&&S.status().error,'24 evren sınırı');
+
+// 6 iki sekme
+f=fresh();S.setUser('doktor');u=S.create({name:'Sekme',seed:'t1'});id=u.id;u.t=1;S.save(true);
+var cur=JSON.parse(f.d[T.kMain(id)]);var other=JSON.parse(cur.d);other.t=999;var pk=T.pack(other);
+f.d[T.kMain(id)]=pk.env;
+window.dispatchEvent(new StorageEvent('storage',{key:T.kMain(id),newValue:pk.env}));
+ok(S.status().conflict,'iki sekme: storage olayı uyarı verir');
+u.t=2;S.save(false);
+var bk=S.backups(id).map(function(b){return b.t;});
+ok(bk.indexOf(999)>=0,'iki sekme: diğer sekmenin sürümü yedeğe alındı',JSON.stringify(bk));
+ok(S.open(id).t===2,'iki sekme: son yazan kazanır');
+
+// 7 kullanıcı değişimi
+f=fresh();S.setUser('ali');var ua=S.create({name:'AliEvren',seed:'a'});S.setUser('veli');ok(S.list().length===0&&S.active()===null,'kullanıcı değişimi: veli boş');
+var uv=S.create({name:'VeliEvren',seed:'v'});S.setUser('ali');ok(S.list().length===1&&S.list()[0].name==='AliEvren'&&S.active().name==='AliEvren','kullanıcı değişimi: ali kendi evreni');
+S.setUser('Ğüş/../x');var w=S.create({name:'W',seed:'w'});ok(w&&Object.keys(f.d).every(function(k){return /^sg2_[A-Za-z0-9_]+$/.test(k);}),'ad güvenli kodlandı: '+Object.keys(f.d).slice(0,2));
+S.setUser('ali');ok(S.list().length===1,'ali etkilenmedi');
+S.setUser(null);ok(S.list().length===0&&S.active()===null&&S.create({seed:'x'})===null,'kullanıcısız: boş, create null');
+S.setUser('ali');ok(S.remove(S.list()[0].id)&&S.list().length===0&&S.active()===null,'remove');
+
+// 8 autosave
+f=fresh();S.setUser('doktor');u=S.create({name:'Auto',seed:'au'});var s0=f.sets;u.t=50;
+S.autosave(10);ok(f.sets===s0,'autosave 10 sn: yazmaz');S.autosave(11);ok(f.sets>s0,'autosave ≥20 sn: yazar');
+var s1=f.sets;S.autosave(25);ok(f.sets===s1,'değişmediyse yazmaz');
+u.t=60;window.dispatchEvent(new Event('pagehide'));ok(JSON.parse(JSON.parse(f.d[T.kMain(u.id)]).d).t===60,'pagehide kaydeder');
+u.t=70;window.dispatchEvent(new Event('sg-pause'));ok(JSON.parse(JSON.parse(f.d[T.kMain(u.id)]).d).t===70,'sg-pause kaydeder');
+// yazma sırası: yedek ana kayıttan önce
+f=fresh();S.setUser('doktor');u=S.create({name:'Sira',seed:'sr'});var log=[];var os=f.setItem;f.setItem=function(k,v){log.push(k);return os.call(f,k,v);};
+u.t=9;S.save(true);var iB=log.findIndex(function(k){return k.indexOf('_b_')>0;}),iM=log.indexOf(T.kMain(u.id));ok(iB>=0&&iM>iB,'yazma sırası: önce yedek, sonra ana',JSON.stringify(log));
+// yedek halkası 3 ile sınırlı + geri yükleme
+for(i=0;i<8;i++){u.t=100+i;S.save(true);}
+ok(S.backups(u.id).length<=3&&S.backups(u.id).length>=2,'yedek halkası ≤3: '+S.backups(u.id).length);
+var bl=S.backups(u.id);var rs=S.restore(u.id,bl[bl.length-1].ix);ok(rs&&S.active().t===rs.t&&rs.t<107,'restore: '+(rs&&rs.t));
+
+// 9 göç
+var m1=T.migrate({v:1,seed:'x'});ok(m1&&m1.v===2&&m1.state,'migrate v1→v2');
+var m3=T.migrate({v:2,seed:'x',state:{}},3);ok(m3&&m3.v===3&&m3.state.seen,'migrate v2→v3 (örnek)');
+ok(T.migrate({v:99,seed:'x'})===null,'migrate: daha yeni sürüm reddedilir');
+ok(T.migrate({v:0})===null&&T.migrate(null)===null&&T.migrate('x')===null,'migrate: geçersiz');
+f=fresh();S.setUser('doktor');var nv=SG.U.gen('nv',{});nv.v=3;var rj=imp(envFor(nv));ok(!rj.ok&&/yeni/.test(rj.error),'import: v3 bu sürümde reddedilir');
+
+document.title=(F?'FAIL ':'PASS ')+P+'/'+(P+F);
+var pre=document.createElement('pre');pre.id='out';pre.textContent=R.join('\n');document.body.appendChild(pre);
+})();
+
+</script>

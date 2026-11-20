@@ -1,0 +1,51 @@
+{
+ "file": "/home/claude/work/app/dist/SpacEgg.html",
+ "bytes": 503330,
+ "gzip": 147193,
+ "scripts": 3,
+ "loadMs": 197,
+ "nav": {
+  "domContentLoaded": 61,
+  "load": 65,
+  "fcp": null
+ },
+ "heapMB": 9.5,
+ "login": {
+  "n": 238,
+  "avgMs": 16.8,
+  "fps": 59.5,
+  "p50": 16.7,
+  "p95": 16.7,
+  "max": 33.3,
+  "longTasks": 0
+ },
+ "afterLoginView": "hub",
+ "afterLogin": {
+  "n": 241,
+  "avgMs": 16.7,
+  "fps": 60,
+  "p50": 16.7,
+  "p95": 16.8,
+  "max": 16.8,
+  "longTasks": 0
+ },
+ "view_world": {
+  "n": 240,
+  "avgMs": 16.7,
+  "fps": 60,
+  "p50": 16.7,
+  "p95": 16.7,
+  "max": 16.8,
+  "longTasks": 0
+ },
+ "view_galaxy": {
+  "n": 226,
+  "avgMs": 17.8,
+  "fps": 56.3,
+  "p50": 16.7,
+  "p95": 16.8,
+  "max": 133.4,
+  "longTasks": 3
+ },
+ "heapEndMB": 9.5
+}

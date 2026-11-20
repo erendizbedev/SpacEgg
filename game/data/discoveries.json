@@ -1,0 +1,1291 @@
+{
+ "v": 1,
+ "discoveries": [
+  {
+   "id": "ev-ilk-isik",
+   "cat": "Evren",
+   "tier": 1,
+   "title": "İlk Işık",
+   "desc": "Evreninin ilk galaksisine baktın. Karanlık artık bir harita.",
+   "hint": "Evren haritasında bir galaksiye dokun.",
+   "need": {
+    "observed": {
+     "kind": "g",
+     "min": 1,
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "ev-uc-galaksi",
+   "cat": "Evren",
+   "tier": 1,
+   "title": "Üçlü Bakış",
+   "desc": "Üç farklı galaksiyi gözlemledin; her birinin karakteri ayrı.",
+   "hint": "Üç galaksiye sırayla dokun.",
+   "need": {
+    "observed": {
+     "kind": "g",
+     "min": 3,
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "ev-sessiz-an",
+   "cat": "Evren",
+   "tier": 1,
+   "title": "Sessiz An",
+   "desc": "Zamanı durdurdun. Bazen en iyi gözlem, hiçbir şeyin kıpırdamadığı andır.",
+   "hint": "Hız kontrolünden duraklat.",
+   "need": {
+    "speed": {
+     "ix": 0
+    }
+   }
+  },
+  {
+   "id": "ev-zaman-akisi",
+   "cat": "Evren",
+   "tier": 1,
+   "title": "Zamanın Akışı",
+   "desc": "Zamanı hızlandırdın; milyonlarca yıl saniyelere sığıyor.",
+   "hint": "Hız kontrolünü 10× veya daha yükseğe çıkar.",
+   "need": {
+    "speed": {
+     "ix": 2
+    }
+   }
+  },
+  {
+   "id": "ev-dort-olcek",
+   "cat": "Evren",
+   "tier": 2,
+   "title": "Dört Ölçek",
+   "desc": "Evrenden bir gezegene kadar tüm ölçekleri gezdin.",
+   "hint": "Evrenden bir gezegene kadar yakınlaş.",
+   "need": {
+    "scales": {
+     "min": 4
+    }
+   }
+  },
+  {
+   "id": "ev-milyar-yil",
+   "cat": "Evren",
+   "tier": 2,
+   "title": "Bir Milyar Yıl",
+   "desc": "Evrenin saati bir milyar yılı geçti.",
+   "hint": "Zamanı hızlandır ve bekle; kozmik zaman bir milyar yıla ulaşsın.",
+   "need": {
+    "t": {
+     "min": 1000
+    }
+   }
+  },
+  {
+   "id": "ev-bin-kat",
+   "cat": "Evren",
+   "tier": 2,
+   "title": "Bin Kat Hız",
+   "desc": "En hızlı zaman akışını denedin.",
+   "hint": "Hız kontrolünün en sonuncusunu seç.",
+   "need": {
+    "speed": {
+     "ix": 4
+    }
+   }
+  },
+  {
+   "id": "ev-portre",
+   "cat": "Evren",
+   "tier": 2,
+   "title": "Evrenin Portresi",
+   "desc": "Gördüğün manzaranın bir fotoğrafını çektin.",
+   "hint": "Fotoğraf modunu kullan.",
+   "need": {
+    "flag": "photo"
+   }
+  },
+  {
+   "id": "ev-derin-zaman",
+   "cat": "Evren",
+   "tier": 3,
+   "title": "Derin Zaman",
+   "desc": "On milyar yıl: yıldızların doğup öldüğü bir ölçek.",
+   "hint": "Evrenin yaşını on milyar yıla taşı.",
+   "need": {
+    "t": {
+     "min": 10000
+    }
+   }
+  },
+  {
+   "id": "ev-atlas",
+   "cat": "Evren",
+   "tier": 3,
+   "title": "Tüm Harita",
+   "desc": "Yedi galaksiyi de gözlemledin; evrenin ana haritası tamam.",
+   "hint": "Haritadaki tüm galaksilere bak.",
+   "need": {
+    "observed": {
+     "kind": "g",
+     "min": 7,
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "ga-gezgin",
+   "cat": "Galaksi",
+   "tier": 1,
+   "title": "Galaksi Gezgini",
+   "desc": "İlk kez bir galaksinin içine girdin.",
+   "hint": "Bir galaksiye yakınlaş.",
+   "need": {
+    "scale": "galaxy"
+   }
+  },
+  {
+   "id": "ga-sarmal",
+   "cat": "Galaksi",
+   "tier": 1,
+   "title": "Sarmal Kollar",
+   "desc": "Kollu, dönen bir sarmal galaksi gördün.",
+   "hint": "Kolları olan, dönen bir galaksi ara.",
+   "need": {
+    "gkind": {
+     "kind": "spiral"
+    }
+   }
+  },
+  {
+   "id": "ga-cubuk",
+   "cat": "Galaksi",
+   "tier": 2,
+   "title": "Çubuğun Gizi",
+   "desc": "Merkezinde yıldız çubuğu olan bir galaksiyi buldun.",
+   "hint": "Merkezi uzun bir çubuk gibi görünen galaksiyi bul.",
+   "need": {
+    "gkind": {
+     "kind": "barred"
+    }
+   }
+  },
+  {
+   "id": "ga-eliptik",
+   "cat": "Galaksi",
+   "tier": 2,
+   "title": "Yaşlı Dev",
+   "desc": "Yumuşak, kolsuz, yaşlı bir eliptik galaksi gözlemledin.",
+   "hint": "Yuvarlak ve kolsuz bir galaksi bul.",
+   "need": {
+    "gkind": {
+     "kind": "elliptical"
+    }
+   }
+  },
+  {
+   "id": "ga-duzensiz",
+   "cat": "Galaksi",
+   "tier": 2,
+   "title": "Düzensiz Güzellik",
+   "desc": "Biçimi belli olmayan bir galaksiyi inceledin.",
+   "hint": "Biçimsiz görünen bir galaksiye bak.",
+   "need": {
+    "gkind": {
+     "kind": "irregular"
+    }
+   }
+  },
+  {
+   "id": "ga-yakin-bak",
+   "cat": "Galaksi",
+   "tier": 2,
+   "title": "Yakından Bak",
+   "desc": "Aynı galaksiyi tekrar tekrar gözlemleyerek daha çok şey öğrendin.",
+   "hint": "Aynı galaksiyi bir kez daha gözlemle.",
+   "need": {
+    "observed": {
+     "kind": "g",
+     "min": 1,
+     "level": 2
+    }
+   }
+  },
+  {
+   "id": "ga-dort-bicim",
+   "cat": "Galaksi",
+   "tier": 3,
+   "title": "Dört Biçim",
+   "desc": "Sarmal, çubuklu, eliptik ve düzensiz: dört galaksi türünü de gördün.",
+   "hint": "Her türden bir galaksi gözlemle.",
+   "need": {
+    "all": [
+     {
+      "gkind": {
+       "kind": "spiral"
+      }
+     },
+     {
+      "gkind": {
+       "kind": "barred"
+      }
+     },
+     {
+      "gkind": {
+       "kind": "elliptical"
+      }
+     },
+     {
+      "gkind": {
+       "kind": "irregular"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "ga-anatomi",
+   "cat": "Galaksi",
+   "tier": 3,
+   "title": "Galaksi Anatomisi",
+   "desc": "Bir galaksinin en derin bilgi katmanına ulaştın.",
+   "hint": "Bir galaksiyi üç kez gözlemle.",
+   "need": {
+    "observed": {
+     "kind": "g",
+     "min": 1,
+     "level": 3
+    }
+   }
+  },
+  {
+   "id": "ga-yayilim",
+   "cat": "Galaksi",
+   "tier": 3,
+   "title": "Üç Galaksi, Üç Hikâye",
+   "desc": "Üç ayrı galaksiden yıldızlar gözlemledin.",
+   "hint": "Farklı galaksilere girip her birinden bir yıldıza bak.",
+   "need": {
+    "spread": {
+     "min": 3
+    }
+   }
+  },
+  {
+   "id": "ga-evrensel",
+   "cat": "Galaksi",
+   "tier": 4,
+   "title": "Evrensel Atlas",
+   "desc": "Beş galaksiyi ikinci bilgi katmanına kadar tanıyorsun.",
+   "hint": "Birçok galaksiyi tekrar gözlemle.",
+   "need": {
+    "observed": {
+     "kind": "g",
+     "min": 5,
+     "level": 2
+    }
+   }
+  },
+  {
+   "id": "ye-ilk",
+   "cat": "Yıldız",
+   "tier": 1,
+   "title": "İlk Yıldız",
+   "desc": "Bir yıldız sistemine yaklaşıp yıldızını tanıdın.",
+   "hint": "Bir galaksiye gir ve bir yıldıza dokun.",
+   "need": {
+    "observed": {
+     "kind": "s",
+     "min": 1,
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "ye-sari",
+   "cat": "Yıldız",
+   "tier": 1,
+   "title": "Sarı Cüce",
+   "desc": "Güneş'e benzeyen sarı bir yıldız buldun.",
+   "hint": "Sarı, orta büyüklükte bir yıldız ara.",
+   "need": {
+    "scls": {
+     "cls": "G"
+    }
+   }
+  },
+  {
+   "id": "ye-kirmizi",
+   "cat": "Yıldız",
+   "tier": 1,
+   "title": "Soğuk Işık",
+   "desc": "Sönük, uzun ömürlü bir kırmızı cüceye baktın.",
+   "hint": "Kırmızı ve sönük bir yıldız bul.",
+   "need": {
+    "scls": {
+     "cls": "M"
+    }
+   }
+  },
+  {
+   "id": "ye-on",
+   "cat": "Yıldız",
+   "tier": 2,
+   "title": "On Yıldızlı Gece",
+   "desc": "On farklı yıldızı gözlemledin.",
+   "hint": "Galaksilerde gezip yıldızlara bak.",
+   "need": {
+    "observed": {
+     "kind": "s",
+     "min": 10,
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "ye-turuncu",
+   "cat": "Yıldız",
+   "tier": 2,
+   "title": "Turuncu Huzur",
+   "desc": "Sakin, turuncu bir K tipi yıldız inceledin.",
+   "hint": "Turuncu bir yıldız bul.",
+   "need": {
+    "scls": {
+     "cls": "K"
+    }
+   }
+  },
+  {
+   "id": "ye-mavi",
+   "cat": "Yıldız",
+   "tier": 2,
+   "title": "Mavi Dev",
+   "desc": "Kısa ömürlü, çok parlak, sıcak bir yıldız gördün.",
+   "hint": "Mavi-beyaz, çok parlak bir yıldız ara.",
+   "need": {
+    "any": [
+     {
+      "scls": {
+       "cls": "O"
+      }
+     },
+     {
+      "scls": {
+       "cls": "B"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "ye-protoyildiz",
+   "cat": "Yıldız",
+   "tier": 3,
+   "title": "Doğum Odası",
+   "desc": "Henüz doğmakta olan bir protoyıldıza tanık oldun.",
+   "hint": "Genç, gaz bulutuna sarılı bir yıldız bul.",
+   "need": {
+    "sphase": {
+     "phase": "protostar"
+    }
+   }
+  },
+  {
+   "id": "ye-dev",
+   "cat": "Yıldız",
+   "tier": 3,
+   "title": "Şişen Dev",
+   "desc": "Hidrojeni biten bir yıldızın dev evresini gördün.",
+   "hint": "Yaşlanmış, şişmiş kırmızı bir yıldız ara.",
+   "need": {
+    "sphase": {
+     "phase": "giant"
+    }
+   }
+  },
+  {
+   "id": "ye-beyaz-cuce",
+   "cat": "Yıldız",
+   "tier": 3,
+   "title": "Beyaz Cüce",
+   "desc": "Bir yıldızın küçük, sıcak ve sönen küllerini buldun.",
+   "hint": "Ömrünü tamamlamış küçük bir yıldız ara.",
+   "need": {
+    "sphase": {
+     "phase": "dwarf"
+    }
+   }
+  },
+  {
+   "id": "ye-tayf",
+   "cat": "Yıldız",
+   "tier": 4,
+   "title": "Tayf Koleksiyonu",
+   "desc": "O'dan M'ye yıldız sınıflarının hepsini gözlemledin.",
+   "hint": "Her renkten ve sınıftan yıldız topla.",
+   "need": {
+    "all": [
+     {
+      "scls": {
+       "cls": "O"
+      }
+     },
+     {
+      "scls": {
+       "cls": "B"
+      }
+     },
+     {
+      "scls": {
+       "cls": "A"
+      }
+     },
+     {
+      "scls": {
+       "cls": "F"
+      }
+     },
+     {
+      "scls": {
+       "cls": "G"
+      }
+     },
+     {
+      "scls": {
+       "cls": "K"
+      }
+     },
+     {
+      "scls": {
+       "cls": "M"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "ye-notron",
+   "cat": "Yıldız",
+   "tier": 4,
+   "title": "Atan Kalp",
+   "desc": "Saniyede dönen, çekirdek kadar yoğun bir nötron yıldızı buldun.",
+   "hint": "Çok eski ve çok yoğun bir yıldız kalıntısı ara.",
+   "need": {
+    "sphase": {
+     "phase": "neutron"
+    }
+   },
+   "secret": true
+  },
+  {
+   "id": "ye-karadelik",
+   "cat": "Yıldız",
+   "tier": 4,
+   "title": "Olay Ufku",
+   "desc": "Işığın bile kaçamadığı bir kara delik gördün.",
+   "hint": "Işık yaymayan, çevresini büken bir nokta ara.",
+   "need": {
+    "sphase": {
+     "phase": "blackhole"
+    }
+   },
+   "secret": true
+  },
+  {
+   "id": "pl-ilk",
+   "cat": "Gezegen",
+   "tier": 1,
+   "title": "İlk Dünya",
+   "desc": "Bir yıldız sisteminde ilk gezegenini gözlemledin.",
+   "hint": "Bir yıldız sistemine gir ve bir gezegene dokun.",
+   "need": {
+    "observed": {
+     "kind": "p",
+     "min": 1,
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "pl-uc",
+   "cat": "Gezegen",
+   "tier": 1,
+   "title": "Üç Dünya",
+   "desc": "Üç gezegen tanıdın.",
+   "hint": "Birkaç gezegeni gözlemle.",
+   "need": {
+    "observed": {
+     "kind": "p",
+     "min": 3,
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "pl-gaz",
+   "cat": "Gezegen",
+   "tier": 1,
+   "title": "Gaz Devi",
+   "desc": "Katı yüzeyi olmayan dev bir gaz gezegen buldun.",
+   "hint": "Büyük ve bantlı bir gezegene bak.",
+   "need": {
+    "ptype": {
+     "type": "gas"
+    }
+   }
+  },
+  {
+   "id": "pl-okyanus",
+   "cat": "Gezegen",
+   "tier": 2,
+   "title": "Mavi Dünya",
+   "desc": "Yüzeyi okyanusla kaplı bir gezegen buldun.",
+   "hint": "Mavi, su dolu bir dünya ara.",
+   "need": {
+    "ptype": {
+     "type": "ocean"
+    }
+   }
+  },
+  {
+   "id": "pl-halka",
+   "cat": "Gezegen",
+   "tier": 2,
+   "title": "Halkalı Güzellik",
+   "desc": "Halkaları olan bir gezegen gözlemledin.",
+   "hint": "Çevresinde halka olan bir gezegen bul.",
+   "need": {
+    "ptype": {
+     "type": "ringed"
+    }
+   }
+  },
+  {
+   "id": "pl-lav",
+   "cat": "Gezegen",
+   "tier": 2,
+   "title": "Erimiş Yüzey",
+   "desc": "Yüzeyi lav olan, yıldızına çok yakın bir dünya gördün.",
+   "hint": "Yıldızına çok yakın, kızgın bir gezegen ara.",
+   "need": {
+    "ptype": {
+     "type": "lava"
+    }
+   }
+  },
+  {
+   "id": "pl-col",
+   "cat": "Gezegen",
+   "tier": 2,
+   "title": "Kızıl Çöl",
+   "desc": "Kurak, kumlu bir çöl gezegenine indin.",
+   "hint": "Kuru ve kızıl bir gezegen bul.",
+   "need": {
+    "ptype": {
+     "type": "desert"
+    }
+   }
+  },
+  {
+   "id": "pl-buz",
+   "cat": "Gezegen",
+   "tier": 2,
+   "title": "Donmuş Sessizlik",
+   "desc": "Buzla kaplı soğuk bir dünya inceledin.",
+   "hint": "Yıldızından uzak, buz tutmuş bir gezegen ara.",
+   "need": {
+    "ptype": {
+     "type": "ice"
+    }
+   }
+  },
+  {
+   "id": "pl-kusak",
+   "cat": "Gezegen",
+   "tier": 2,
+   "title": "Yaşam Kuşağında",
+   "desc": "Yıldızına ne çok yakın ne çok uzak bir gezegen buldun: sıvı su için doğru mesafe.",
+   "hint": "Yaşanabilir kuşaktaki bir gezegeni gözlemle.",
+   "need": {
+    "habZone": true
+   }
+  },
+  {
+   "id": "pl-uydu",
+   "cat": "Gezegen",
+   "tier": 2,
+   "title": "Uydu Sahibi",
+   "desc": "En az bir uydusu olan bir gezegen gözlemledin.",
+   "hint": "Etrafında küçük bir cisim dönen gezegen bul.",
+   "need": {
+    "moons": {
+     "min": 1
+    }
+   }
+  },
+  {
+   "id": "pl-iliman",
+   "cat": "Gezegen",
+   "tier": 2,
+   "title": "İlıman Dünya",
+   "desc": "Sıcaklığı sıvı suya uygun aralıkta bir gezegen buldun.",
+   "hint": "Çok sıcak ve çok soğuk olmayan bir gezegen ara.",
+   "need": {
+    "temp": {
+     "min": 273,
+     "max": 310
+    }
+   }
+  },
+  {
+   "id": "pl-uydu-ailesi",
+   "cat": "Gezegen",
+   "tier": 3,
+   "title": "Uydu Ailesi",
+   "desc": "Üç ya da daha fazla uydusu olan bir gezegen gördün.",
+   "hint": "Çok uydulu bir gezegen ara.",
+   "need": {
+    "moons": {
+     "min": 3
+    }
+   }
+  },
+  {
+   "id": "pl-atlas",
+   "cat": "Gezegen",
+   "tier": 3,
+   "title": "Gezegen Atlası",
+   "desc": "On gezegen gözlemledin.",
+   "hint": "Sistemlerde gezip gezegenleri gözlemle.",
+   "need": {
+    "observed": {
+     "kind": "p",
+     "min": 10,
+     "level": 1
+    }
+   }
+  },
+  {
+   "id": "pl-tur-koleksiyonu",
+   "cat": "Gezegen",
+   "tier": 4,
+   "title": "Tür Koleksiyonu",
+   "desc": "Altı gezegen türünün hepsini gördün.",
+   "hint": "Her türden gezegen topla.",
+   "need": {
+    "all": [
+     {
+      "ptype": {
+       "type": "rocky"
+      }
+     },
+     {
+      "ptype": {
+       "type": "ocean"
+      }
+     },
+     {
+      "ptype": {
+       "type": "ice"
+      }
+     },
+     {
+      "ptype": {
+       "type": "gas"
+      }
+     },
+     {
+      "ptype": {
+       "type": "lava"
+      }
+     },
+     {
+      "ptype": {
+       "type": "desert"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "ol-ilk-haber",
+   "cat": "Olay",
+   "tier": 1,
+   "title": "İlk Haber",
+   "desc": "Evren sana ilk kozmik olayını gösterdi.",
+   "hint": "Zamanı hızlandır ve bekle; evren konuşur.",
+   "need": {
+    "events": {
+     "min": 1
+    }
+   }
+  },
+  {
+   "id": "ol-kuyruklu",
+   "cat": "Olay",
+   "tier": 2,
+   "title": "Gökte Bir Kuyruk",
+   "desc": "Bir kuyruklu yıldızın geçişine tanık oldun.",
+   "hint": "Zamanı hızlandırıp kuyruklu yıldız olayını bekle.",
+   "need": {
+    "event": "comet"
+   }
+  },
+  {
+   "id": "ol-bulutsu",
+   "cat": "Olay",
+   "tier": 2,
+   "title": "Gazdan Işığa",
+   "desc": "Bir bulutsunun belirişini gördün.",
+   "hint": "Uzun süre hızlandırılmış zaman akışını izle.",
+   "need": {
+    "event": "nebula"
+   }
+  },
+  {
+   "id": "ol-dogum",
+   "cat": "Olay",
+   "tier": 2,
+   "title": "Yıldız Doğumu",
+   "desc": "Bir yıldız gözünün önünde doğdu.",
+   "hint": "Zamanı hızlandır; yeni yıldızlar doğabilir.",
+   "need": {
+    "event": "stellar-birth"
+   }
+  },
+  {
+   "id": "ol-olum",
+   "cat": "Olay",
+   "tier": 2,
+   "title": "Yıldızın Ölümü",
+   "desc": "Bir yıldız ömrünü tamamladı.",
+   "hint": "Çok uzun zaman akışı bekle; yıldızlar ölür.",
+   "need": {
+    "event": "star-dies"
+   }
+  },
+  {
+   "id": "ol-nova",
+   "cat": "Olay",
+   "tier": 2,
+   "title": "Ani Parlama",
+   "desc": "Bir nova patlaması gördün.",
+   "hint": "Bol zaman akışı; bir yıldız aniden parlayabilir.",
+   "need": {
+    "event": "nova"
+   }
+  },
+  {
+   "id": "ol-on",
+   "cat": "Olay",
+   "tier": 2,
+   "title": "On Haber",
+   "desc": "On kozmik olay kaydettin.",
+   "hint": "Zamanı hızlandır ve olayları topla.",
+   "need": {
+    "events": {
+     "min": 10
+    }
+   }
+  },
+  {
+   "id": "ol-supernova",
+   "cat": "Olay",
+   "tier": 3,
+   "title": "Süpernova",
+   "desc": "Bir yıldızın dev patlamasına tanık oldun.",
+   "hint": "Çok büyük bir yıldızın sonunu bekle.",
+   "need": {
+    "event": "supernova"
+   }
+  },
+  {
+   "id": "ol-kusak-kaymasi",
+   "cat": "Olay",
+   "tier": 3,
+   "title": "Kuşak Kayması",
+   "desc": "Bir yıldızın yaşam kuşağı kaydı; bir gezegen yaşanabilirlik sınırını geçti.",
+   "hint": "Yıldızlar yaşlandıkça kuşak yer değiştirir; bekle.",
+   "need": {
+    "event": "habitable-shift"
+   }
+  },
+  {
+   "id": "ol-carpisma",
+   "cat": "Olay",
+   "tier": 3,
+   "title": "Kozmik Çarpışma",
+   "desc": "İki cismin çarpışmasına tanık oldun.",
+   "hint": "Uzun süre bekle; nadir bir çarpışma olabilir.",
+   "need": {
+    "event": "collision"
+   }
+  },
+  {
+   "id": "ol-cesit",
+   "cat": "Olay",
+   "tier": 3,
+   "title": "Çeşitli Gökyüzü",
+   "desc": "Beş farklı türde kozmik olay gördün.",
+   "hint": "Farklı olaylar için zamanı akıtmaya devam et.",
+   "need": {
+    "eventKinds": {
+     "min": 5
+    }
+   }
+  },
+  {
+   "id": "ol-tarihci",
+   "cat": "Olay",
+   "tier": 4,
+   "title": "Kozmik Tarihçi",
+   "desc": "Yirmi beş olay: evreninin tarihi artık yazılı.",
+   "hint": "Günlüğü dolduracak kadar zaman geçir.",
+   "need": {
+    "events": {
+     "min": 25
+    }
+   }
+  },
+  {
+   "id": "ka-ilk",
+   "cat": "Karar",
+   "tier": 1,
+   "title": "İlk Müdahale",
+   "desc": "Bir gezegene ilk kararını uyguladın ve sonucunu gördün.",
+   "hint": "Gözlemlediğin bir gezegene dokun ve bir karar seç.",
+   "need": {
+    "decisions": {
+     "min": 1
+    }
+   }
+  },
+  {
+   "id": "ka-sera",
+   "cat": "Karar",
+   "tier": 1,
+   "title": "Sera Ustası",
+   "desc": "Atmosferi kalınlaştırıp ısının nasıl tutulduğunu gördün.",
+   "hint": "Bir gezegende atmosferi artır.",
+   "need": {
+    "decided": "sera-artir"
+   }
+  },
+  {
+   "id": "ka-su",
+   "cat": "Karar",
+   "tier": 1,
+   "title": "Su Taşıyıcı",
+   "desc": "Bir gezegene su ekledin.",
+   "hint": "Bir gezegende su miktarını artır.",
+   "need": {
+    "decided": "su-ekle"
+   }
+  },
+  {
+   "id": "ka-bulut",
+   "cat": "Karar",
+   "tier": 1,
+   "title": "Bulut Ressamı",
+   "desc": "Yansıtıcılığı artırarak gezegeni serinlettin.",
+   "hint": "Yüzeyin ışığı yansıtmasını artır.",
+   "need": {
+    "decided": "bulut-artir"
+   }
+  },
+  {
+   "id": "ka-geri",
+   "cat": "Karar",
+   "tier": 2,
+   "title": "Pişmanlık Yok",
+   "desc": "Verdiğin bir kararı geri aldın; evren esnektir.",
+   "hint": "Uyguladığın bir kararın tersini seç.",
+   "need": {
+    "reverted": {
+     "min": 1
+    }
+   }
+  },
+  {
+   "id": "ka-dogal",
+   "cat": "Karar",
+   "tier": 2,
+   "title": "Doğaya Saygı",
+   "desc": "Bir gezegeni doğal haline döndürdün.",
+   "hint": "Bir gezegende 'doğal duruma dön' kararını seç.",
+   "need": {
+    "decided": "gezegen-dogal"
+   }
+  },
+  {
+   "id": "ka-denge",
+   "cat": "Karar",
+   "tier": 3,
+   "title": "Denge Sanatı",
+   "desc": "Beş farklı türde karar denedin.",
+   "hint": "Farklı karar türlerini dene.",
+   "need": {
+    "decidedKinds": {
+     "min": 5
+    }
+   }
+  },
+  {
+   "id": "ka-cennet",
+   "cat": "Karar",
+   "tier": 3,
+   "title": "Cennet Mühendisi",
+   "desc": "Yaşanabilir olmayan bir gezegeni, yaşanabilir aralığa getirdin.",
+   "hint": "Çok sıcak ya da soğuk bir gezegeni dengeye getir.",
+   "need": {
+    "flag": "made-habitable"
+   }
+  },
+  {
+   "id": "ka-kuyruklu",
+   "cat": "Karar",
+   "tier": 3,
+   "title": "Kuyruklu Yıldız Postacısı",
+   "desc": "Bir kuyruklu yıldızı gezegene yönlendirip su ve gaz taşıttın.",
+   "hint": "Bir gezegeni derin gözlemle, sonra kuyruklu yıldız yönlendir.",
+   "need": {
+    "decided": "kuyruklu-yonlendir"
+   }
+  },
+  {
+   "id": "ka-bolge",
+   "cat": "Karar",
+   "tier": 3,
+   "title": "Bölgesel Karar",
+   "desc": "Bir galaksideki tüm gözlemlediğin gezegenlere birlikte karar uyguladın.",
+   "hint": "Bir galaksiyi gözlemle ve bölgesel bir karar seç.",
+   "need": {
+    "any": [
+     {
+      "decided": "bolge-sera-artir"
+     },
+     {
+      "decided": "bolge-su-artir"
+     }
+    ]
+   }
+  },
+  {
+   "id": "ka-ders",
+   "cat": "Karar",
+   "tier": 3,
+   "title": "Gerçek Bir Ders",
+   "desc": "Bir müdahale yaşanabilir bir dünyayı bozdu. Bilim de böyle öğrenir.",
+   "hint": "Dikkatli ol: her karar iki yöne gidebilir.",
+   "need": {
+    "flag": "lost-habitable"
+   },
+   "secret": true
+  },
+  {
+   "id": "ka-yirmi",
+   "cat": "Karar",
+   "tier": 4,
+   "title": "Yirmi Karar",
+   "desc": "Yirmi karar uyguladın; neden-sonuç ilişkilerini iyi biliyorsun.",
+   "hint": "Gezegenlerle oynamaya devam et.",
+   "need": {
+    "decisions": {
+     "min": 20
+    }
+   }
+  }
+ ],
+ "actions": [
+  {
+   "id": "sera-artir",
+   "target": "p",
+   "label": "Atmosferi kalınlaştır",
+   "desc": "Atmosfer yoğunluğunu +0,25 artırır.",
+   "why": "Daha kalın atmosfer sera etkisini güçlendirir: ısı uzaya zor kaçar, sıcaklık yükselir.",
+   "tag": "basit",
+   "delta": {
+    "atm": 0.25
+   },
+   "level": 1,
+   "reverse": "sera-azalt"
+  },
+  {
+   "id": "sera-azalt",
+   "target": "p",
+   "label": "Atmosferi incelt",
+   "desc": "Atmosfer yoğunluğunu −0,25 azaltır.",
+   "why": "İnce atmosfer ısıyı tutamaz: gece-gündüz farkı büyür, ortalama sıcaklık düşer.",
+   "tag": "basit",
+   "delta": {
+    "atm": -0.25
+   },
+   "level": 1,
+   "reverse": "sera-artir"
+  },
+  {
+   "id": "su-ekle",
+   "target": "p",
+   "label": "Su ekle",
+   "desc": "Su miktarını +0,25 artırır.",
+   "why": "Daha çok su, bulut ve buhar demektir: ısıyı biraz tutar, yüzeyi serinletici bulutlar da oluşur.",
+   "tag": "basit",
+   "delta": {
+    "water": 0.25
+   },
+   "level": 1,
+   "reverse": "su-cek"
+  },
+  {
+   "id": "su-cek",
+   "target": "p",
+   "label": "Su azalt",
+   "desc": "Su miktarını −0,25 azaltır.",
+   "why": "Su azalınca bulut ve buhar azalır; yüzey kurur, iklim daha uç değerlere gider.",
+   "tag": "basit",
+   "delta": {
+    "water": -0.25
+   },
+   "level": 1,
+   "reverse": "su-ekle"
+  },
+  {
+   "id": "bulut-artir",
+   "target": "p",
+   "label": "Yansıtıcılığı artır",
+   "desc": "Yansıtıcılığı (albedo) +0,10 artırır.",
+   "why": "Parlak yüzey ve bulutlar ışığın daha çoğunu geri yansıtır; gezegen daha az ısınır.",
+   "tag": "gercek",
+   "delta": {
+    "albedo": 0.1
+   },
+   "level": 1,
+   "reverse": "toz-artir"
+  },
+  {
+   "id": "toz-artir",
+   "target": "p",
+   "label": "Yüzeyi karart",
+   "desc": "Yansıtıcılığı (albedo) −0,10 azaltır.",
+   "why": "Koyu yüzey ışığı soğurur; gezegen daha çok ısınır.",
+   "tag": "gercek",
+   "delta": {
+    "albedo": -0.1
+   },
+   "level": 1,
+   "reverse": "bulut-artir"
+  },
+  {
+   "id": "kuyruklu-yonlendir",
+   "target": "p",
+   "label": "Kuyruklu yıldız yönlendir",
+   "desc": "Su +0,30, atmosfer +0,10. Derin gözlem (seviye 2) gerekir.",
+   "why": "Buzlu kuyruklu yıldızlar su ve gaz taşır; çarpınca gezegene bırakırlar. (Yönlendirme kurgudur; su taşıma fikri gerçektir.)",
+   "tag": "kurgu",
+   "delta": {
+    "water": 0.3,
+    "atm": 0.1
+   },
+   "level": 2,
+   "reverse": "atmosfer-kacisi"
+  },
+  {
+   "id": "atmosfer-kacisi",
+   "target": "p",
+   "label": "Atmosfer kaçışını hızlandır",
+   "desc": "Su −0,30, atmosfer −0,10. Derin gözlem (seviye 2) gerekir.",
+   "why": "Zayıf manyetik alan ya da yıldız rüzgârı atmosferi aşındırır; hafif gazlar ve su kaybolur. (Kurgusal müdahale.)",
+   "tag": "kurgu",
+   "delta": {
+    "water": -0.3,
+    "atm": -0.1
+   },
+   "level": 2,
+   "reverse": "kuyruklu-yonlendir"
+  },
+  {
+   "id": "gezegen-dogal",
+   "target": "p",
+   "label": "Doğal duruma dön",
+   "desc": "Atmosfer, su ve yansıtıcılığı ilk haline getirir.",
+   "why": "Müdahale öncesi değerlere dönülür; iklim yeniden doğal dengesine oturur.",
+   "tag": "basit",
+   "delta": {},
+   "level": 1,
+   "restore": true
+  },
+  {
+   "id": "bolge-sera-artir",
+   "target": "g",
+   "label": "Bölgesel sera artışı",
+   "desc": "Galaksideki gözlemlenmiş tüm gezegenlerde atmosfer +0,10.",
+   "why": "Aynı küçük değişiklik birçok gezegende farklı sonuç verir: yıldıza uzaklık ve albedo belirleyicidir.",
+   "tag": "basit",
+   "delta": {
+    "atm": 0.1
+   },
+   "level": 2,
+   "reverse": "bolge-sera-azalt"
+  },
+  {
+   "id": "bolge-sera-azalt",
+   "target": "g",
+   "label": "Bölgesel sera azalışı",
+   "desc": "Galaksideki gözlemlenmiş tüm gezegenlerde atmosfer −0,10.",
+   "why": "Atmosfer inceldikçe sıcak gezegenler serinler, soğuk olanlar daha da soğur.",
+   "tag": "basit",
+   "delta": {
+    "atm": -0.1
+   },
+   "level": 2,
+   "reverse": "bolge-sera-artir"
+  },
+  {
+   "id": "bolge-su-artir",
+   "target": "g",
+   "label": "Bölgesel su artışı",
+   "desc": "Galaksideki gözlemlenmiş tüm gezegenlerde su +0,10.",
+   "why": "Su miktarı iklimin hem ısıtıcı hem serinletici etkisini değiştirir; sonuç gezegenden gezegene farklıdır.",
+   "tag": "basit",
+   "delta": {
+    "water": 0.1
+   },
+   "level": 2,
+   "reverse": "bolge-su-azalt"
+  },
+  {
+   "id": "bolge-su-azalt",
+   "target": "g",
+   "label": "Bölgesel su azalışı",
+   "desc": "Galaksideki gözlemlenmiş tüm gezegenlerde su −0,10.",
+   "why": "Su azalınca bulutlar ve buhar azalır; yüzeyler kuraklaşır.",
+   "tag": "basit",
+   "delta": {
+    "water": -0.1
+   },
+   "level": 2,
+   "reverse": "bolge-su-artir"
+  },
+  {
+   "id": "galaksi-dogal",
+   "target": "g",
+   "label": "Galaksiyi doğal haline döndür",
+   "desc": "Galaksideki müdahale edilmiş tüm gezegenleri ilk haline getirir.",
+   "why": "Tüm kararlar geri alınır; her gezegen doğal iklimine döner.",
+   "tag": "basit",
+   "delta": {},
+   "level": 2,
+   "restore": true
+  }
+ ],
+ "badges": [
+  {
+   "id": "cirak",
+   "title": "Çırak Gözlemci",
+   "desc": "3 keşif",
+   "need": {
+    "total": {
+     "min": 3
+    }
+   }
+  },
+  {
+   "id": "gokyuzu",
+   "title": "Gökyüzü Okuyucusu",
+   "desc": "10 keşif",
+   "need": {
+    "total": {
+     "min": 10
+    }
+   }
+  },
+  {
+   "id": "zaman",
+   "title": "Zaman Yolcusu",
+   "desc": "Evren kategorisinde 6 keşif",
+   "need": {
+    "count": {
+     "cat": "Evren",
+     "min": 6
+    }
+   }
+  },
+  {
+   "id": "kartograf",
+   "title": "Kartograf",
+   "desc": "Galaksi kategorisinde 6 keşif",
+   "need": {
+    "count": {
+     "cat": "Galaksi",
+     "min": 6
+    }
+   }
+  },
+  {
+   "id": "yildiz",
+   "title": "Yıldız Okuyucu",
+   "desc": "Yıldız kategorisinde 6 keşif",
+   "need": {
+    "count": {
+     "cat": "Yıldız",
+     "min": 6
+    }
+   }
+  },
+  {
+   "id": "dunya",
+   "title": "Dünya Bakıcısı",
+   "desc": "Gezegen kategorisinde 8 keşif",
+   "need": {
+    "count": {
+     "cat": "Gezegen",
+     "min": 8
+    }
+   }
+  },
+  {
+   "id": "haberci",
+   "title": "Kozmik Haberci",
+   "desc": "Olay kategorisinde 6 keşif",
+   "need": {
+    "count": {
+     "cat": "Olay",
+     "min": 6
+    }
+   }
+  },
+  {
+   "id": "iklim",
+   "title": "İklim Çırağı",
+   "desc": "Karar kategorisinde 5 keşif",
+   "need": {
+    "count": {
+     "cat": "Karar",
+     "min": 5
+    }
+   }
+  },
+  {
+   "id": "hikayeci",
+   "title": "Kozmik Hikâyeci",
+   "desc": "40 keşif",
+   "need": {
+    "total": {
+     "min": 40
+    }
+   }
+  },
+  {
+   "id": "usta",
+   "title": "Evren Ustası",
+   "desc": "60 keşif",
+   "need": {
+    "total": {
+     "min": 60
+    }
+   }
+  }
+ ]
+}
