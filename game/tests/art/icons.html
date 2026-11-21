@@ -1,0 +1,70 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<style>:root{--f-mono:'DejaVu Sans Mono',monospace}body{margin:0;background:#0a1226;width:390px}canvas{display:block;width:390px;height:800px}</style></head><body>
+<canvas id="c1" width="390" height="800"></canvas><canvas id="c2" width="390" height="800"></canvas><canvas id="c3" width="390" height="800"></canvas><canvas id="c4" width="390" height="800"></canvas>
+<script>window.SG={rng:function(seed){var a=(typeof seed==='number'?seed:0)>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}};</script>
+<script src="../../src/65-iso-icons.js"></script><script src="../../src/66-iso-fx.js"></script>
+<script>
+var DPR=2;
+function cv(id){var k=document.getElementById(id);k.width=390*DPR;k.height=800*DPR;var c=k.getContext('2d');c.scale(DPR,DPR);return c;}
+function bg(c,a,b){var g=c.createLinearGradient(0,0,0,800);g.addColorStop(0,a);g.addColorStop(1,b);c.fillStyle=g;c.fillRect(0,0,390,800);}
+function txt(c,s,x,y,col){c.fillStyle=col||'#8fb0cc';c.font='9px monospace';c.fillText(s,x,y);}
+var t0=performance.now();
+// 1) ikonlar
+var c=cv('c1');bg(c,'#14264d','#0b1530');
+var names=SG.Iso.iconNames;
+txt(c,'IKONLAR 64px / 40px / 24px ('+names.length+')',10,14);
+var cols=5,cw=390/cols;
+names.forEach(function(n,i){var cx=(i%cols)*cw+cw/2,cy=50+Math.floor(i/cols)*100;
+ SG.Iso.icon(c,n,cx,cy,56);
+ SG.Iso.icon(c,n,cx-18,cy+40,28);SG.Iso.icon(c,n,cx+18,cy+40,24);
+ txt(c,n,cx-n.length*2.6,cy+68,'#a9c2dc');});
+// seritte 24px kaynak sirasi
+var ry=50+Math.ceil(names.length/cols)*100;
+['food','stone','metal','energy','know','credit'].forEach(function(n,i){SG.Iso.icon(c,n,40+i*58,ry,24);SG.Iso.icon(c,n,40+i*58,ry+32,32);SG.Iso.icon(c,n,40+i*58,ry+72,44,{glow:true});});
+// 2) gemiler
+c=cv('c2');bg(c,'#1a3a78','#0d1a3c');txt(c,'GEMILER: logi / war / scout x 4 medeniyet (alevli ve alevsiz)',10,14);
+var civs=['kulhan','tuzdalga','karaoz','ipekci','cinar','buzag','sesdokur','lumeren'];
+var kinds=['logi','war','scout'];
+for(var ci=0;ci<8;ci++)for(var ki=0;ki<3;ki++){
+ SG.Iso.ship(c,kinds[ki],civs[ci],90+ki*110,48+ci*54,ci%2?3.14159+0.15:-0.2,1.1+ki*.3,{flame:ci%4===3?0:1,scale:1});
+ }
+txt(c,'x2.0 olcek, farkli aci',10,470);
+kinds.forEach(function(k,i){SG.Iso.ship(c,k,'lumeren',70+i*120,520,-0.6+i*0.6,2,{flame:1,scale:2});});
+kinds.forEach(function(k,i){SG.Iso.ship(c,k,'kulhan',70+i*120,620,Math.PI/2+i*.3,2,{flame:.7,scale:1.5});});
+txt(c,'ters yon (sol): isik ustten kalmali',10,690);
+kinds.forEach(function(k,i){SG.Iso.ship(c,k,'ruyag',70+i*120,730,3.14159,2,{flame:1,scale:1.4});});
+// 3) rakip kureler
+c=cv('c3');bg(c,'#05081a','#10163a');txt(c,'RAKIP KURELER: normal, dying .4, dying .9 + target',10,14);
+var cv_=['tuzdalga','kulhan','buzag','cinar','karaoz','ipekci'];
+SG.Iso.rivalPlanet(c,11,'tuzdalga',70,90,44,2,{});
+SG.Iso.rivalPlanet(c,23,'kulhan',195,90,44,2,{dying:.4,t:1});
+SG.Iso.rivalPlanet(c,5,'buzag',320,90,44,2,{dying:.95,target:true});
+SG.Iso.rivalPlanet(c,31,'cinar',70,210,30,5,{});SG.Iso.rivalPlanet(c,32,'karaoz',150,210,30,5,{dying:.6});
+SG.Iso.rivalPlanet(c,33,'ipekci',230,210,30,5,{target:'#ffd24a'});SG.Iso.rivalPlanet(c,34,'sesdokur',310,210,30,5,{});
+for(var i=0;i<12;i++){var id=['kulhan','kirkbicak','lumeren','tuzdalga','cinar','ruzgarguder','buzag','kulluspor','karaoz','sesdokur','ruyag','ipekci'][i];
+ SG.Iso.rivalPlanet(c,100+i*3,id,32+(i%6)*64,320+Math.floor(i/6)*70,22,i,{});}
+for(var i=0;i<6;i++)SG.Iso.rivalPlanet(c,200+i,cv_[i],30+i*62,480,13,i,{dying:i/5});
+txt(c,'r=13 kucuk, dying 0..1',10,505);
+var tg=performance.now();SG.Iso.rivalPlanet(c,9999,'tuzdalga',-300,-300,44,1,{});window.__genMs=performance.now()-tg;var t1=performance.now();
+for(var i=0;i<200;i++)SG.Iso.rivalPlanet(c,11,'tuzdalga',-100,-100,44,i*.03,{});
+window.__planetMs=(performance.now()-t1)/200;
+// 4) fx
+c=cv('c4');bg(c,'#2c5a8e','#1a2a4c');
+function panel(oy,T,label){
+ var fx=SG.Iso.fx.new(77);
+ c.save();c.translate(0,oy);c.beginPath();c.rect(0,0,390,266);c.clip();
+ c.fillStyle='#4a7a4a';c.beginPath();c.moveTo(0,170);c.lineTo(390,150);c.lineTo(390,266);c.lineTo(0,266);c.fill();
+ fx.emit('smoke',40,110,{n:1});fx.emit('dust',110,130,{n:10});fx.emit('flame',190,100,{n:6});fx.emit('spark',260,110,{n:12});fx.emit('crack',340,150,{r:40});
+ fx.emit('bubble',50,230,{icon:'food',text:'+30'});fx.emit('bubble',140,230,{icon:'credit',text:'+120'});fx.emit('bubble',240,230,{icon:'energy',text:'+48'});
+ fx.emit('ring',330,240,{r:34});fx.emit('confetti',200,240,{n:40});
+ for(var s=0;s<T*30;s++){ if(s%4==0)fx.emit('smoke',40,110,{n:1});if(s<10){fx.emit('flame',190,100,{n:3});fx.emit('flame',150,100,{n:2,dir:-1.2});} fx.step(1/30);}
+ fx.draw(c);c.restore();txt(c,label+' ('+fx.count+' parcacik)',6,oy+12,'#e0f0ff');
+ return fx;}
+var tt=performance.now();
+panel(0,.12,'kare1 t=.12s');panel(266,.5,'kare2 t=.5s');panel(532,1.2,'kare3 t=1.2s');
+// performans: yuk
+var cc=document.createElement('canvas');cc.width=cc.height=800;var cx2=cc.getContext('2d');var big=SG.Iso.fx.new(1),t2=performance.now();
+for(var f=0;f<60;f++){big.emit('smoke',10,10,{n:3});big.emit('spark',10,10,{n:6});big.emit('flame',10,10,{n:4});big.emit('confetti',10,10,{n:20});big.emit('bubble',10,10,{icon:'food',text:'+1'});big.step(1/30);big.draw(cx2);}
+window.__fxMs=(performance.now()-t2)/60;window.__fxCount=big.count;
+var ti=performance.now();for(var q=0;q<2000;q++){SG.Iso.icon(cx2,names[q%names.length],20,20,24);}window.__icMs=(performance.now()-ti)/2000;ti=performance.now();for(var q=0;q<1000;q++){SG.Iso.ship(cx2,kinds[q%3],'kulhan',100,100,q*.01,q*.03,{flame:1});}window.__shMs=(performance.now()-ti)/1000;window.__done=true;
+</script></body></html>

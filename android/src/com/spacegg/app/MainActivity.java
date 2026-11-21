@@ -2,6 +2,7 @@ package com.spacegg.app;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -14,171 +15,88 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
-    private WebView web;
-    private final Handler handler = new Handler();
-    private int seq = 0;
-    private boolean inBg = false;
-    private boolean nativePaused = false;
+  private WebView web;
+  private String pendingRoute = null;
+  private final Handler hnd = new Handler();
+  private final Runnable hide = new Runnable() { public void run() { immersive(); } };
 
-    private static final String JS_PAUSE =
-        "(function(){try{if(window.SG&&SG.A&&SG.A.pauseAll)SG.A.pauseAll();}catch(e){}"
-        + "try{var m=document.querySelectorAll('audio,video');for(var i=0;i<m.length;i++)m[i].pause();}catch(e){}"
-        + "try{window.dispatchEvent(new Event('sg-pause'));}catch(e){}})();";
-    private static final String JS_RESUME =
-        "(function(){try{if(window.SG&&SG.A&&SG.A.resumeAll)SG.A.resumeAll();}catch(e){}"
-        + "try{window.dispatchEvent(new Event('sg-resume'));}catch(e){}})();";
+  private void immersive() {
+    getWindow().getDecorView().setSystemUiVisibility(
+      View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+      | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+  }
 
-    private final Runnable hideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hideBars();
-        }
-    };
+  @Override protected void onCreate(Bundle b) {
+    super.onCreate(b);
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    web = new WebView(this);
+    web.setBackgroundColor(Color.parseColor("#040815"));
+    setContentView(web);
+    WebSettings s = web.getSettings();
+    s.setJavaScriptEnabled(true);
+    s.setDomStorageEnabled(true);
+    s.setAllowFileAccess(true);
+    s.setMediaPlaybackRequiresUserGesture(false);
+    s.setCacheMode(WebSettings.LOAD_DEFAULT);
+    web.setWebChromeClient(new WebChromeClient());
+    web.setWebViewClient(new WebViewClient() {
+      @Override public void onPageFinished(WebView v, String u) { v.resumeTimers(); js("window.dispatchEvent(new Event('sg-resume'))"); fireRoute(); }
+    });
+    web.addJavascriptInterface(new Bridge(this), "SGNative");
+    AlarmReceiver.ensureChannel(this);
+    Store.rearm(this);
+    takeRoute(getIntent());
+    web.loadUrl("file:///android_asset/index.html");
+    immersive();
+    getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+      public void onSystemUiVisibilityChange(int f) { hnd.removeCallbacks(hide); hnd.postDelayed(hide, 3000); }
+    });
+  }
 
-    @Override
-    protected void onCreate(Bundle b) {
-        super.onCreate(b);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().setStatusBarColor(Color.BLACK);
-        getWindow().setNavigationBarColor(Color.BLACK);
+  private void takeRoute(Intent in) {
+    if (in == null) return;
+    String r = in.getStringExtra("route");
+    in.removeExtra("route");
+    if (r != null && r.length() > 0 && r.matches("[A-Za-z0-9_#/\\-]{1,40}")) pendingRoute = r;
+  }
 
-        web = new WebView(this);
-        web.setBackgroundColor(Color.BLACK);
-        WebSettings s = web.getSettings();
-        s.setJavaScriptEnabled(true);
-        s.setDomStorageEnabled(true);
-        s.setMediaPlaybackRequiresUserGesture(false);
-        s.setAllowFileAccess(true);
-        s.setBuiltInZoomControls(false);
-        s.setSupportZoom(false);
-        s.setUseWideViewPort(true);
-        s.setLoadWithOverviewMode(false);
-        web.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView v, String url) {
-                if (!inBg) v.evaluateJavascript(JS_RESUME, null);
-            }
-        });
-        web.setWebChromeClient(new WebChromeClient());
-        web.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        setContentView(web);
+  private void fireRoute() {
+    if (pendingRoute == null) return;
+    String r = pendingRoute; pendingRoute = null;
+    js("try{window.dispatchEvent(new CustomEvent('sg-route',{detail:'" + r + "'}));}catch(e){}");
+  }
 
-        // Tam ekran: gezinme tuslari kaydirinca gelir, birkac saniye sonra kendiliginden gizlenir.
-        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
-            new View.OnSystemUiVisibilityChangeListener() {
-                @Override
-                public void onSystemUiVisibilityChange(int visibility) {
-                    handler.removeCallbacks(hideRunnable);
-                    if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-                        handler.postDelayed(hideRunnable, 3000);
-                    }
-                }
-            });
-        hideBars();
+  @Override protected void onNewIntent(Intent in) {
+    super.onNewIntent(in);
+    setIntent(in);
+    takeRoute(in);
+    fireRoute();
+  }
 
-        if (b != null) {
-            web.restoreState(b);
-        } else {
-            web.loadUrl("file:///android_asset/index.html");
-        }
-    }
+  private void js(String code) { if (web != null) web.evaluateJavascript(code, null); }
 
-    private void hideBars() {
-        getWindow().getDecorView().setSystemUiVisibility(
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_FULLSCREEN
-            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-    }
+  @Override protected void onPause() {
+    js("try{window.dispatchEvent(new Event('sg-pause'));if(window.SG&&SG.A&&SG.A.pauseAll)SG.A.pauseAll();}catch(e){}");
+    hnd.postDelayed(new Runnable() { public void run() { if (web != null) { web.onPause(); web.pauseTimers(); } } }, 400);
+    super.onPause();
+  }
 
-    @Override
-    public void onWindowFocusChanged(boolean f) {
-        super.onWindowFocusChanged(f);
-        if (f) hideBars();
-    }
+  @Override protected void onResume() {
+    super.onResume();
+    if (web != null) { web.onResume(); web.resumeTimers(); }
+    js("try{window.dispatchEvent(new Event('sg-resume'));if(window.SG&&SG.A&&SG.A.resumeAll)SG.A.resumeAll();}catch(e){}");
+    immersive();
+  }
 
-    // Ana ekrana donulunca: muzik durur, sayfa zamanlayicilari durur, arka planda calismaz.
-    private void doPause(int my) {
-        if (inBg && my == seq && !nativePaused) {
-            web.onPause();
-            web.pauseTimers();
-            nativePaused = true;
-        }
-    }
+  @Override public void onWindowFocusChanged(boolean f) { super.onWindowFocusChanged(f); if (f) immersive(); }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        inBg = true;
-        handler.removeCallbacks(hideRunnable);
-        final int my = ++seq;
-        // Once sayfadaki sesi durdur, betik bitince (en gec 500 ms) zamanlayicilari durdur.
-        web.evaluateJavascript(JS_PAUSE, new ValueCallback<String>() {
-            @Override
-            public void onReceiveValue(String v) {
-                doPause(my);
-            }
-        });
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doPause(my);
-            }
-        }, 500);
-    }
+  @Override public void onBackPressed() {
+    final Activity me = this;
+    web.evaluateJavascript(
+      "(function(){try{if(SG.Drawer&&SG.Drawer.back&&SG.Drawer.back())return 'ok';var h=location.hash||'';if(/^#\\/(cosmos|login|intro|)$/.test(h))return 'exit';SG.go(SG.homeRoute?SG.homeRoute():'cosmos');return 'ok';}catch(e){return 'exit';}})()",
+      new ValueCallback<String>() { public void onReceiveValue(String v) { if (v != null && v.contains("exit")) me.finish(); } });
+  }
 
-    // Uygulamaya tekrar girilince: kaldigi yerden devam eder.
-    @Override
-    protected void onResume() {
-        super.onResume();
-        inBg = false;
-        seq++;
-        if (nativePaused) {
-            web.resumeTimers();
-            web.onResume();
-            nativePaused = false;
-        }
-        web.evaluateJavascript(JS_RESUME, null);
-        hideBars();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle o) {
-        super.onSaveInstanceState(o);
-        web.saveState(o);
-    }
-
-    // Geri tusu: alt sayfadaysa ana merkeze, merkezde veya giriste uygulamadan cikar.
-    private static final String JS_BACK = "(function(){try{var S=window.SG;if(S&&S.Drawer&&S.Drawer.back&&S.Drawer.back()){return 'STAY';}"
-        + "var h=(location.hash||'').replace('#/','');var a=S&&S.S&&S.S.active&&S.S.active();"
-        + "if(h===''||h==='intro'||h==='login'||h==='cosmos')return 'EXIT';"
-        + "if(h==='create')return a?'#/cosmos':'EXIT';"
-        + "if(h==='journal'||h==='saves'||h==='prefs'||h==='hub')return a?'#/cosmos':'EXIT';"
-        + "return '#/hub';}catch(e){return 'EXIT';}})()";
-
-    @Override
-    public void onBackPressed() {
-        web.evaluateJavascript(JS_BACK, new ValueCallback<String>() {
-            @Override
-            public void onReceiveValue(String v) {
-                String r = v == null ? "EXIT" : v.replace("\"", "");
-                if (r.equals("STAY")) return;
-                if (r.equals("EXIT") || r.length() == 0 || r.equals("null")) {
-                    finish();
-                } else {
-                    web.evaluateJavascript("location.hash='" + r + "'", null);
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onDestroy() {
-        handler.removeCallbacks(hideRunnable);
-        if (web != null) web.destroy();
-        super.onDestroy();
-    }
+  @Override protected void onDestroy() { if (web != null) { web.destroy(); web = null; } super.onDestroy(); }
 }

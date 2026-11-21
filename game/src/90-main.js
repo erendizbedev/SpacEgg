@@ -3,7 +3,7 @@
 'use strict';
 SG.speed=SG.store.get('speed',1);if(!(SG.speed>0))SG.speed=1;
 SG.homeRoute=function(){
-  try{var nm=SG.G&&SG.G.name&&SG.G.name();if(SG.S&&SG.S.setUser&&nm){SG.S.setUser(nm);var a=SG.S.active&&SG.S.active();if(!a){var l=SG.S.list&&SG.S.list();if(l&&l.length)a=SG.S.open(l[0].id);}return a?'cosmos':'create';}}catch(e){SG.log.err('homeRoute',e);}
+  try{var nm=SG.G&&SG.G.name&&SG.G.name();if(SG.S&&SG.S.setUser&&nm){SG.S.setUser(nm);var a=SG.S.active&&SG.S.active();if(!a){var l=SG.S.list&&SG.S.list();if(l&&l.length)a=SG.S.open(l[0].id);}return 'planet';}}catch(e){SG.log.err('homeRoute',e);}
   return'hub';
 };
 SG.guard=function(n){
@@ -19,7 +19,7 @@ function unlockOnce(){
   ['pointerdown','touchend','keydown','click'].forEach(function(ev){document.removeEventListener(ev,unlockOnce,true);});
 }
 ['pointerdown','touchend','keydown','click'].forEach(function(ev){document.addEventListener(ev,unlockOnce,true);});
-var MCTX={intro:'login',login:'login',hub:'hub',egg:'hub',shop:'shop',world:'world',galaxy:'galaxy',missions:'hub',story:'hub',settings:'hub',create:'galaxy',cosmos:'galaxy',journal:'hub',saves:'hub',prefs:'hub'};
+var MCTX={intro:'login',login:'login',hub:'hub',egg:'hub',shop:'shop',world:'world',galaxy:'galaxy',missions:'hub',story:'hub',settings:'hub',create:'galaxy',cosmos:'galaxy',planet:'world',journal:'hub',saves:'hub',prefs:'hub'};
 function ctxMusic(name){try{if(!SG.A||!SG.A.music)return;SG.A.music.start(MCTX[name]||'hub');var p=SG.G&&SG.G.planet&&SG.G.planet();if(p){SG.A.music.setType&&SG.A.music.setType(p.type);SG.A.music.setEra&&SG.A.music.setEra(Math.min(8,Math.floor(((p.lvl||1)-1)/6)));}}catch(e){}}
 function boot(){
   try{if(document.fonts&&document.fonts.load){document.fonts.load('600 13px "SG HUD"');document.fonts.load('700 20px "SG Title"');}}catch(e){}

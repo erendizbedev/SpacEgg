@@ -4,7 +4,7 @@
 'use strict';
 var h=SG.h,HUD=SG.HUD;
 var D=SG.Drawer={};
-var ENABLED={cosmos:1,journal:1,create:1};   // login/intro/prefs/saves/v1 görünümlerinde kapalı
+var ENABLED={cosmos:1,journal:1,create:1,planet:1};   // login/intro/prefs/saves/v1 görünümlerinde kapalı
 var EDGE=22;                                 // sol kenar şeridi (px)
 var edge=null,root=null,scrim=null,panel=null,bodyEl=null,headEl=null;
 var isOpen=false,en=false,lastFocus=null,drag=null,suppressClick=0,built=false,statCache=null,toggles={};
@@ -87,6 +87,7 @@ D.back=function(){if(isOpen){D.close();return true;}return false;};
 function go(route,params){
   try{SG.A2&&SG.A2.ui&&SG.A2.ui('select');}catch(e){}
   D.close({instant:true,nofocus:true});
+  if(route==='cosmos'||route==='create')route='planet';
   try{SG.go(route,params);}catch(e){SG.log.err('drawer.go',e);}
 }
 
@@ -108,6 +109,7 @@ function user(){try{return SG.G&&SG.G.name&&SG.G.name()||'';}catch(e){return'';}
 function prog(uni){try{return uni&&SG.Disc&&SG.Disc.progress?SG.Disc.progress(uni):null;}catch(e){return null;}}
 function fmt(n){return n==null?'—':Number(n).toLocaleString('tr-TR');}
 
+function plInfo(){try{var s=SG.PL&&SG.PL.state&&SG.PL.state();if(s&&SG.current()==='planet')return s.name+' · '+SG.Civ.get(s.civ).ad;}catch(e){}return'';}
 function fill(){
   var uni=HUD.uni(),pr=prog(uni);
   panel.textContent='';toggles={};
@@ -119,7 +121,7 @@ function fill(){
   if(uni)chips.appendChild(h('span',{class:'dr-chip num'},HUD.ic('clock',14),h('span',null,HUD.cosmic(uni.t))));
   headEl=h('header',{class:'dr-head'},
     h('div',{class:'dr-avatar','aria-hidden':'true'},HUD.ic('user',26)),
-    h('div',{class:'dr-who'},h('div',{class:'dr-user'},nm||'Gezgin'),h('div',{class:'dr-uni'},uni?uni.name:'Henüz evren yok'),chips),
+    h('div',{class:'dr-who'},h('div',{class:'dr-user'},nm||'Gezgin'),h('div',{class:'dr-uni'},plInfo()||(uni?uni.name:'Gezegen')),chips),
     h('button',{type:'button',class:'h-ibtn dr-close','aria-label':'Menüyü kapat',onclick:function(){D.close();}},HUD.ic('close',22)));
   panel.appendChild(headEl);
   bodyEl=h('div',{class:'dr-body'});panel.appendChild(bodyEl);
@@ -140,7 +142,7 @@ function fill(){
   /* Evrenlerim (satır içi açılır liste) */
   var saves=[];try{saves=SG.S&&SG.S.list?SG.S.list()||[]:[];}catch(e){}
   var list=h('div',{class:'dr-sublist',hidden:'hidden',role:'list'});
-  var rowU=row('layers','Evrenlerim',saves.length+' kayıtlı evren',function(){var o=list.hidden;list.hidden=!o;rowU.setAttribute('aria-expanded',o?'true':'false');rowU.classList.toggle('open',o);},{expand:true});
+  var rowU=row('layers','Eski evren (salt okunur)',saves.length+' kayıtlı eski evren',function(){var o=list.hidden;list.hidden=!o;rowU.setAttribute('aria-expanded',o?'true':'false');rowU.classList.toggle('open',o);},{expand:true});
   bodyEl.appendChild(rowU);
   saves.forEach(function(s){
     var cur=uni&&uni.id===s.id;
@@ -148,13 +150,13 @@ function fill(){
       if(cur){D.close();return;}
       try{SG.S.save();}catch(e){}
       var u=null;try{u=SG.S.open(s.id);}catch(e){SG.log.err('drawer.open',e);}
-      if(u)go('cosmos');else{it.classList.add('bad');}
+      if(u){D.close({instant:true,nofocus:true});SG.go('cosmos');}else{it.classList.add('bad');}
     }},h('span',{class:'dr-title'},s.name||'Adsız evren'),h('span',{class:'dr-sub num'},HUD.cosmic(s.t)+' · '+s.seed+(cur?' · açık':'')));
     list.appendChild(it);
   });
   if(!saves.length)list.appendChild(h('div',{class:'dr-empty'},'Henüz kayıtlı evren yok.'));
   bodyEl.appendChild(list);
-  bodyEl.appendChild(row('plus','Yeni evren','Yeni bir tohumdan başla',function(){go('create');}));
+  bodyEl.appendChild(row('globe','Gezegen','Tek gezegen, gerçek zamanlı oyun',function(){go('planet');}));
 
   /* --- KAYIT --- */
   bodyEl.appendChild(section('Kayıt'));
@@ -175,7 +177,7 @@ function fill(){
 
   /* --- ARAÇLAR --- */
   bodyEl.appendChild(section('Araçlar'));
-  bodyEl.appendChild(row('camera','Fotoğraf modu','Arayüzsüz kare çek',function(){
+  if(uni)bodyEl.appendChild(row('camera','Fotoğraf modu','Arayüzsüz kare çek',function(){
     D.close({instant:true,nofocus:true});
     if(SG.current()==='cosmos')SG.bus.emit('hud:photo',{});else SG.go('cosmos',{photo:true});
   }));
@@ -188,7 +190,7 @@ function fill(){
   var ab=about();
   var rowA=row('info','Hakkında','SpacEgg, Fambo ve vizyon',function(){var o=ab.hidden;ab.hidden=!o;rowA.setAttribute('aria-expanded',o?'true':'false');rowA.classList.toggle('open',o);},{expand:true});
   bodyEl.appendChild(rowA);bodyEl.appendChild(ab);
-  bodyEl.appendChild(row('globe','Eski SpacEgg (v1)','Gezegen büyütme oyunu olduğu gibi duruyor',function(){go('hub');}));
+  bodyEl.appendChild(row('globe','Eski SpacEgg (v1, salt okunur)','Gezegen büyütme oyunu olduğu gibi duruyor',function(){go('hub');}));
   bodyEl.appendChild(h('div',{class:'dr-ver num'},'SpacEgg '+(SG.ver||'2.0')+(SG.codename?' · '+SG.codename:'')+(SG.verCode?' · sürüm kodu '+SG.verCode:'')));
   bodyEl.appendChild(h('button',{type:'button',class:'btn danger block dr-out',onclick:function(){
     try{SG.A2&&SG.A2.ui&&SG.A2.ui('cancel');}catch(e){}
@@ -251,6 +253,8 @@ function quick(){
   box.appendChild(g);
   box.appendChild(h('div',{class:'dr-quick-l'},'Yazı boyutu'));
   box.appendChild(HUD.seg({cls:'dr-seg',label:'Yazı boyutu',value:HUD.prefs.ts(),items:[{v:1,label:'%100'},{v:1.25,label:'%125'},{v:1.5,label:'%150'}],onChange:function(v){HUD.setTS(v);}}));
+  box.appendChild(h('div',{class:'dr-quick-l'},'Göz rahatlığı'));
+  box.appendChild(HUD.seg({cls:'dr-seg',label:'Göz rahatlığı',value:SG.store.get('eye','calm'),items:[{v:'normal',label:'Normal'},{v:'calm',label:'Sakin'},{v:'dark',label:'Koyu'}],onChange:function(v){SG.store.set('eye',v);try{SG.bus.emit('eye',{v:v});}catch(e){}}}));
   box.appendChild(h('div',{class:'dr-quick-l'},'Grafik kalitesi'));
   var q=SG.store.get('q2','auto');
   box.appendChild(HUD.seg({cls:'dr-seg',label:'Grafik kalitesi',value:q,items:[{v:'auto',label:'Oto'},{v:0,label:'Düşük'},{v:1,label:'Orta'},{v:2,label:'Yüksek'}],onChange:function(v){SG.store.set('q2',v);try{SG.P.setTier(v);}catch(e){SG.log.err('drawer.tier',e);}}}));

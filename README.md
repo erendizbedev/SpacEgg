@@ -5,7 +5,12 @@
 
 Hiçlikten bir evren yarat, galaksileri keşfet, yıldızların ve dünyaların hikâyesini izle. SpacEgg; kozmik ölçeği hissettiren, bilimden ilham alan, baskı yapmayan sakin bir keşif oyunudur. Android'de WebView kabuğu içinde tek dosyalık bir web uygulaması olarak çalışır.
 
-**En yeni kurulum dosyası:** [`releases/SpacEgg-v2.3.0.apk`](releases/SpacEgg-v2.3.0.apk) · Android 7.0+ · paket `com.spacegg.app` · sürüm 2.3.0 (kod 9)
+**En yeni kurulum dosyası:** [`releases/SpacEgg-v2.4.0.apk`](releases/SpacEgg-v2.4.0.apk) · Android 7.0+ · paket `com.spacegg.app` · sürüm 2.4.0 (kod 10)
+
+## v2.4.0 — Tek Gezegen (yeni yön)
+"Yeni evren yarat" yerine **tek gezegen, gerçek zamanlı strateji**: izometrik kıtada şehrini geliştir, yapay zekâ rakiplere karşı savun, keşfet, saldır. Hızlandırma yok; her süre gerçek zamandır. 12 medeniyet (yumurtadan rastgele), yoklama (12 sa pencere), lojistik gemi (90 dk), yok olma geri sayımı, yerel bildirimler (Android köprüsü), "Göz rahatlığı" (Normal/Sakin/Koyu).
+<p><img src="assets/screens/v2.4/ui-1-normal.png" width="180"> <img src="assets/screens/v2.4/ui-5-savas.png" width="180"> <img src="assets/screens/v2.4/art1-g1.png" width="180"> <img src="assets/screens/v2.4/art2-ikon_4.png" width="180"></p>
+Tasarım belgeleri: [`docs/v2.4/`](docs/v2.4/). Giriş, ana menü, sol menü ızgarası ve tüm ses efektleri v2.3.0 ile aynıdır.
 
 ## Ekranlar
 <p>
@@ -31,7 +36,7 @@ Soldan sağa: açılış, giriş, evren, çekmece menü · yıldız sistemi, gez
 - Her açılışta giriş (kayıtlı oturum yok); eski v1 oyunu çekmeceden açılır
 
 ## Android kurulumu
-1. `releases/SpacEgg-v2.3.0.apk` dosyasını telefona indir.
+1. `releases/SpacEgg-v2.4.0.apk` dosyasını telefona indir.
 2. "Bilinmeyen uygulamaları yükle" iznini dosyayı açan uygulamaya ver ve dosyaya dokun.
 3. Eski sürümün üzerine kurulur; aynı imza anahtarı gerekir (anahtar depoda yoktur).
 

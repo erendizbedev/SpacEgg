@@ -65,7 +65,7 @@ SG.loop={
   remove:function(name){delete tasks[name];var i=order.indexOf(name);if(i>=0)order.splice(i,1);}
 };
 SG.now=function(){return Date.now();};
-var views={},cur=null,curName='',ROUTES=['intro','login','hub','egg','world','galaxy','shop','missions','story','settings','create','cosmos','journal','saves','prefs'];
+var views={},cur=null,curName='',ROUTES=['intro','login','hub','egg','world','galaxy','shop','missions','story','settings','create','cosmos','journal','saves','prefs','planet'];
 SG.view=function(name,def){views[name]=def;};
 SG.hasView=function(n){return !!views[n];};
 SG.routes=ROUTES;
