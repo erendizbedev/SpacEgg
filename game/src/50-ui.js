@@ -163,7 +163,7 @@ SG.view('login',{
     var form=h('form',{class:'lgm-form',novalidate:true,autocomplete:'off'},nameF.box,rulesN,passF.box,capsMsg,pwBar,pass2F.box,err,go);
     var panel=h('div',{id:'lgm-panel',role:'tabpanel','aria-labelledby':'lgt-in'},form);
     var card=h('div',{class:'card lgm'},
-      h('div',{class:'lgm-hd'},av,h('div',null,ttl,sub)),
+      h('div',{class:'lgm-hd'},av),
       h('div',{class:'seg',role:'tablist','aria-label':'Giriş veya kayıt'},segIn,segUp),
       panel,h('div',{class:'lgm-alt'},demoB),
       h('p',{class:'lgm-note'},vico(P_LOCK,14),' Güvenliğin için her açılışta giriş istenir.'));
@@ -181,7 +181,9 @@ SG.view('login',{
     var byChip=h('div',{class:'lg-by'},h('span',{class:'lg-by1'},'Geliştiren'),h('b',null,L.by));
     var ctaPlay=h('button',{class:'btn lg-cta',type:'button'},B.play);
     var ctaMore=h('button',{class:'btn ghost lg-cta',type:'button'},B.more,h('span',{'aria-hidden':'true'},' ↓'));
-    var hd=h('div',{class:'lg-hd'},logoBox,title,h('p',{class:'lg-slogan'},L.slogan),line,byChip,h('div',{class:'lg-ctas'},ctaPlay,ctaMore));
+    var welcome=h('div',{class:'lg-welcome'},ttl,sub);
+    var hd=h('div',{class:'lg-hd'},logoBox,title,welcome,h('p',{class:'lg-slogan'},L.slogan),line,byChip);
+    var ctas=h('div',{class:'lg-ctas'},ctaPlay,ctaMore);
     var shade=h('div',{class:'lg-shade','aria-hidden':'true'});
     var hero=h('section',{class:'lg-hero','aria-label':L.brand},cvBox,shade,homeBtn,hd);
     /* --- tanıtım kartları --- */
@@ -212,10 +214,50 @@ SG.view('login',{
     intro.appendChild(fold('vizyon',V.h,vnodes,{cls:'lg-vision',tag:'Planlanıyor',preview:firstBit(V.p)}).el);
     var foot=h('footer',{class:'lg-ft'},h('div',{class:'lg-ftby'},'Geliştiren ',h('b',null,L.by)),h('p',{class:'tiny mute'},L.footer),
       h('p',{class:'tiny mute'},'Hesap bu cihazda saklanır. Ödemeler test modundadır, gerçek para çekilmez.'));
-    var formSec=h('section',{class:'lg-form',id:'lg-form','aria-label':'Giriş'},card);
+    var formSec=h('section',{class:'lg-form',id:'lg-form','aria-label':'Giriş'},card,ctas);
     var homeRow=h('button',{class:'btn ghost block lg-home2',type:'button'},h('span',{'aria-hidden':'true'},'⌂ '),B.home);
-    var col=h('div',{class:'lg-col'},hero,formSec,homeRow,intro,foot);
-    v.appendChild(col);
+    /* --- v2.3 takımyıldızı düzeni --- */
+    v.classList.add('cn');
+    formSec.removeChild(ctas);
+    title=h('h1',{class:'cn-logo',tabindex:'-1','aria-label':L.brand},'SPACEGG');
+    var moreBtn=h('button',{class:'cn-more',type:'button'},B.more+' ✦');
+    var topbar=h('div',{class:'cn-top'},homeBtn,moreBtn);
+    var brand=h('div',{class:'cn-brand'},title,h('div',{class:'cn-hi'},ttl,sub));
+    var cmap=h('div',{class:'cn-map','aria-hidden':'true'});
+    var ccap=h('div',{class:'cn-cap'});
+    var closeX=h('button',{class:'cn-x',type:'button','aria-label':'Kapat'},'✕');
+    var sheet=h('div',{class:'cn-sheet',role:'dialog','aria-modal':'true','aria-label':'SpacEgg nedir'},closeX,h('div',{class:'cn-sheet-in'},intro,foot));
+    sheet.hidden=true;
+    var col=h('div',{class:'lg-col cn-col'},topbar,brand,cmap,ccap,formSec);
+    v.appendChild(col);v.appendChild(sheet);
+    function openSheet(){sheet.hidden=false;sheet.scrollTop=0;try{closeX.focus({preventScroll:true});}catch(e){}}
+    function closeSheet(){sheet.hidden=true;try{moreBtn.focus({preventScroll:true});}catch(e){}}
+    moreBtn.onclick=function(){snd('ui_tap');openSheet();};
+    closeX.onclick=function(){snd('ui_tap');closeSheet();};
+    sheet.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
+    var CNS=(function(){var a=[],sd=7;for(var i=0;i<46;i++){sd=(sd*9301+49297)%233280;var x=8+Math.round(sd/233280*374);sd=(sd*9301+49297)%233280;var y=6+Math.round(sd/233280*420);sd=(sd*9301+49297)%233280;a.push('<circle cx="'+x+'" cy="'+y+'" r="'+(sd%3===0?1:.7)+'" fill="#bfe6f5" opacity="'+(sd%2?.35:.65)+'"/>');}
+      return '<g>'+a.join('')+'</g>';})();
+    var CNB='<defs><radialGradient id="cng"><stop offset="0" stop-color="#fff6d0"/><stop offset=".4" stop-color="#e8c46a" stop-opacity=".7"/><stop offset="1" stop-color="#e8c46a" stop-opacity="0"/></radialGradient></defs>'+
+      '<g fill="none"><ellipse cx="195" cy="230" rx="330" ry="150" stroke="rgba(232,196,106,.30)" transform="rotate(-8 195 230)"/><ellipse cx="195" cy="230" rx="250" ry="105" stroke="rgba(159,216,238,.25)" stroke-dasharray="2 6" transform="rotate(-8 195 230)"/><circle cx="195" cy="230" r="165" stroke="rgba(159,216,238,.14)"/><circle cx="195" cy="230" r="120" stroke="rgba(232,196,106,.14)" stroke-dasharray="1 5"/></g>'+
+      '<g font-family="monospace" font-size="8" fill="#6aa3bd" letter-spacing="1.5"><text x="10" y="92">+60°</text><text x="10" y="172">+30°</text><text x="10" y="252">0°</text><text x="10" y="332">-30°</text><text x="42" y="426">03h</text><text x="120" y="426">06h</text><text x="198" y="426">09h</text><text x="276" y="426">12h</text><text x="338" y="426">15h</text></g>'+CNS;
+    function paintMap(){
+      var n=(name.value||'').trim().toLowerCase().slice(0,16),len=n.length,pl=pass.value.length,o='',i,x,y,c,pts=[];
+      for(i=0;i<len;i++){c=n.charCodeAt(i);x=len===1?195:46+Math.round(298*i/(len-1));y=150+((c*13+i*47)%90);pts.push([x,y,/[a-z0-9_]/.test(n[i])?n[i].toUpperCase():'·']);}
+      var hx=322,hy=330,hot=pl>=4,ha=pl?Math.min(1,.4+pl*.12):.35;
+      if(len){
+        if(len>1)o+='<polyline points="'+pts.map(function(q){return q[0]+','+q[1];}).join(' ')+'" fill="none" stroke="#e8c46a" stroke-width="1.3" opacity=".9"/>';
+        var lq=pts[len-1];
+        o+='<line x1="'+lq[0]+'" y1="'+lq[1]+'" x2="'+hx+'" y2="'+hy+'" stroke="'+(hot?'#e8c46a':'#9fd8ee')+'" stroke-width="1" stroke-dasharray="2 4" opacity="'+ha+'"/>';
+        pts.forEach(function(q){o+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="16" fill="url(#cng)"/><path d="M'+q[0]+' '+(q[1]-6)+' L'+(q[0]+1.6)+' '+(q[1]-1.6)+' L'+(q[0]+6)+' '+q[1]+' L'+(q[0]+1.6)+' '+(q[1]+1.6)+' L'+q[0]+' '+(q[1]+6)+' L'+(q[0]-1.6)+' '+(q[1]+1.6)+' L'+(q[0]-6)+' '+q[1]+' L'+(q[0]-1.6)+' '+(q[1]-1.6)+'Z" fill="#fff8dc"/><text x="'+q[0]+'" y="'+(q[1]+27)+'" text-anchor="middle" font-size="15" fill="#f4e3b0" font-family="inherit">'+q[2]+'</text>';});
+      }else{
+        o+='<text x="195" y="215" text-anchor="middle" font-size="12" fill="#9fd8ee" opacity=".75" letter-spacing="2" font-family="monospace">ADINI YAZ · TAKIMYILDIZIN DOĞSUN</text>';
+      }
+      o+='<circle cx="'+hx+'" cy="'+hy+'" r="12" fill="none" stroke="'+(hot?'#e8c46a':'#9fd8ee')+'" stroke-width=".8" stroke-dasharray="2 3" opacity="'+ha+'"/><circle cx="'+hx+'" cy="'+hy+'" r="'+(hot?3.2:2.2)+'" fill="'+(hot?'#fff8dc':'#9fd8ee')+'" opacity="'+Math.max(.5,ha)+'"/><text x="'+(hx-34)+'" y="'+(hy+26)+'" font-family="monospace" font-size="8" fill="#7fb4cc" letter-spacing="1.6">GİZLİ YILDIZ</text>';
+      cmap.innerHTML='<svg viewBox="0 0 390 440" preserveAspectRatio="xMidYMid meet">'+CNB+o+'</svg>';
+      ccap.textContent=len?('TAKIMYILDIZ · '+n.toUpperCase()+' · '+len+' YILDIZ'):'TAKIMYILDIZ · HENÜZ YOK';
+    }
+    paintMap();
+    name.addEventListener('input',paintMap);pass.addEventListener('input',paintMap);
     /* --- davranış --- */
     /* --- davranış: giriş modülü --- */
     var NAME_RE=/^[a-z0-9_]{3,16}$/;
@@ -368,8 +410,7 @@ SG.view('login',{
       snd('ui_menu');
       if(user()){SG.go(SG.homeRoute?SG.homeRoute():'hub');return;}
       folds.forEach(function(f){f.set(true);});
-      try{v.scrollTo({top:0,behavior:SG.RM?'auto':'smooth'});}catch(e){v.scrollTop=0;}
-      setTimeout(function(){try{title.focus({preventScroll:true});}catch(e){}},SG.RM?0:450);
+      openSheet();
     }
     homeBtn.onclick=goHome;homeRow.onclick=goHome;
     ctaPlay.onclick=function(){snd('ui_tap');scrollToEl(formSec,name);};
@@ -388,7 +429,7 @@ SG.view('login',{
     }
     function paintStatic(){var s=size();artCall('heroStatic',cv);return s;}
     requestAnimationFrame(function(){
-      if(!v.isConnected)return;
+      if(!v.isConnected||true)return;
       var s=size();sized=true;
       if(staticOnly){artCall('heroStatic',cv);}
       else{ctl=artCall('hero',cv,{q:qn});if(!ctl||typeof ctl.start!=='function'){ctl=null;artCall('heroStatic',cv);}else{try{ctl.resize&&ctl.resize(s[0],s[1],s[2]);if(visible&&!document.hidden)ctl.start();}catch(e){SG.log.err('hero',e);ctl=null;}}}

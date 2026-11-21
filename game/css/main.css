@@ -317,3 +317,52 @@ body:has(#app[data-view=galaxy] .tpanel:not([hidden]) .pc) #toasts{bottom:auto;t
 .top-act{display:flex;align-items:center;gap:8px}
 .exit-btn{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 12px;border-radius:99px;border:1px solid var(--line);background:var(--glass,rgba(255,255,255,.06));color:var(--ink);font:inherit;font-size:.85rem}
 body.rm .av,body.rm .av.wob,body.rm .av.hatch,body.rm .lgm-go.busy .lgm-gt::before,body.rm .ff-lab{animation:none;transition:none}
+
+/* v2.2.1 giriş düzeni: karşılama logonun altında, CTA'lar formun altında */
+.lg-welcome{display:flex;flex-direction:column;align-items:center;gap:3px;margin-top:-2px}
+.lg-welcome .lgm-t{font-size:1.45rem;text-shadow:0 2px 14px rgba(0,0,0,.7);color:var(--text,#f3f5ff)}
+.lg-welcome .lgm-s{margin:0;color:#c3c9ee;font-size:.9rem;text-shadow:0 1px 10px rgba(0,0,0,.8)}
+.lgm-hd{justify-content:center;margin-bottom:10px}
+.lg-form .lg-ctas{margin-top:12px}
+.lg-hero{height:clamp(500px,76vh,700px)}
+.lg-home2{margin-top:10px}
+
+/* v2.3 giriş: yıldız haritası / takımyıldızı */
+.lg.cn{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow-y:auto;overflow-x:hidden;padding:0!important;color:#e9eeff;
+ background:radial-gradient(ellipse at 50% 28%,#0e1a3d 0%,#070d24 55%,#040815 100%),#040815;position:relative}
+.lg.cn::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(120,190,225,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(120,190,225,.08) 1px,transparent 1px);background-size:39px 40px}
+.cn-col{position:relative;display:flex;flex-direction:column;flex:1;min-height:0;max-width:520px;width:100%;margin:0 auto}
+.cn-top{display:flex;justify-content:space-between;align-items:center;padding:calc(10px + env(safe-area-inset-top,0px)) 20px 0}
+.cn .lg-home{position:static;min-height:44px;padding:0;background:none;border:0;border-radius:0;font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9fd8ee;font-weight:400}
+.cn .lg-home .lg-hi{display:none}
+.cn .lg-home::before{content:"‹ ";margin-right:4px}
+.cn-more,.cn-x{background:none;border:0;min-height:44px;font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#e8c46a;padding:0}
+.cn-brand{text-align:center;padding-top:6px}
+.cn-logo{margin:0;font-family:var(--f-logo,var(--f-title));font-weight:700;font-size:30px;letter-spacing:.34em;padding-left:.34em;color:#f4e3b0;text-shadow:0 0 18px rgba(232,196,106,.45);outline:0}
+.cn-hi .lgm-t{margin:6px 0 0;font-size:18px;font-weight:500;letter-spacing:.06em;color:#bfe6f5}
+.cn-hi .lgm-s{display:none}
+.cn-map{flex:1 1 auto;min-height:130px;position:relative;margin-top:4px}
+.cn-map svg{position:absolute;inset:0;width:100%;height:100%}
+.cn-cap{text-align:center;font-family:var(--f-mono);font-size:9px;letter-spacing:.3em;color:#e8c46a;padding:2px 12px 10px;min-height:22px;position:relative}
+.cn .lg-form{margin:0;padding:0 28px calc(14px + env(safe-area-inset-bottom,0px))}
+.cn .card.lgm{background:none;border:0;box-shadow:none;padding:0;display:flex;flex-direction:column}
+.cn .lgm-hd,.cn .lgm-note{display:none}
+.cn .lgm-form{order:1}
+.cn .seg{order:3;background:none;border:0;padding:0;margin:8px 0 0;justify-content:space-between;gap:0}
+.cn .seg button{flex:none;min-height:40px;padding:0;border-radius:0;background:none;font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9fd8ee;font-weight:400}
+.cn .seg button[aria-selected=true]{background:none;color:#e8c46a;border-bottom:1px solid #e8c46a}
+.cn .lgm-alt{order:2;margin-top:2px;text-align:left}
+.cn .lgm-alt .btn{background:none;border:0;padding:0;min-height:40px;font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9fd8ee;font-weight:400;justify-content:flex-start;width:auto;display:inline-flex}
+.cn .ff{margin-bottom:10px}
+.cn .ff-in{min-height:50px;padding:20px 42px 4px 0;border:0;border-bottom:1px solid rgba(159,216,238,.55);border-radius:0;background:transparent;font-family:var(--f-title);font-size:22px;letter-spacing:.12em;color:#fff}
+.cn .ff-in:focus{border-bottom-color:#e8c46a;box-shadow:0 1px 0 0 #e8c46a}
+.cn .ff-lab{left:0;top:18px;font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7fb4cc}
+.cn .ff-in:focus+.ff-lab,.cn .ff-in:not(:placeholder-shown)+.ff-lab{transform:translateY(-16px) scale(.9)}
+.cn .ff-eye{right:-6px;color:#7fb4cc}
+.cn .ff.bad .ff-in{border-bottom-color:#ff7a88}.cn .ff.ok .ff-in{border-bottom-color:#e8c46a}
+.cn .lgm-go{margin-top:4px;min-height:54px;border-radius:27px;border:1px solid #e8c46a;background:linear-gradient(180deg,rgba(232,196,106,.2),rgba(232,196,106,.06));color:#fbeab8;font-family:var(--f-menu);font-weight:700;font-size:16px;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 0 24px rgba(232,196,106,.22),inset 0 0 14px rgba(232,196,106,.12)}
+.cn-sheet{position:fixed;inset:0;z-index:60;overflow-y:auto;background:#040815;padding:calc(52px + env(safe-area-inset-top,0px)) 16px 28px}
+.cn-sheet[hidden]{display:none}
+.cn-sheet-in{max-width:560px;margin:0 auto}
+.cn-x{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:16px;z-index:61;font-size:16px;width:44px;color:#e9eeff}
+@media (max-height:640px){.cn-logo{font-size:24px}.cn-map{min-height:90px}}
